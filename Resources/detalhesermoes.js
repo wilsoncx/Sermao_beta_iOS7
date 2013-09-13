@@ -115,24 +115,29 @@ bb1.addEventListener('click', function(e){
     url:'add_igrejas.js',
     title:'Adiconar igreja ao sermão',
     backgroundColor:'#fff',
-    barColor:'#111'     
+    barColor:'#111'  
+       
 });
+ 	win.idSermao = idSermao;
 }
 else
 {
-    bb2.labels = ['Ver Igrejas'];
+    bb1.labels = ['Ver Igrejas'];
     win = Titanium.UI.createWindow({
-    url:'../views.js',
-    title:'View 1',
+    url:'tbligrejas_pregacoes.js',
+    title:'Lista de igrejas',
     backgroundColor:'#fff',
     barColor:'#111'         
 });
+win.idSermao = idSermao;
 }
 	Titanium.UI.currentTab.open(win,{animated:true});
 		
 });
 
 currentWin.add(bb1);
+//currentWin.add(bb2);
+
 currentWin.rightNavButton = send;
 setData();
 //setData1();

@@ -1,5 +1,7 @@
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
+var idSermao = Ti.UI.currentWindow.idSermao;
+var a = [];
 //busca
 var search = Titanium.UI.createSearchBar({
 	barColor : '#000',
@@ -12,52 +14,33 @@ var search = Titanium.UI.createSearchBar({
 //currentWin.add(search);
 
 var send = Titanium.UI.createButton({
-	title : 'Novo',
+	title : 'Add',
 	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
 });
 send.addEventListener('click', function(e) {
 
-	var gravarDistrito = Titanium.UI.createWindow({
-		title : 'Cadastrar Distritos',
-		url : 'form_distrito.js'
-	});
-	Ti.UI.currentTab.open(gravarDistrito, {
-		animated : true
-	});
-
-});
-
-var deletar = Titanium.UI.createButton({
-	title : 'Editar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
-});
-deletar.addEventListener('click', function(e) {
-	if (e.source.title == "Editar") {
-		tableview.editable = false;
-		//deactivate swipe-Delete button
-		tableview.editing = true;
-		//Edit:on
-		tableview.editing = false;
-		//Edit:off
-		tableview.editing = true;
-		//Edit:on again!
-		e.source.title = "Done";
-	} else {
-		tableview.editable = true;
-		//reactivate swipe-Delete button!
-		tableview.editing = false;
-		e.source.title = "Editar";
+	
+	
+	for (var l = 0; l < a.length; l++) {
+		var igreja = a[l];
+		console.log(igreja);
+		var db1 = Ti.Database.install('bd_sgs', 'bd_sgs');
+		db1.execute('INSERT INTO pregacao (igreja, sermao) VALUES("' + igreja + '","' + idSermao + '")');
+		
 	}
+	alert("Registro inserido");
+	e.rowData.hasCheck = false;
 
 });
 
-currentWin.rightNavButton = deletar;
 currentWin.leftNavButton = send;
 // set the data from the database to the array
 function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM igreja  GROUP BY nome ');
+	
 	var dataArray = [];
+
 
 	while (rows.isValidRow()) {
 		var vnome = rows.fieldByName('nome');
@@ -68,52 +51,42 @@ function setData() {
 			id : vid,
 			//path : 'detalhedistrito.js'
 		});
+
 		rows.next();
 		tableview.setData(dataArray);
 	};
-
+	db.close();
 };
 
 // create table view
 var tableview = Ti.UI.createTableView({
 	search : search,
 	filterAttribute : 'title',
-	borderRadius :5
+	borderRadius : 5
 });
 
 currentWin.addEventListener('focus', function() {
 	setData();
+
 });
 
 tableview.addEventListener('click', function(e) {
-	if (e.rowData.hasCheck) {
-		var win = Ti.UI.createWindow({
-			url : e.rowData.path,
-			title : e.rowData.title
-		});
-		var nomeDist = e.rowData.title;
-		win.nomeDist = nomeDist;
-		Ti.UI.currentTab.open(win);
-		//hasCheck : true;
-		//var row = e.row;
-		// var check = true;
-	
-        e.rowData.hasCheck = false; 
-        Ti.API.info("unchecked");
-    }
-    else {
-        e.rowData.hasCheck = true;
-        Ti.API.info("checked");
-    }
-	
-});
-Ti.API.info("click");
-//deletar
-tableview.addEventListener('delete', function(e) {
-	var db = Ti.Database.open('sgs2', 'sgs2');
-	var rows = db.execute('DELETE FROM igreja WHERE id= "' + e.row.id + '"');
 
-	//var rows = db.execute('DELETE FROM distrito WHERE nome="' + nomeDist +'"');
+	var ar = a;
+	if (e.rowData.hasCheck) {
+		e.rowData.hasCheck = false;
+		Ti.API.info("unchecked");
+	} else {
+		e.rowData.hasCheck = true;
+		// Ti.API.info("checked");
+
+		ar.push(e.row.id);
+		for (var i = 0; i < ar.length; i++) {
+			console.log(ar[i]);
+		}
+	}
+
+	// a = ar;
 
 });
 

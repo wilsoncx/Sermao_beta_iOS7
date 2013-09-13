@@ -72,7 +72,7 @@ gravar.addEventListener('click', function(e) {
 	if (nome.value != '') {
 		var dbData = {
 			nome : nome.value,
-			enderco : endereco.value,
+			endereco : endereco.value,
 			contato : contato.value,
 			fone : fone.value,
 
