@@ -13,35 +13,11 @@ var search = Titanium.UI.createSearchBar({
 
 //currentWin.add(search);
 
-var send = Titanium.UI.createButton({
-	title : 'Add',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
-});
-send.addEventListener('click', function(e) {
-
-	
-	
-	for (var l = 0; l < a.length; l++) {
-		var igreja = a[l];
-		console.log(igreja);
-		var db1 = Ti.Database.install('bd_sgs', 'bd_sgs');
-		db1.execute('INSERT INTO pregacao (igreja, sermao) VALUES("' + igreja + '","' + idSermao + '")');
-		
-	}
-	alert("Registro inserido");
-	e.rowData.hasCheck = false;
-
-});
-
-currentWin.leftNavButton = send;
 // set the data from the database to the array
 function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var rows = db.execute('SELECT * FROM igreja  GROUP BY nome ');
-	
+	var rows = db.execute('SELECT * FROM igreja where  igreja.id  NOT IN (SELECT pregacao.igreja FROM igreja INNER JOIN pregacao ON igreja.id = pregacao.igreja WHERE pregacao.sermao ="' + idSermao + '") ');
 	var dataArray = [];
-
-
 	while (rows.isValidRow()) {
 		var vnome = rows.fieldByName('nome');
 		var vid = rows.fieldByName('id');
@@ -49,7 +25,6 @@ function setData() {
 			title : vnome,
 			hasCheck : false,
 			id : vid,
-			//path : 'detalhedistrito.js'
 		});
 
 		rows.next();
@@ -71,22 +46,10 @@ currentWin.addEventListener('focus', function() {
 });
 
 tableview.addEventListener('click', function(e) {
-
-	var ar = a;
-	if (e.rowData.hasCheck) {
-		e.rowData.hasCheck = false;
-		Ti.API.info("unchecked");
-	} else {
-		e.rowData.hasCheck = true;
-		// Ti.API.info("checked");
-
-		ar.push(e.row.id);
-		for (var i = 0; i < ar.length; i++) {
-			console.log(ar[i]);
-		}
-	}
-
-	// a = ar;
+	var igreja = e.row.id;
+	var db1 = Ti.Database.install('bd_sgs', 'bd_sgs');
+	db1.execute('INSERT INTO pregacao (igreja, sermao) VALUES("' + igreja + '","' + idSermao + '")');
+	tableview.deleteRow(e.row.row);
 
 });
 

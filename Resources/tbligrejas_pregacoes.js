@@ -12,21 +12,6 @@ var search = Titanium.UI.createSearchBar({
 
 //currentWin.add(search);
 
-var send = Titanium.UI.createButton({
-	title : 'Novo',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
-});
-send.addEventListener('click', function(e) {
-
-	var gravarDistrito = Titanium.UI.createWindow({
-		title : 'Cadastrar Distritos',
-		url : 'form_distrito.js'
-	});
-	Ti.UI.currentTab.open(gravarDistrito, {
-		animated : true
-	});
-
-});
 
 var deletar = Titanium.UI.createButton({
 	title : 'Editar',
@@ -53,11 +38,11 @@ deletar.addEventListener('click', function(e) {
 });
 
 currentWin.rightNavButton = deletar;
-currentWin.leftNavButton = send;
+//currentWin.leftNavButton = send;
 // set the data from the database to the array
 function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var rows = db.execute('SELECT pregacao.id, pregacao.igreja, igreja.nome FROM  pregacao INNER JOIN igreja ON pregacao.igreja = igreja.id WHERE sermao ="' + idSermao + '" ORDER BY igreja.nome');
+	var rows = db.execute('SELECT pregacao.id, pregacao.igreja, igreja.nome FROM  pregacao INNER JOIN igreja ON pregacao.igreja = igreja.id WHERE pregacao.sermao ="' + idSermao + '" ORDER BY igreja.nome');
 	
 	
 	//var rows = db.execute('SELECT * FROM  pregacao WHERE sermao ="' + idSermao + '"');
