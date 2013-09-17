@@ -1,7 +1,6 @@
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
 var idSermao = Ti.UI.currentWindow.idSermao;
-var a = [];
 //busca
 var search = Titanium.UI.createSearchBar({
 	barColor : '#000',

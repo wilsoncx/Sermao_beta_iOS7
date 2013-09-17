@@ -30,10 +30,9 @@ function setData() {
 
 		tbRow.add(Ti.UI.createLabel({
 
-			text :  rows.fieldByName('titulo'),
+			text : rows.fieldByName('titulo'),
 			left : 10,
 			height : 40,
-			
 
 		}));
 
@@ -45,11 +44,11 @@ function setData() {
 
 		tbRow2.add(Ti.UI.createLabel({
 			text : rows.fieldByName('detalhes'),
-			height:50,
-    		//width:250,
-    		bottom:150,
-    		left:10,
-    		textAlign:'left'
+			height : 50,
+			//width:250,
+			bottom : 150,
+			left : 10,
+			textAlign : 'left'
 		}));
 
 		dataArray.push(tbRow, tbRow1, tbRow2);
@@ -57,17 +56,15 @@ function setData() {
 		table.setData(dataArray);
 
 	}
-	
+
 	return dataArray;
 
 };
 
-
-
 var table = Ti.UI.createTableView({
 	style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
-	bottom : '10%',
-	top:'1%', 
+	bottom : '12%',
+	top : '1%',
 	borderRadius : 5,
 	scrollable : 'false'
 });
@@ -99,48 +96,62 @@ currentWin.addEventListener('focus', function() {
 
 //criando botoes de adicionar e ver igrejas
 
-var bb1 = Titanium.UI.createButtonBar({
-    labels:['Adicionar Igreja', 'Ver Igrejas'],
-    backgroundColor:'#336699',
-    top:'92%',
-    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
-    height:25,
-    width:300
-});
-bb1.addEventListener('click', function(e){
-	if (e.index == 0)
-{
-    bb1.labels = ['Adicionar Igreja'];
-    win = Titanium.UI.createWindow({
-    url:'add_igrejas.js',
-    title:'Adiconar igreja ao sermão',
-    backgroundColor:'#fff',
-    barColor:'#111'  
-       
-});
- 	win.idSermao = idSermao;
-}
-else
-{
-    bb1.labels = ['Ver Igrejas'];
-    win = Titanium.UI.createWindow({
-    url:'tbligrejas_pregacoes.js',
-    title:'Lista de igrejas',
-    backgroundColor:'#fff',
-    barColor:'#111'         
-});
-win.idSermao = idSermao;
-}
-	Titanium.UI.currentTab.open(win,{animated:true});
-		
+flexSpace = Titanium.UI.createButton({
+	systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
 });
 
-currentWin.add(bb1);
-//currentWin.add(bb2);
+var add_igreja = Titanium.UI.createButton({
+	title : 'adicionar Igreja',
+	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+
+});
+
+add_igreja.addEventListener('click', function(e) {
+
+	var addIgreja = Titanium.UI.createWindow({
+		title : 'Adicionar Igrejas',
+		url : 'add_igrejas.js',
+		//win.idSermao = idSermao;
+	});
+
+	addIgreja.idSermao = idSermao;
+	Ti.UI.currentTab.open(addIgreja, {
+		animated : true
+	});
+
+});
+
+var ver_igreja = Titanium.UI.createButton({
+	title : 'Listar Igreja',
+	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+
+});
+
+ver_igreja.addEventListener('click', function(e) {
+
+	var verIgreja = Titanium.UI.createWindow({
+		title : 'Listar Igrejas',
+		url : 'tbligrejas_pregacoes.js',
+		//win.idSermao = idSermao;
+	});
+
+	verIgreja.idSermao = idSermao;
+	Ti.UI.currentTab.open(verIgreja, {
+		animated : true
+	});
+
+});
+
+var toolbar = Titanium.UI.iOS.createToolbar({
+	items : [add_igreja, flexSpace, flexSpace, flexSpace, ver_igreja],
+	bottom : 0,
+	borderTop : true,
+	borderBottom : false
+});
+currentWin.add(toolbar);
+
 
 currentWin.rightNavButton = send;
 setData();
-//setData1();
-//currentWin.add(tableview);
 currentWin.add(table);
 

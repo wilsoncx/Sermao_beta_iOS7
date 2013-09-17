@@ -40,15 +40,10 @@ var pregacao = Titanium.UI.createWindow({
     title:'Lista de pregação',
     url: 'detalheigreja.js'
 });
-var tab3 = Titanium.UI.createTab({  
-    icon:'KS_nav_ui.png',
-    title:'Pregações',
-    window:pregacao
-});
 
 
 tabGroup.addTab(tab1);
 tabGroup.addTab(tab2);  
-tabGroup.addTab(tab3);  
+//tabGroup.addTab(tab3);  
 // open tab group
 tabGroup.open();
