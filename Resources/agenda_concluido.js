@@ -2,10 +2,10 @@
 var currentWin = Ti.UI.currentWindow;
 
 function setData() {
-	var st = 'a';
+	var st = 'i';
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var rows = db.execute('SELECT agendasermao.id, agendasermao.igreja, agendasermao.sermao, agendasermao.data, igreja.nome, sermao.titulo FROM  agendasermao INNER JOIN igreja ON agendasermao.igreja = igreja.id INNER JOIN sermao ON agendasermao.sermao = sermao.id WHERE status = "' + st + '"  ORDER BY agendasermao.data DESC');
-	var dataArray = [];
+var rows = db.execute('SELECT agendasermao.id, agendasermao.igreja, agendasermao.sermao, agendasermao.data, igreja.nome, sermao.titulo FROM  agendasermao INNER JOIN igreja ON agendasermao.igreja = igreja.id INNER JOIN sermao ON agendasermao.sermao = sermao.id WHERE status = "'+ st +'"  ORDER BY agendasermao.data ');
+		var dataArray = [];
 
 	while (rows.isValidRow()) {
 		var vsermao = rows.fieldByName('titulo');
@@ -13,15 +13,13 @@ function setData() {
 		var vigreja = rows.fieldByName('nome');
 		var vdata = rows.fieldByName('data');
 		var row = Ti.UI.createTableViewRow({
-			
-			borderRadius : 15,
-			
-		
-			//top:10,
-			bottom : 10,
-			id : vid
-		});
-		var label = Ti.UI.createLabel({
+		//backgroundColor : '#ECECEC',
+		borderRadius : 15,
+		//top:10,
+		bottom : 10,
+		id:vid
+	});
+	var label = Ti.UI.createLabel({
 			top : 5,
 			left : 10,
 			color : '#245553',
@@ -65,48 +63,47 @@ function setData() {
 			borderRadius : 5
 
 		});
-		row.add(label);
-		row.add(label1);
-		row.add(label2);
-		//row.add(button);
-
-		dataArray.push(row);
+	row.add(label);
+	row.add(label1);
+	row.add(label2);
+	//row.add(button);
+		
+		dataArray.push(
+			row
+			
+			);
 		rows.next();
 		table.setData(dataArray);
 	};
 
 };
 
+
+
+
 // now assign that array to the table's data property to add those objects as rows
 var table = Titanium.UI.createTableView({
-	backgroundColor : '#FFEFBF'
-
+backgroundColor : '#FFEFBF'
 });
 table.addEventListener('click', function(e) {
-	var rowid = e.row.id;
+var rowid = e.row.id;
 	var db1 = Ti.Database.install('bd_sgs', 'bd_sgs');
-	db1.execute('UPDATE agendasermao SET status = "i" WHERE id = "'+ rowid +'"');
-	
-	//alert(e.row.id);
+	db1.execute('UPDATE agendasermao SET status = "a" WHERE id = "'+ rowid +'"');
 	table.deleteRow(e.row.row);
 db1.close();
 });
 
 currentWin.addEventListener('focus', function() {
 	setData();
-
+	
 });
+
 
 // Create a Button.
 var btnNovo = Titanium.UI.createButton({
-		title : 'Novo',
-		
-                    font: {
-                        fontSize: 40
-                    }
-           
+	title : 'Novo',
+	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
 });
-
 
 var titleaddIgreja = Titanium.UI.createLabel({
     color:'#245553',
@@ -135,10 +132,10 @@ btnNovo.addEventListener('click', function() {
 	});
 });
 
+
 // Create a Button.
 
-
-var titleConcluido = Titanium.UI.createLabel({
+var titlenconcluido = Titanium.UI.createLabel({
     color:'#245553',
     height:18,
     width:210,
@@ -148,29 +145,33 @@ var titleConcluido = Titanium.UI.createLabel({
     font : {fontSize : 16,fontFamily: 'Marker felt'},
     shadowColor:'#eee',shadowOffset:{x:0,y:1}
 });
+
 var btnNconcluido = Titanium.UI.createButton({
-	title : 'Concluidos',
-	
-	//style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Não Concluidos',
+	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
 });
 
 // Listen for click events.
 btnNconcluido.addEventListener('click', function() {
 	var nConcluido = Titanium.UI.createWindow({
 		//title : 'agenda',
-		url : 'agenda_concluido.js'
+		url : 'tela_principal.js'
 	});
+	
+	//gravarDistrito.idDist = idDist;
 	Ti.UI.currentTab.open(nConcluido, {
 		animated : true
 	});
-	nConcluido.setTitleControl(titleConcluido);
+	nConcluido.setTitleControl(titlenconcluido);
 });
 // Add to the parent view.
 //parentView.add(aButton);
-
 currentWin.leftNavButton = btnNovo;
 currentWin.rightNavButton = btnNconcluido;
-//currentWin.add(btnNovo);
+
+
+
 currentWin.add(table);
 setData();
+
 

@@ -2,16 +2,18 @@ Ti.include("mask.js");
 
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
-var idDist = Ti.UI.currentWindow.idDist;
+//var idDist = Ti.UI.currentWindow.idDist;
+var status = 'a';
 function insertRows(dbData) {
 
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var theData = db.execute('INSERT INTO igreja (nome, distrito, endereco, contato, fone) VALUES("' + nome.value + '","' + idDist + '","' + endereco.value + '","' + contato.value + '","' + fone.value + '")'); theData;
-	alert("REgistro inserido");
+	var theData = db.execute('INSERT INTO agendasermao (igreja, sermao, data, status) VALUES("' + igreja.value + '","' + sermao.value + '","' + data.value.toLocaleDateString() + '","'+ status +'")'); 
+	theData;
+	alert("Registro inserido");
 
 };
 
-var nome = Ti.UI.createTextField({
+var igreja = Ti.UI.createTextField({
 	color : '#336699',
 	top : 10,
 	left : 10,
@@ -21,9 +23,9 @@ var nome = Ti.UI.createTextField({
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 });
-currentWin.add(nome);
+currentWin.add(igreja);
 
-var endereco = Ti.UI.createTextField({
+var sermao = Ti.UI.createTextField({
 	color : '#336699',
 	top : 60,
 	left : 10,
@@ -33,34 +35,30 @@ var endereco = Ti.UI.createTextField({
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 });
-currentWin.add(endereco);
+currentWin.add(sermao);
 
-var contato = Ti.UI.createTextField({
-	color : '#336699',
-	top : 110,
-	left : 10,
-	width : 300,
-	height : 40,
-	hintText : 'Contato',
-	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
-	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
-});
-currentWin.add(contato);
+ var dateValue = new Date();
+        dateValue.setFullYear(2013);
+        dateValue.setMonth(8);
+        dateValue.setDate(24);
+ 
 
-var fone = Ti.UI.createTextField({
-	color : '#336699',
-	top : 160,
-	left : 10,
-	width : 300,
-	height : 40,
-	hintText : 'fone',
-	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
-	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+
+var data = Ti.UI.createPicker({
+  type:Titanium.UI.PICKER_TYPE_DATE,
+	value: dateValue, 
+    top:120
 });
-fone.addEventListener("change", function() {
-	Mask.mask(fone, Mask.phone);
+ data.setLocale(Titanium.Platform.locale); 
+        data.selectionIndicator = true;
+currentWin.add(data);
+
+
+data.addEventListener('change',function(e){
+  Ti.API.info(e.value.toLocaleDateString());
+  // Ti.API.info(getValue());
+  
 });
-currentWin.add(fone);
 
 var gravar = Titanium.UI.createButton({
 	title : 'Gravar',
@@ -69,12 +67,12 @@ var gravar = Titanium.UI.createButton({
 
 gravar.addEventListener('click', function(e) {
 
-	if (nome.value != '') {
+	if (igreja.value != '') {
 		var dbData = {
-			nome : nome.value,
-			endereco : endereco.value,
-			contato : contato.value,
-			fone : fone.value,
+			igreja : igreja.value,
+			sermao : sermao.value,
+			data : data.value.toLocaleDateString(),
+			
 
 		};
 		insertRows(dbData);
@@ -87,7 +85,7 @@ var limpar = Titanium.UI.createButton({
 	title : 'Limpar',
 	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
 });
-limpar.addEventListener('click', function(e) { nome:''; enderco:''; contato:''; fone:'';
+limpar.addEventListener('click', function(e) { igreja:''; sermao:'';
 });
 
 flexSpace = Titanium.UI.createButton({

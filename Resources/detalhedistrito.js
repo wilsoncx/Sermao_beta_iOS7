@@ -3,13 +3,6 @@ var currentWin = Ti.UI.currentWindow;
 var osname = Ti.Platform.osname;
 //recebendo variavel do outro formulario
 var idDist = Ti.UI.currentWindow.idDist;
-//criando a barra da busca
-var search = Titanium.UI.createSearchBar({
-	barColor : '#000',
-	showCancel : true,
-	height : 43,
-	top : 0,
-});
 
 //criando a função para ler os dados na tabela distrito
 function setData() {
@@ -18,38 +11,46 @@ function setData() {
 	var dataArray = [];
 	while (rows.isValidRow()) {
 		var tbRow = Ti.UI.createTableViewRow({
-
+			backgroundColor : '#FFE0B0'
 		});
 		var tbRow1 = Ti.UI.createTableViewRow({
-
+			backgroundColor : '#FFE0B0'
 		});
-
 		var tbRow2 = Ti.UI.createTableViewRow({
-
+			backgroundColor : '#FFE0B0'
 		});
 
 		tbRow.add(Ti.UI.createLabel({
-
 			text :  rows.fieldByName('nome'),
 			left : 10,
 			height : 40,
-			
-
+			color : '#245553',
+			font : {
+				fontSize : 16,
+				fontFamily: 'Marker felt'
+			}	
 		}));
 
 		tbRow1.add(Ti.UI.createLabel({
 			text : rows.fieldByName('pastor'),
 			left : 10,
-			height : 40
+			height : 40,
+			color : '#245553',
+			font : {
+				fontSize : 16,
+				fontFamily: 'Marker felt'
+			}
 		}));
 
 		tbRow2.add(Ti.UI.createLabel({
 			text : rows.fieldByName('fone'),
 			left : 10,
-			height : 40
-			
-			
-
+			height : 40,
+			color : '#245553',
+			font : {
+				fontSize : 16,
+				fontFamily: 'Marker felt'
+			}			
 		}));
 
 		dataArray.push(tbRow, tbRow1, tbRow2);
@@ -75,8 +76,13 @@ function setData1() {
 			title : vnome,
 			hasChild : true,
 			id : vid,
-			//backgroundColor: '#004C98',
-			path : 'detalheigreja.js'
+			path : 'detalheigreja.js',
+			color : '#245553',
+			font : {
+				fontSize : 16,
+				fontFamily: 'Marker felt'
+			}
+			
 		});
 		rs.next();
 		tableview.setData(dataArray1);
@@ -86,10 +92,11 @@ function setData1() {
 
 var table = Ti.UI.createTableView({
 	style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
-	bottom : '58%',
+	bottom : '60%',
 	top:'1%', 
 	borderRadius : 5,
-	scrollable : 'false'
+	scrollable : 'false',
+	backgroundColor : '#FFEFBF'
 });
 
 var send = Titanium.UI.createButton({
@@ -121,11 +128,16 @@ var createCustomView = function(title) {
 	var view = Ti.UI.createView({
 		backgroundColor: '#808080',
 		height: 30
+		
 	});
 	var text = Ti.UI.createLabel({
 		text: title,
 		left: 20,
-		color: '#fff'
+		color: '#fff',
+		font : {
+				fontSize : 16,
+				fontFamily: 'Marker felt'
+			}
 	});
 	view.add(text);
 	return view;
@@ -134,12 +146,12 @@ var createCustomView = function(title) {
 //criando a table view igrejas
 var tableview = Ti.UI.createTableView({
 	//style:Titanium.UI.iPhone.TableViewStyle.GROUPED
-	search : search,
 	filterAttribute : 'title',
 	headerView: createCustomView('Lista de Igrejas'),
 	top :'43%',
 	bottom: '13%',
-	borderRadius : 5
+	borderRadius : 5,
+	backgroundColor : '#FFEFBF'
 });
 
 tableview.addEventListener('click', function(e) {

@@ -3,11 +3,11 @@ var currentWin = Ti.UI.currentWindow;
 
 //criando a barra da busca
 var search = Titanium.UI.createSearchBar({
-	barColor : '#000',
+	barColor : '#245553',
 	showCancel : true,
 	height : 43,
 	top : 0,
-	backgroundColor : '#336699'
+	//backgroundColor : '#FFEFBF'
 });
 var busca = search.value;
 
@@ -73,7 +73,12 @@ function setData() {
 			title : vnome,
 			hasChild : true,
 			id : vid,
-			path : 'detalhedistrito.js'
+			path : 'detalhedistrito.js',
+			color : '#245553',
+			font : {
+				fontSize : 16,
+				fontFamily: 'Marker felt'
+			}
 		});
 		rows.next();
 		tableview.setData(dataArray);
@@ -86,16 +91,30 @@ var tableview = Ti.UI.createTableView({
 	search : search,
 	filterAttribute : 'title',
 	borderRadius : 5,
+	backgroundColor : '#FFEFBF'
 
 });
+var titleDetDestrito = Titanium.UI.createLabel({
+    color:'#245553',
+    height:18,
+    width:210,
+    top:10,
+    text:'Distrito',
+    textAlign:'center',
+    font : {fontSize : 16,fontFamily: 'Marker felt'},
+    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+});
+
 //evento para abrir o formulario de detalhes quando se clica em distrito
 tableview.addEventListener('click', function(e) {
 	if (e.rowData.path) {
 		var win = Ti.UI.createWindow({
 			url : e.rowData.path,
-			title : e.rowData.title,
+			//title : e.rowData.title,
 			id : e.rowData.id
 		});
+		win.setTitleControl(titleDetDestrito);
+		
 		var idDist = e.rowData.id;
 		win.idDist = idDist;
 		Ti.UI.currentTab.open(win);

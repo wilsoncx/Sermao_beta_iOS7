@@ -3,11 +3,10 @@ var currentWin = Ti.UI.currentWindow;
 
 //criando a barra da busca
 var search = Titanium.UI.createSearchBar({
-	barColor : '#000',
+	barColor : '#245553',
 	showCancel : true,
 	height : 43,
-	top : 0,
-	backgroundColor : '#336699'
+	top : 0
 });
 var busca = search.value;
 
@@ -73,7 +72,12 @@ function setData() {
 			title : vtitulo,
 			hasChild : true,
 			id : vid,
-			path : 'detalhesermoes.js'
+			path : 'detalhesermoes.js',
+			color : '#245553',
+			font : {
+				fontSize : 16,
+				fontFamily: 'Marker felt'
+			}
 		});
 		rows.next();
 		tableview.setData(dataArray);
@@ -86,6 +90,7 @@ var tableview = Ti.UI.createTableView({
 	search : search,
 	filterAttribute : 'title',
 	borderRadius : 5,
+	backgroundColor : '#FFEFBF'
 
 });
 //evento para abrir o formulario de detalhes quando se clica em distrito
