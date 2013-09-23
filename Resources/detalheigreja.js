@@ -9,42 +9,55 @@ function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM igreja WHERE  id ="' + idIgreja + '"ORDER by nome asc');
 	var dataArray = [];
-    
+
 	while (rows.isValidRow()) {
 		var tbRow = Ti.UI.createTableViewRow({
-
+			backgroundColor : '#FFE0B0'
 		});
 		var tbRow1 = Ti.UI.createTableViewRow({
-
+			backgroundColor : '#FFE0B0'
 		});
 
 		var tbRow2 = Ti.UI.createTableViewRow({
-
+			backgroundColor : '#FFE0B0'
 		});
-
 		var tbRow3 = Ti.UI.createTableViewRow({
-
+			backgroundColor : '#FFE0B0'
 		});
 
 		tbRow.add(Ti.UI.createLabel({
-
 			text : rows.fieldByName('nome'),
 			left : 10,
 			height : 40,
+			color : '#245553',
+			font : {
+				fontSize : 16,
+				fontFamily : 'Marker felt'
+			}
 
 		}));
 
 		tbRow1.add(Ti.UI.createLabel({
 			text : rows.fieldByName('endereco'),
 			left : 10,
-			height : 40
-			
+			height : 40,
+			color : '#245553',
+			font : {
+				fontSize : 16,
+				fontFamily : 'Marker felt'
+			},
+
 		}));
 
 		tbRow2.add(Ti.UI.createLabel({
 			text : rows.fieldByName('contato'),
 			left : 10,
-			height : 40
+			height : 40,
+			color : '#245553',
+			font : {
+				fontSize : 16,
+				fontFamily : 'Marker felt'
+			}
 
 		}));
 
@@ -52,7 +65,11 @@ function setData() {
 			text : rows.fieldByName('fone'),
 			left : 10,
 			height : 40,
-			
+			color : '#245553',
+			font : {
+				fontSize : 16,
+				fontFamily : 'Marker felt'
+			}
 
 		}));
 
@@ -61,7 +78,7 @@ function setData() {
 		table.setData(dataArray);
 
 	}
-	
+
 	return dataArray;
 
 };
@@ -89,21 +106,34 @@ var table = Ti.UI.createTableView({
 	bottom : '1%',
 	top : '1%',
 	borderRadius : 5,
-	scrollable : 'false'
+	scrollable : 'false',
+	backgroundColor : '#FFEFBF'
 });
 
-var editar = Titanium.UI.createButton({
-	title : 'Editar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+var btnEditarIgreja = Titanium.UI.createButton({
+	title : 'Editar'
 });
-editar.addEventListener('click', function(e) {
+var titleEditIgreja = Titanium.UI.createLabel({
+	color : '#245553',
+	height : 18,
+	width : 210,
+	top : 10,
+	text : 'Editar Igreja',
+	textAlign : 'center',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt'
+	}
+});
+btnEditarIgreja.addEventListener('click', function(e) {
 
-	var gravarDistrito = Titanium.UI.createWindow({
-		title : 'Editar Igreja',
+	var editIgreja = Titanium.UI.createWindow({
+		//title : 'Editar Igreja',
 		url : 'edit_igreja.js'
 	});
-	gravarDistrito.idIgreja = idIgreja;
-	Ti.UI.currentTab.open(gravarDistrito, {
+	editIgreja.setTitleControl(titleEditIgreja);
+	editIgreja.idIgreja = idIgreja;
+	Ti.UI.currentTab.open(editIgreja, {
 		animated : true
 	});
 
@@ -112,6 +142,6 @@ editar.addEventListener('click', function(e) {
 //currentWin.rightNavButton = send;
 setData();
 currentWin.add(table);
-currentWin.rightNavButton = editar;
+currentWin.rightNavButton = btnEditarIgreja;
 //currentWin.add(table);
 

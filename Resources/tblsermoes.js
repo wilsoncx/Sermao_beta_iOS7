@@ -11,27 +11,34 @@ var search = Titanium.UI.createSearchBar({
 var busca = search.value;
 
 //criando o botão de de novo distrito e seus eventos
-var send = Titanium.UI.createButton({
-	title : 'Novo Sermão',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+var titleSermao = Titanium.UI.createLabel({
+    color:'#245553',
+    height:18,
+    width:210,
+    top:10,
+    text:'Novo Sermão',
+    textAlign:'center',
+    font : {fontSize : 16,fontFamily: 'Marker felt'}
+});
+var novo = Titanium.UI.createButton({
+	title : 'Novo Sermão'
 });
 
 //Abrindo formulario para cadastrar novo distrito
-send.addEventListener('click', function(e) {
-	var gravarDistrito = Titanium.UI.createWindow({
-		title : 'Cadastrar Sermão',
+novo.addEventListener('click', function(e) {
+	var addSermao = Titanium.UI.createWindow({
 		url : 'form_sermao.js'
 	});
-	Ti.UI.currentTab.open(gravarDistrito, {
+	Ti.UI.currentTab.open(addSermao, {
 		animated : true
 	});
+	addSermao.setTitleControl(titleSermao);
 
 });
 
 //criando botão deletar distrito
 var deletar = Titanium.UI.createButton({
-	title : 'Editar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Editar'
 });
 
 //modificando evento de click do botão deletar.
@@ -57,9 +64,18 @@ deletar.addEventListener('click', function(e) {
 
 //adicionando botões na barra de navegação
 currentWin.rightNavButton = deletar;
-currentWin.leftNavButton = send;
+currentWin.leftNavButton = novo;
 
 //criando função para criar array para ler o banco e lista os distritos
+var titleSermoes = Titanium.UI.createLabel({
+    color:'#245553',
+    height:18,
+    width:210,
+    top:10,
+    text:'Sermão',
+    textAlign:'center',
+    font : {fontSize : 16,fontFamily: 'Marker felt'}
+});
 function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM sermao  order by titulo ');
@@ -69,8 +85,8 @@ function setData() {
 		var vtitulo = rows.fieldByName('titulo');
 		var vid = rows.fieldByName('id');
 		dataArray.push({
-			title : vtitulo,
 			hasChild : true,
+			title: vtitulo,
 			id : vid,
 			path : 'detalhesermoes.js',
 			color : '#245553',
@@ -98,12 +114,14 @@ tableview.addEventListener('click', function(e) {
 	if (e.rowData.path) {
 		var win = Ti.UI.createWindow({
 			url : e.rowData.path,
-			title : e.rowData.title,
+			//title : e.rowData.title,
 			id : e.rowData.id
 		});
+		win.setTitleControl(titleSermoes);
 		var idSermao = e.rowData.id;
 		win.idSermao = idSermao;
 		Ti.UI.currentTab.open(win);
+		
 	}
 
 });

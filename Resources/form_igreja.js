@@ -7,12 +7,16 @@ function insertRows(dbData) {
 
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var theData = db.execute('INSERT INTO igreja (nome, distrito, endereco, contato, fone) VALUES("' + nome.value + '","' + idDist + '","' + endereco.value + '","' + contato.value + '","' + fone.value + '")'); theData;
-	alert("REgistro inserido");
+	alert("Registro inserido");
 
 };
 
 var nome = Ti.UI.createTextField({
 	color : '#336699',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt',
+	},
 	top : 10,
 	left : 10,
 	width : 300,
@@ -25,6 +29,10 @@ currentWin.add(nome);
 
 var endereco = Ti.UI.createTextField({
 	color : '#336699',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt',
+	},
 	top : 60,
 	left : 10,
 	width : 300,
@@ -37,6 +45,10 @@ currentWin.add(endereco);
 
 var contato = Ti.UI.createTextField({
 	color : '#336699',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt',
+	},
 	top : 110,
 	left : 10,
 	width : 300,
@@ -49,6 +61,10 @@ currentWin.add(contato);
 
 var fone = Ti.UI.createTextField({
 	color : '#336699',
+		font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt',
+	},
 	top : 160,
 	left : 10,
 	width : 300,
@@ -63,8 +79,8 @@ fone.addEventListener("change", function() {
 currentWin.add(fone);
 
 var gravar = Titanium.UI.createButton({
-	title : 'Gravar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Gravar'
+	
 });
 
 gravar.addEventListener('click', function(e) {
@@ -84,8 +100,7 @@ gravar.addEventListener('click', function(e) {
 });
 
 var limpar = Titanium.UI.createButton({
-	title : 'Limpar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Limpar'
 });
 limpar.addEventListener('click', function(e) { nome:''; enderco:''; contato:''; fone:'';
 });

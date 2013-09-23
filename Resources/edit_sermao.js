@@ -15,7 +15,11 @@ function insertRows(dbData) {
 
 //adicionando texte field
 var titulo = Ti.UI.createTextField({
-	color : '#336699',
+	color : '#245553',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt'
+	},
 	top : 20,
 	left : 10,
 	width : 300,
@@ -26,7 +30,11 @@ var titulo = Ti.UI.createTextField({
 });
 currentWin.add(titulo);
 var tema = Ti.UI.createTextField({
-	color : '#336699',
+	color : '#245553',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt'
+	},
 	top : 80,
 	left : 10,
 	width : 300,
@@ -37,7 +45,11 @@ var tema = Ti.UI.createTextField({
 });
 currentWin.add(tema);
 var detalhes = Ti.UI.createTextArea({
-	color : '#336699',
+	color : '#245553',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt'
+	},
 	top : 140,
 	textAlign:'left',
 	width : 300,
@@ -45,7 +57,6 @@ var detalhes = Ti.UI.createTextArea({
 	hintText : 'Detalhes',
 	editable : true,
 	borderRadius : 5,
-	font:{fontSize:18},
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -64,7 +75,6 @@ db1.close();
 // criando botões
 var gravar = Titanium.UI.createButton({
 	title : 'Gravar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
 });
 gravar.addEventListener('click', function(e) {
 
@@ -85,7 +95,6 @@ gravar.addEventListener('click', function(e) {
 
 var limpar = Titanium.UI.createButton({
 	title : 'Limpar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
 });
 limpar.addEventListener('click', function(e) {
 	titulo.value = '';

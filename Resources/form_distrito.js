@@ -5,8 +5,7 @@ var currentWin = Ti.UI.currentWindow;
 //Função para inserir os dados no banco
 function insertRows(dbData) {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var theData = db.execute('INSERT INTO distrito (nome, pastor, fone) VALUES("' + nome.value + '","' + pastor.value + '","' + fone.value + '")');
-	theData;
+	var theData = db.execute('INSERT INTO distrito (nome, pastor, fone) VALUES("' + nome.value + '","' + pastor.value + '","' + fone.value + '")'); theData;
 	alert("Distrito Gravado com Sucesso!");
 	db.close();
 };
@@ -18,6 +17,10 @@ var nome = Ti.UI.createTextField({
 	left : 10,
 	width : 300,
 	height : 40,
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt',
+	},
 	hintText : 'Nome',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -25,6 +28,10 @@ var nome = Ti.UI.createTextField({
 currentWin.add(nome);
 var pastor = Ti.UI.createTextField({
 	color : '#336699',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt',
+	},
 	top : 80,
 	left : 10,
 	width : 300,
@@ -36,6 +43,10 @@ var pastor = Ti.UI.createTextField({
 currentWin.add(pastor);
 var fone = Ti.UI.createTextField({
 	color : '#336699',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt',
+	},
 	top : 140,
 	left : 10,
 	width : 300,
@@ -53,7 +64,6 @@ currentWin.add(fone);
 // criando os botões
 var gravar = Titanium.UI.createButton({
 	title : 'Gravar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
 });
 //evento para gravar os dados nas variaveis
 gravar.addEventListener('click', function(e) {
@@ -74,8 +84,7 @@ gravar.addEventListener('click', function(e) {
 });
 
 var limpar = Titanium.UI.createButton({
-	title : 'Limpar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Limpar'
 });
 limpar.addEventListener('click', function(e) {
 	nome.value = '';
@@ -90,6 +99,10 @@ flexSpace = Titanium.UI.createButton({
 var toolbar = Titanium.UI.iOS.createToolbar({
 	items : [gravar, flexSpace, flexSpace, flexSpace, limpar],
 	bottom : 0,
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt',
+	},
 	borderTop : true,
 	borderBottom : false
 });

@@ -21,14 +21,14 @@ function setData() {
 		});
 
 		tbRow.add(Ti.UI.createLabel({
-			text :  rows.fieldByName('nome'),
+			text : rows.fieldByName('nome'),
 			left : 10,
 			height : 40,
 			color : '#245553',
 			font : {
 				fontSize : 16,
-				fontFamily: 'Marker felt'
-			}	
+				fontFamily : 'Marker felt'
+			}
 		}));
 
 		tbRow1.add(Ti.UI.createLabel({
@@ -38,7 +38,7 @@ function setData() {
 			color : '#245553',
 			font : {
 				fontSize : 16,
-				fontFamily: 'Marker felt'
+				fontFamily : 'Marker felt'
 			}
 		}));
 
@@ -49,8 +49,8 @@ function setData() {
 			color : '#245553',
 			font : {
 				fontSize : 16,
-				fontFamily: 'Marker felt'
-			}			
+				fontFamily : 'Marker felt'
+			}
 		}));
 
 		dataArray.push(tbRow, tbRow1, tbRow2);
@@ -58,7 +58,7 @@ function setData() {
 		table.setData(dataArray);
 
 	}
-	
+
 	return dataArray;
 
 };
@@ -80,9 +80,9 @@ function setData1() {
 			color : '#245553',
 			font : {
 				fontSize : 16,
-				fontFamily: 'Marker felt'
+				fontFamily : 'Marker felt'
 			}
-			
+
 		});
 		rs.next();
 		tableview.setData(dataArray1);
@@ -93,24 +93,36 @@ function setData1() {
 var table = Ti.UI.createTableView({
 	style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
 	bottom : '60%',
-	top:'1%', 
+	top : '1%',
 	borderRadius : 5,
 	scrollable : 'false',
 	backgroundColor : '#FFEFBF'
 });
-
-var send = Titanium.UI.createButton({
-	title : 'Editar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+var titleEditDist = Titanium.UI.createLabel({
+	color : '#245553',
+	height : 18,
+	width : 210,
+	top : 10,
+	text : 'Editar Distrito',
+	textAlign : 'center',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt'
+	}
 });
-send.addEventListener('click', function(e) {
 
-	var gravarDistrito = Titanium.UI.createWindow({
-		title : 'Cadastrar Distritos',
+var btnEditDist = Titanium.UI.createButton({
+	title : 'Editar'
+});
+btnEditDist.addEventListener('click', function(e) {
+
+	var editDist = Titanium.UI.createWindow({
+		//title : 'Cadastrar Distritos',
 		url : 'edit_distrito.js'
 	});
-	gravarDistrito.idDist = idDist;
-	Ti.UI.currentTab.open(gravarDistrito, {
+	editDist.setTitleControl(titleEditDist);
+	editDist.idDist = idDist;
+	Ti.UI.currentTab.open(editDist, {
 		animated : true
 	});
 
@@ -126,18 +138,18 @@ currentWin.addEventListener('focus', function() {
 //criando um custom view para o titulo da tableview igrejas
 var createCustomView = function(title) {
 	var view = Ti.UI.createView({
-		backgroundColor: '#808080',
-		height: 30
-		
+		backgroundColor : '#808080',
+		height : 30
+
 	});
 	var text = Ti.UI.createLabel({
-		text: title,
-		left: 20,
-		color: '#fff',
+		text : title,
+		left : 20,
+		color : '#fff',
 		font : {
-				fontSize : 16,
-				fontFamily: 'Marker felt'
-			}
+			fontSize : 16,
+			fontFamily : 'Marker felt'
+		}
 	});
 	view.add(text);
 	return view;
@@ -147,11 +159,25 @@ var createCustomView = function(title) {
 var tableview = Ti.UI.createTableView({
 	//style:Titanium.UI.iPhone.TableViewStyle.GROUPED
 	filterAttribute : 'title',
-	headerView: createCustomView('Lista de Igrejas'),
-	top :'43%',
-	bottom: '13%',
+	headerView : createCustomView('Lista de Igrejas'),
+	top : '43%',
+	bottom : '13%',
 	borderRadius : 5,
 	backgroundColor : '#FFEFBF'
+});
+
+var titleIgreja = Titanium.UI.createLabel({
+	color : '#245553',
+	height : 18,
+	width : 210,
+	top : 10,
+	text : 'Agenda',
+	textAlign : 'center',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt'
+	},
+
 });
 
 tableview.addEventListener('click', function(e) {
@@ -159,20 +185,19 @@ tableview.addEventListener('click', function(e) {
 		var win = Ti.UI.createWindow({
 			url : e.rowData.path,
 			title : e.rowData.title,
-		
 		});
 		var idIgreja = e.rowData.id;
 		win.idIgreja = idIgreja;
 		Ti.UI.currentTab.open(win);
+		win.setTitleControl(titleIgreja);
 	}
 
 });
 
-
 //criando botoes
 var deletar = Titanium.UI.createButton({
 	title : 'Editar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+
 });
 deletar.addEventListener('click', function(e) {
 	if (e.source.title == "Editar") {
@@ -200,38 +225,48 @@ tableview.addEventListener('delete', function(e) {
 });
 
 flexSpace = Titanium.UI.createButton({
-    systemButton:Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
+	systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
 });
 var novo = Titanium.UI.createButton({
-	title : 'Nova Igreja',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
-	
+	title : 'Nova Igreja'
+
 });
+var titleIgreja = Titanium.UI.createLabel({
+	color : '#245553',
+	height : 18,
+	width : 210,
+	top : 10,
+	text : 'Adicionar Igreja',
+	textAlign : 'center',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt'
+	}
+});
+
 novo.addEventListener('click', function(e) {
 
+	var addIgreja = Titanium.UI.createWindow({
 
-	var gravarDistrito = Titanium.UI.createWindow({
-		title : 'Cadastrar Igrejas',
-		url : 'form_igreja.js',
-	
+		url : 'form_igreja.js'
+
 	});
-	gravarDistrito.idDist = idDist;
-	Ti.UI.currentTab.open(gravarDistrito, {
+	addIgreja.idDist = idDist;
+	Ti.UI.currentTab.open(addIgreja, {
 		animated : true
 	});
+	addIgreja.setTitleControl(titleIgreja);
 
 });
-
 //criando toolbar
 var toolbar = Titanium.UI.iOS.createToolbar({
-    items:[deletar, flexSpace, flexSpace, flexSpace, novo],
-    bottom:0,
-    borderTop:true,
-    borderBottom:false
-}); 
+	items : [deletar, flexSpace, flexSpace, flexSpace, novo],
+	bottom : 0,
+	borderTop : true,
+	borderBottom : false
+});
 currentWin.add(toolbar);
-
-currentWin.rightNavButton = send;
+currentWin.rightNavButton = btnEditDist;
 setData();
 setData1();
 currentWin.add(tableview);

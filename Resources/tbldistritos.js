@@ -6,15 +6,14 @@ var search = Titanium.UI.createSearchBar({
 	barColor : '#245553',
 	showCancel : true,
 	height : 43,
-	top : 0,
+	top : 0
 	//backgroundColor : '#FFEFBF'
 });
 var busca = search.value;
 
 //criando o botão de de novo distrito e seus eventos
 var send = Titanium.UI.createButton({
-	title : 'Novo Distrito',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Novo Distrito'
 });
 
 //Abrindo formulario para cadastrar novo distrito
@@ -25,14 +24,16 @@ send.addEventListener('click', function(e) {
 	});
 	Ti.UI.currentTab.open(gravarDistrito, {
 		animated : true
+		
 	});
+	gravarDistrito.setTitleControl(titleDetDestrito);
 
 });
 
 //criando botão deletar distrito
 var deletar = Titanium.UI.createButton({
 	title : 'Editar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	//style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
 });
 
 //modificando evento de click do botão deletar.
@@ -101,8 +102,7 @@ var titleDetDestrito = Titanium.UI.createLabel({
     top:10,
     text:'Distrito',
     textAlign:'center',
-    font : {fontSize : 16,fontFamily: 'Marker felt'},
-    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+    font : {fontSize : 16,fontFamily: 'Marker felt'}
 });
 
 //evento para abrir o formulario de detalhes quando se clica em distrito

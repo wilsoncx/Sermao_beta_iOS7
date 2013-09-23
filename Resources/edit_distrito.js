@@ -4,7 +4,7 @@ Ti.include("mask.js");
 var currentWin = Ti.UI.currentWindow;
 //variavel que vem da lista de distrito com o id do distrito
 var idDist = Ti.UI.currentWindow.idDist;
-//função que atualizar os dados 
+//função que atualizar os dados
 function insertRows(dbData) {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var theData = db.execute('update distrito set nome="' + nome.value + '", pastor="' + pastor.value + '", fone ="' + fone.value + '"WHERE id ="' + idDist + '"'); theData;
@@ -14,7 +14,11 @@ function insertRows(dbData) {
 
 //adicionando texte field
 var nome = Ti.UI.createTextField({
-	color : '#336699',
+	color : '#245553',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt'
+	},
 	top : 20,
 	left : 10,
 	width : 300,
@@ -25,7 +29,11 @@ var nome = Ti.UI.createTextField({
 });
 currentWin.add(nome);
 var pastor = Ti.UI.createTextField({
-	color : '#336699',
+	color : '#245553',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt'
+	},
 	top : 80,
 	left : 10,
 	width : 300,
@@ -36,7 +44,11 @@ var pastor = Ti.UI.createTextField({
 });
 currentWin.add(pastor);
 var fone = Ti.UI.createTextField({
-	color : '#336699',
+	color : '#245553',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Marker felt'
+	},
 	top : 140,
 	left : 10,
 	width : 300,
@@ -51,7 +63,6 @@ fone.addEventListener("change", function() {
 	Mask.mask(fone, Mask.phone);
 });
 
-
 //variavel para lista os ditritos e pegar o id
 var db1 = Ti.Database.install('bd_sgs', 'bd_sgs');
 var rs = db1.execute('SELECT * FROM distrito WHERE id ="' + idDist + '"');
@@ -62,8 +73,7 @@ db1.close();
 
 // criando botões
 var gravar = Titanium.UI.createButton({
-	title : 'Gravar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Gravar'
 });
 gravar.addEventListener('click', function(e) {
 
@@ -83,8 +93,7 @@ gravar.addEventListener('click', function(e) {
 });
 
 var limpar = Titanium.UI.createButton({
-	title : 'Limpar',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Limpar'
 });
 limpar.addEventListener('click', function(e) {
 	nome.value = '';

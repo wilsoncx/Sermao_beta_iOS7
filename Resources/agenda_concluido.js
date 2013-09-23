@@ -101,8 +101,7 @@ currentWin.addEventListener('focus', function() {
 
 // Create a Button.
 var btnNovo = Titanium.UI.createButton({
-	title : 'Novo',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Novo'
 });
 
 var titleaddIgreja = Titanium.UI.createLabel({
@@ -147,8 +146,7 @@ var titlenconcluido = Titanium.UI.createLabel({
 });
 
 var btnNconcluido = Titanium.UI.createButton({
-	title : 'Não Concluidos',
-	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Não Concluidos'
 });
 
 // Listen for click events.

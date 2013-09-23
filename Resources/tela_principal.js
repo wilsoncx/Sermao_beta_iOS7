@@ -107,7 +107,6 @@ var btnNovo = Titanium.UI.createButton({
            
 });
 
-
 var titleaddIgreja = Titanium.UI.createLabel({
     color:'#245553',
     height:18,
@@ -115,8 +114,7 @@ var titleaddIgreja = Titanium.UI.createLabel({
     top:10,
     text:'Adicionar Agenda',
     textAlign:'center',
-    font : {fontSize : 16,fontFamily: 'Marker felt'},
-    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+    font : {fontSize : 16,fontFamily: 'Marker felt'}
 });
 
 
@@ -130,6 +128,8 @@ btnNovo.addEventListener('click', function() {
 	});
 	addIgreja.setTitleControl(titleaddIgreja);
 	//gravarDistrito.idDist = idDist;
+	//var idSermao = 0;
+	addIgreja.idSermao = false;
 	Ti.UI.currentTab.open(addIgreja, {
 		animated : true
 	});
@@ -145,19 +145,16 @@ var titleConcluido = Titanium.UI.createLabel({
     top:10,
     text:'Agenda',
     textAlign:'center',
-    font : {fontSize : 16,fontFamily: 'Marker felt'},
-    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+    font : {fontSize : 16,fontFamily: 'Marker felt'}
 });
 var btnNconcluido = Titanium.UI.createButton({
 	title : 'Concluidos',
 	
-	//style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
 });
 
 // Listen for click events.
 btnNconcluido.addEventListener('click', function() {
 	var nConcluido = Titanium.UI.createWindow({
-		//title : 'agenda',
 		url : 'agenda_concluido.js'
 	});
 	Ti.UI.currentTab.open(nConcluido, {
@@ -165,12 +162,9 @@ btnNconcluido.addEventListener('click', function() {
 	});
 	nConcluido.setTitleControl(titleConcluido);
 });
-// Add to the parent view.
-//parentView.add(aButton);
 
 currentWin.leftNavButton = btnNovo;
 currentWin.rightNavButton = btnNconcluido;
-//currentWin.add(btnNovo);
 currentWin.add(table);
 setData();
 

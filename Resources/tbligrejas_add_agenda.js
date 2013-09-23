@@ -1,10 +1,8 @@
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
-var idSermao = Ti.UI.currentWindow.idSermao;
 //busca
 var search = Titanium.UI.createSearchBar({
-	backgroundColor : '#FFEFBF',
-	barColor : '#245553',
+	barColor : '#000',
 	showCancel : true,
 	height : 43,
 	top : 0,
@@ -13,9 +11,25 @@ var search = Titanium.UI.createSearchBar({
 
 //currentWin.add(search);
 
+var send = Titanium.UI.createButton({
+	title : 'Novo',
+	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+});
+send.addEventListener('click', function(e) {
+
+	var gravarDistrito = Titanium.UI.createWindow({
+		title : 'Cadastrar Distritos',
+		url : 'form_distrito.js'
+	});
+	Ti.UI.currentTab.open(gravarDistrito, {
+		animated : true
+	});
+
+});
 
 var deletar = Titanium.UI.createButton({
-	title : 'Editar'
+	title : 'Editar',
+	style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
 });
 deletar.addEventListener('click', function(e) {
 	if (e.source.title == "Editar") {
@@ -37,15 +51,12 @@ deletar.addEventListener('click', function(e) {
 
 });
 
-currentWin.rightNavButton = deletar;
+//currentWin.rightNavButton = deletar;
 //currentWin.leftNavButton = send;
 // set the data from the database to the array
 function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var rows = db.execute('SELECT agendasermao.id, agendasermao.igreja, igreja.nome FROM  agendasermao INNER JOIN igreja ON agendasermao.igreja = igreja.id WHERE agendasermao.sermao ="' + idSermao + '" and status = "i"  ORDER BY igreja.nome');
-	
-	
-	//var rows = db.execute('SELECT * FROM  pregacao WHERE sermao ="' + idSermao + '"');
+	var rows = db.execute('SELECT * FROM igreja  GROUP BY nome ');
 	var dataArray = [];
 
 	while (rows.isValidRow()) {
@@ -55,12 +66,7 @@ function setData() {
 			title : vnome,
 			//hasChild : true,
 			id : vid,
-			path : 'detalhedistrito.js',
-			color : '#245553',
-			font : {
-				fontSize : 16,
-				fontFamily: 'Marker felt'
-			}
+			path : 'detalhedistrito.js'
 		});
 		rows.next();
 		tableview.setData(dataArray);
@@ -72,19 +78,30 @@ function setData() {
 var tableview = Ti.UI.createTableView({
 	search : search,
 	filterAttribute : 'title',
-	borderRadius :5,
-	backgroundColor : '#FFEFBF'
+	borderRadius :5
 });
 
 currentWin.addEventListener('focus', function() {
 	setData();
 });
 
+tableview.addEventListener('click', function(e) {
+	if (e.rowData.path) {
+		var win = Ti.UI.createWindow({
+			url : e.rowData.path,
+			title : e.rowData.title
+		});
+		var nomeDist = e.rowData.title;
+		win.nomeDist = nomeDist;
+		
+	}
+
+});
 
 //deletar
 tableview.addEventListener('delete', function(e) {
-	var db = Ti.Database.open('bd_sgs', 'bd_sgs');
-	var rows = db.execute('DELETE FROM agendasermao WHERE id= "' + e.row.id + '"');
+	var db = Ti.Database.open('sgs2', 'sgs2');
+	var rows = db.execute('DELETE FROM igreja WHERE id= "' + e.row.id + '"');
 
 	//var rows = db.execute('DELETE FROM distrito WHERE nome="' + nomeDist +'"');
 
