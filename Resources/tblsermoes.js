@@ -52,7 +52,7 @@ deletar.addEventListener('click', function(e) {
 		//Edit:off
 		tableview.editing = true;
 		//Edit:on again!
-		e.source.title = "Done";
+		e.source.title = "OK";
 	} else {
 		tableview.editable = true;
 		//reactivate swipe-Delete button!

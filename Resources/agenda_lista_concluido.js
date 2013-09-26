@@ -4,8 +4,10 @@
 //*agendadas com horario e igreja *
 //*********************************
 
+// Create an array of explicitly defined custom TableViewRows
 var currentWin = Ti.UI.currentWindow;
-var st = 'a';
+var st = 'i';
+Ti.API.info(st);
 function setData() {
 
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
@@ -18,11 +20,15 @@ function setData() {
 		var vigreja = rows.fieldByName('nome');
 		var vdata = rows.fieldByName('data');
 		var row = Ti.UI.createTableViewRow({
+
 			borderRadius : 15,
+
+			//top:10,
 			bottom : 10,
 			id : vid
 		});
 		var labelTitleSermao = Ti.UI.createLabel({
+			//backgroundLeftCap :'1px',
 			top : 5,
 			left : 10,
 			color : '#1A87FB',
@@ -42,6 +48,7 @@ function setData() {
 		});
 
 		var labelTitleIgreja = Ti.UI.createLabel({
+			//backgroundLeftCap :'1px',
 			top : 25,
 			left : 10,
 			color : '#1A87FB',
@@ -73,42 +80,74 @@ function setData() {
 			color : '#245553',
 			font : {
 				fontSize : 12,
+				//fontFamily : 'Marker felt',
 			},
 			top : 45,
 			left : 60,
 			text : '| ' + vdata,
 			id : vid,
 		});
+
+		var button = Ti.UI.createButton({
+			right : 10,
+			height : 30,
+			width : 40,
+			title : 'OK',
+			borderColor : '#336699',
+			borderRadius : 15
+
+		});
+		button.addEventListener('click', function(e) {
+
+		});
+
 		row.add(labelTitleData);
 		row.add(labelTitleIgreja);
 		row.add(labelTitleSermao);
 		row.add(label);
 		row.add(label1);
 		row.add(label2);
+		//row.add(button);
 		row.addEventListener('swipe', function(e) {
 			if (e.direction == 'right') {
 				table.editing = true;
+
 				//Edit:on
 				table.editing = false;
 				//Edit:off
 				table.editing = true;
 				//Edit:on again!
 				currentWin.rightNavButton = btnDone;
-			} 
-			
+			} else if (e.direction == 'left') {
+				//table.editing = true;
+				var addIgreja = Titanium.UI.createWindow({
+					//title : 'Add Igrejas',
+					url : 'add_igreja_agenda.js',
+
+				});
+				//addIgreja.setTitleControl(titleaddIgreja);
+				//gravarDistrito.idDist = idDist;
+				//var idSermao = 0;
+				addIgreja.idSermao = false;
+				Ti.UI.currentTab.open(addIgreja, {
+					animated : true
+				});
+			}
 
 		});
 
 		dataArray.push(row);
 		rows.next();
 		table.setData(dataArray);
-
+		db.close();
 	};
 
 };
 
+// now assign that array to the table's data property to add those objects as rows
 var table = Titanium.UI.createTableView({
 	backgroundColor : '#FFEFBF'
+
 });
 
 table.addEventListener('dblclick', function(e) {
@@ -121,8 +160,7 @@ table.addEventListener('dblclick', function(e) {
 });
 
 currentWin.addEventListener('focus', function() {
-
-	setData();
+	//setData();
 
 });
 
@@ -138,11 +176,14 @@ var btnNovo = Titanium.UI.createButton({
 // Listen for click events.
 btnNovo.addEventListener('click', function() { fontFamily:'Marker felt';
 	var addIgreja = Titanium.UI.createWindow({
-		url : 'add_igreja_agenda.js'
+		//title : 'Add Igrejas',
+		url : 'add_igreja_agenda.js',
+
 	});
+	//addIgreja.setTitleControl(titleaddIgreja);
+	//gravarDistrito.idDist = idDist;
+	//var idSermao = 0;
 	addIgreja.idSermao = false;
-	addIgreja.ig = false;
-	addIgreja.se = false;
 	Ti.UI.currentTab.open(addIgreja, {
 		animated : true
 	});
@@ -150,25 +191,26 @@ btnNovo.addEventListener('click', function() { fontFamily:'Marker felt';
 });
 
 // Create a Button.
-var btnconcluido = Titanium.UI.createButton({
-	title : 'Concluidos',
+var btnNconcluido = Titanium.UI.createButton({
+	title : 'Não Concluidos',
 
 });
-
 // Listen for click events.
-btnconcluido.addEventListener('click', function(e) {
+btnNconcluido.addEventListener('click', function(e) {
 	var listConc = Titanium.UI.createWindow({
-		url : 'agenda_lista_concluido.js'
-
+		url: 'tela_principal.js'
+		
 	});
 	Ti.UI.currentTab.open(listConc, {
-		animated : true
+		animated:true
 	});
 });
 
-//deletar registro
+
+//deletar{}
+
 var btnDone = Titanium.UI.createButton({
-	title : 'OK',
+	systemButton : Ti.UI.iPhone.SystemButton.DONE,
 	font : {
 		fontSize : 40
 	}
@@ -185,9 +227,12 @@ btnDone.addEventListener('click', function(e) {
 table.addEventListener('delete', function(e) {
 	var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 	var rows = db.execute('DELETE FROM agendasermao WHERE id= "' + e.row.id + '"');
+
+	//var rows = db.execute('DELETE FROM distrito WHERE nome="' + nomeDist +'"');
+
 });
 
-currentWin.leftNavButton = btnconcluido;
+currentWin.leftNavButton = btnNconcluido;
 currentWin.rightNavButton = btnNovo;
 currentWin.add(table);
 setData();

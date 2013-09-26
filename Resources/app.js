@@ -8,7 +8,7 @@ var tabGroup = Titanium.UI.createTabGroup();
 // create base UI tab and root window
 //
 var tela_principal = Titanium.UI.createWindow({  
-    title:'Agenda',
+   // title:'Agenda',
     url: 'tela_principal.js'
 });
 var titleLabel = Titanium.UI.createLabel({
@@ -16,16 +16,16 @@ var titleLabel = Titanium.UI.createLabel({
     height:18,
     width:210,
     top:10,
-    text:'Agenda de Pregação',
+    text:'Agenda de Pregações',
     textAlign:'center',
-    font : {fontSize : 16,fontFamily: 'Marker felt'},
+    font : {fontSize : 16},
     shadowColor:'#eee',shadowOffset:{x:0,y:1}
 });
 
 
 
 var tab1 = Titanium.UI.createTab({  
-    icon:'KS_nav_views.png',
+    icon:'agenda.png',
     title:'Tela Principal',
     window: tela_principal
 });
@@ -43,7 +43,7 @@ var titdistrito = Titanium.UI.createLabel({
     top:10,
     text:'Distritos',
     textAlign:'center',
-    font : {fontSize : 16,fontFamily: 'Marker felt'},
+    font : {fontSize : 16},
     shadowColor:'#eee',shadowOffset:{x:0,y:1}
 });
 
@@ -65,7 +65,7 @@ var titlesermoes = Titanium.UI.createLabel({
     top:10,
     text:'Sermões',
     textAlign:'center',
-    font : {fontSize : 16,fontFamily: 'Marker felt'},
+    font : {fontSize : 16},
     shadowColor:'#eee',shadowOffset:{x:0,y:1}
 });
 

@@ -1,22 +1,29 @@
-Ti.include("mask.js");
+/////////////////////////////////////
+//arquivo que controla a inserção  //
+//de novas pregações na agenda e  //
+//de igrejas em sermões já        //
+//cadastrados  					 //
+//							     //
+//////////////////////////////////
 
+Ti.include("mask.js");
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
 var iSermao = Ti.UI.currentWindow.idSermao;
-
-//var idDist = Ti.UI.currentWindow.idDist;
+var ig = Ti.UI.currentWindow.ig;
+var se = Ti.UI.currentWindow.se;
+var vidigre;
+var vidser;
 function insertRows(dbData) {
 
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var theData = db.execute('INSERT INTO agendasermao (igreja, sermao, data, status) VALUES("' + igreja.value + '","' + idSermao + '","' + data.value.toLocaleDateString() + '","' + status + '")');
-	theData;
-	alert("Registro inserido");
+	var theData = db.execute('INSERT INTO agendasermao (igreja, sermao, data, status) VALUES("' + vidigre + '","' + iSermao + '","' + data.value.toLocaleDateString() + '","' + status + '")'); theData;
+	alert("Registro inserido ");
 
 };
 
 // Create a Button.
 var btnAddIgre = Ti.UI.createButton({
-//style:Titanium.UI.iPhone.SystemButton.DISCLOSURE,
 	title : '+',
 	height : 40,
 	width : 40,
@@ -26,9 +33,16 @@ var btnAddIgre = Ti.UI.createButton({
 
 // Listen for click events.
 btnAddIgre.addEventListener('click', function() {
+	var addIgreja = Titanium.UI.createWindow({
+		url : 'tbligrejas_add_agenda.js',
+	});
 
+//currentWin.leftNavButton = closeBtn;
+	ig = true;
+		Ti.UI.currentTab.open(addIgreja, {
+		animated : true
+	});
 });
-
 // Create a Button.
 var btnAddSerm = Ti.UI.createButton({
 	style : Titanium.UI.iPhone.SystemButtonStyle.BORDERED,
@@ -41,11 +55,18 @@ var btnAddSerm = Ti.UI.createButton({
 
 // Listen for click events.
 btnAddSerm.addEventListener('click', function() {
-	alert('\'btnAddIgre\' was clicked!');
-});
+	var addSermoes = Titanium.UI.createWindow({
+		//modal : true,
+		url : 'tblsermao_add_agenda.js',
+		//top : 40
 
-// Add to the parent view.
-//currentWin.add(btnAddIgre);
+	});
+
+	se = true;
+	Ti.UI.currentTab.open(addSermoes, {
+		animated : true
+	});
+});
 
 var igreja = Ti.UI.createTextField({
 	rightButton : btnAddIgre,
@@ -55,21 +76,20 @@ var igreja = Ti.UI.createTextField({
 	width : 300,
 	height : 40,
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
+		fontSize : 16
 	},
 	hintText : 'Igreja',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+
 });
 currentWin.add(igreja);
 
-var sermao = Ti.UI.createTextField({
+var txtsermao = Ti.UI.createTextField({
 	rightButton : btnAddSerm,
 	color : '#245553',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
+		fontSize : 16
 	},
 	top : 60,
 	left : 10,
@@ -94,19 +114,12 @@ data.setLocale(Titanium.Platform.locale);
 data.selectionIndicator = true;
 currentWin.add(data);
 
-data.addEventListener('change', function(e) {
-	Ti.API.info(e.value.toLocaleDateString());
-	// Ti.API.info(getValue());
-
-});
-
 // Create a Label.
 var switchLabel = Ti.UI.createLabel({
 	text : 'Não Concluido',
 	color : '#245553',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
+		fontSize : 16
 	},
 	height : 18,
 	width : 210,
@@ -142,25 +155,32 @@ basicSwitch.addEventListener('change', function(e) {
 	}
 });
 
-// print initial value
-Ti.API.info('Switch value: ' + basicSwitch.value);
 var gravar = Titanium.UI.createButton({
 	title : 'Gravar'
 });
 
 gravar.addEventListener('click', function(e) {
+	var db2 = Ti.Database.install('bd_sgs', 'bd_sgs');
+	var rs = db2.execute('SELECT COUNT(igreja) as quantidade FROM agendasermao WHERE igreja= "' + vidigre + '" and sermao = "' + iSermao + '"');
 
-	if (igreja.value != '') {
-		var dbData = {
-			igreja : igreja.value,
-			sermao : sermao.value,
-			data : data.value.toLocaleDateString(),
+	if (rs.fieldByName('quantidade') == 0) {
+		if (igreja.value != '') {
+			var dbData = {
+				igreja : igreja.value,
+				txtsermao : txtsermao.value,
+				data : data.value.toLocaleDateString(),
 
+			};
+			db2.close();
+			insertRows(dbData);
+		} else {
+			alert("Preencha todos os campos");
 		};
-		insertRows(dbData);
+
 	} else {
-		alert("Preencha todos os campos");
-	};
+		alert("Este sermão já foi utilizado nesta igreja");
+	}
+
 });
 
 var limpar = Titanium.UI.createButton({
@@ -181,11 +201,24 @@ var toolbar = Titanium.UI.iOS.createToolbar({
 });
 currentWin.addEventListener('focus', function(e) {
 	if (iSermao == false) {
-		currentWin.add(sermao);
-		iSermao = sermao.value;
+		currentWin.add(txtsermao);
+	} else {
+
+	};
+	if (ig == 0) {
+	
+	} else {
+		igreja.value = Ti.App.Properties.getString('vigreja');
+		vidigre = Ti.App.Properties.getString('vidigreja');
+	};
+
+	if (se == false) {
 
 	} else {
+		txtsermao.value = Ti.App.Properties.getString('visermao');
+		iSermao = Ti.App.Properties.getString('vidsermao');
 	};
 
 });
+
 currentWin.add(toolbar);
