@@ -9,16 +9,12 @@ var search = Titanium.UI.createSearchBar({
 	height : 43,
 	top : 0,
 });
-//var busca = search.value;
-
-//currentWin.add(search);
-
 
 var deletar = Titanium.UI.createButton({
-	title : 'Editar'
+	title : 'Excluir'
 });
 deletar.addEventListener('click', function(e) {
-	if (e.source.title == "Editar") {
+	if (e.source.title == "Excluir") {
 		tableview.editable = false;
 		//deactivate swipe-Delete button
 		tableview.editing = true;
@@ -27,12 +23,12 @@ deletar.addEventListener('click', function(e) {
 		//Edit:off
 		tableview.editing = true;
 		//Edit:on again!
-		e.source.title = "Done";
+		e.source.title = "OK";
 	} else {
 		tableview.editable = true;
 		//reactivate swipe-Delete button!
 		tableview.editing = false;
-		e.source.title = "Editar";
+		e.source.title = "Excluir";
 	}
 
 });
@@ -43,9 +39,6 @@ currentWin.rightNavButton = deletar;
 function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT agendasermao.id, agendasermao.igreja, igreja.nome FROM  agendasermao INNER JOIN igreja ON agendasermao.igreja = igreja.id WHERE agendasermao.sermao ="' + idSermao + '" and status = "i"  ORDER BY igreja.nome');
-	
-	
-	//var rows = db.execute('SELECT * FROM  pregacao WHERE sermao ="' + idSermao + '"');
 	var dataArray = [];
 
 	while (rows.isValidRow()) {
@@ -59,20 +52,18 @@ function setData() {
 			color : '#245553',
 			font : {
 				fontSize : 16,
-				fontFamily: 'Marker felt'
 			}
 		});
 		rows.next();
 		tableview.setData(dataArray);
 	};
-
 };
 
 // create table view
 var tableview = Ti.UI.createTableView({
 	search : search,
 	filterAttribute : 'title',
-	borderRadius :5,
+	borderRadius : 5,
 	backgroundColor : '#FFEFBF'
 });
 
@@ -80,14 +71,10 @@ currentWin.addEventListener('focus', function() {
 	setData();
 });
 
-
 //deletar
 tableview.addEventListener('delete', function(e) {
 	var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 	var rows = db.execute('DELETE FROM agendasermao WHERE id= "' + e.row.id + '"');
-
-	//var rows = db.execute('DELETE FROM distrito WHERE nome="' + nomeDist +'"');
-
 });
 
 // add the tableView to the current window

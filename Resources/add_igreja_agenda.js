@@ -7,7 +7,6 @@
 //////////////////////////////////
 
 Ti.include("mask.js");
-// create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
 var iSermao = Ti.UI.currentWindow.idSermao;
 var ig = Ti.UI.currentWindow.ig;
@@ -17,12 +16,11 @@ var vidser;
 function insertRows(dbData) {
 
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var theData = db.execute('INSERT INTO agendasermao (igreja, sermao, data, status) VALUES("' + vidigre + '","' + iSermao + '","' + data.value.toLocaleDateString() + '","' + status + '")'); theData;
+	var theData = db.execute('INSERT INTO agendasermao (igreja, sermao, data, status) VALUES("' + vidigre + '","' + iSermao + '","' + data.value.toLocaleDateString() + '","' + status + '")');
+	theData;
 	alert("Registro inserido ");
 
 };
-
-// Create a Button.
 var btnAddIgre = Ti.UI.createButton({
 	title : '+',
 	height : 40,
@@ -30,20 +28,15 @@ var btnAddIgre = Ti.UI.createButton({
 	top : 10,
 	right : 10
 });
-
-// Listen for click events.
 btnAddIgre.addEventListener('click', function() {
 	var addIgreja = Titanium.UI.createWindow({
 		url : 'tbligrejas_add_agenda.js',
 	});
-
-//currentWin.leftNavButton = closeBtn;
 	ig = true;
-		Ti.UI.currentTab.open(addIgreja, {
+	Ti.UI.currentTab.open(addIgreja, {
 		animated : true
 	});
 });
-// Create a Button.
 var btnAddSerm = Ti.UI.createButton({
 	style : Titanium.UI.iPhone.SystemButtonStyle.BORDERED,
 	title : '+',
@@ -53,13 +46,9 @@ var btnAddSerm = Ti.UI.createButton({
 	right : 10
 });
 
-// Listen for click events.
 btnAddSerm.addEventListener('click', function() {
 	var addSermoes = Titanium.UI.createWindow({
-		//modal : true,
 		url : 'tblsermao_add_agenda.js',
-		//top : 40
-
 	});
 
 	se = true;
@@ -114,7 +103,6 @@ data.setLocale(Titanium.Platform.locale);
 data.selectionIndicator = true;
 currentWin.add(data);
 
-// Create a Label.
 var switchLabel = Ti.UI.createLabel({
 	text : 'Não Concluido',
 	color : '#245553',
@@ -128,11 +116,10 @@ var switchLabel = Ti.UI.createLabel({
 	textAlign : 'center'
 });
 
-// Add to the parent view.
 currentWin.add(switchLabel);
 
 var basicSwitch = Ti.UI.createSwitch({
-	value : false, // mandatory property for iOS
+	value : false,
 	bottom : 60,
 	right : 10,
 	color : '#245553',
@@ -162,7 +149,6 @@ var gravar = Titanium.UI.createButton({
 gravar.addEventListener('click', function(e) {
 	var db2 = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rs = db2.execute('SELECT COUNT(igreja) as quantidade FROM agendasermao WHERE igreja= "' + vidigre + '" and sermao = "' + iSermao + '"');
-
 	if (rs.fieldByName('quantidade') == 0) {
 		if (igreja.value != '') {
 			var dbData = {
@@ -176,11 +162,9 @@ gravar.addEventListener('click', function(e) {
 		} else {
 			alert("Preencha todos os campos");
 		};
-
 	} else {
 		alert("Este sermão já foi utilizado nesta igreja");
 	}
-
 });
 
 var limpar = Titanium.UI.createButton({
@@ -206,7 +190,7 @@ currentWin.addEventListener('focus', function(e) {
 
 	};
 	if (ig == 0) {
-	
+
 	} else {
 		igreja.value = Ti.App.Properties.getString('vigreja');
 		vidigre = Ti.App.Properties.getString('vidigreja');

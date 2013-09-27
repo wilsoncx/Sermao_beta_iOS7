@@ -6,8 +6,7 @@ var idIgreja = Ti.UI.currentWindow.idIgreja;
 function insertRows(dbData) {
 
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var theData = db.execute('update igreja set nome="' + nome.value + '", endereco="' + endereco.value + '", contato="' + contato.value + '", fone ="' + fone.value + '"WHERE id ="' + idIgreja + '"');
-	theData;
+	var theData = db.execute('update igreja set nome="' + nome.value + '", endereco="' + endereco.value + '", contato="' + contato.value + '", fone ="' + fone.value + '"WHERE id ="' + idIgreja + '"'); theData;
 	alert("Registro atualizado");
 
 };
@@ -15,8 +14,7 @@ function insertRows(dbData) {
 var nome = Ti.UI.createTextField({
 	color : '#245553',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
+		fontSize : 16
 	},
 	top : 10,
 	left : 10,
@@ -31,8 +29,7 @@ currentWin.add(nome);
 var endereco = Ti.UI.createTextField({
 	color : '#245553',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
+		fontSize : 16
 	},
 	top : 60,
 	left : 10,
@@ -47,8 +44,7 @@ currentWin.add(endereco);
 var contato = Ti.UI.createTextField({
 	color : '#245553',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
+		fontSize : 16
 	},
 	top : 110,
 	left : 10,
@@ -64,13 +60,12 @@ var fone = Ti.UI.createTextField({
 	color : '#245553',
 	top : 160,
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
+		fontSize : 16
 	},
 	left : 10,
 	width : 300,
 	height : 40,
-	hintText : 'fone',
+	hintText : 'Fone',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 });

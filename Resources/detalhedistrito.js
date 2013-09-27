@@ -26,8 +26,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			}
 		}));
 
@@ -37,8 +36,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			}
 		}));
 
@@ -48,8 +46,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			}
 		}));
 
@@ -79,10 +76,8 @@ function setData1() {
 			path : 'detalheigreja.js',
 			color : '#245553',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			}
-
 		});
 		rs.next();
 		tableview.setData(dataArray1);
@@ -98,18 +93,6 @@ var table = Ti.UI.createTableView({
 	scrollable : 'false',
 	backgroundColor : '#FFEFBF'
 });
-var titleEditDist = Titanium.UI.createLabel({
-	color : '#245553',
-	height : 18,
-	width : 210,
-	top : 10,
-	text : 'Editar Distrito',
-	textAlign : 'center',
-	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
-	}
-});
 
 var btnEditDist = Titanium.UI.createButton({
 	title : 'Editar'
@@ -117,19 +100,15 @@ var btnEditDist = Titanium.UI.createButton({
 btnEditDist.addEventListener('click', function(e) {
 
 	var editDist = Titanium.UI.createWindow({
-		//title : 'Cadastrar Distritos',
 		url : 'edit_distrito.js'
 	});
-	editDist.setTitleControl(titleEditDist);
 	editDist.idDist = idDist;
 	Ti.UI.currentTab.open(editDist, {
 		animated : true
 	});
 
 });
-
 //fim
-
 currentWin.addEventListener('focus', function() {
 	setData();
 	setData1();
@@ -147,8 +126,7 @@ var createCustomView = function(title) {
 		left : 20,
 		color : '#fff',
 		font : {
-			fontSize : 16,
-			fontFamily : 'Marker felt'
+			fontSize : 16
 		}
 	});
 	view.add(text);
@@ -166,41 +144,26 @@ var tableview = Ti.UI.createTableView({
 	backgroundColor : '#FFEFBF'
 });
 
-var titleIgreja = Titanium.UI.createLabel({
-	color : '#245553',
-	height : 18,
-	width : 210,
-	top : 10,
-	text : 'Agenda',
-	textAlign : 'center',
-	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
-	},
-
-});
-
 tableview.addEventListener('click', function(e) {
 	if (e.rowData.path) {
 		var win = Ti.UI.createWindow({
 			url : e.rowData.path,
-			title : e.rowData.title,
+			//title : e.rowData.title,
 		});
 		var idIgreja = e.rowData.id;
 		win.idIgreja = idIgreja;
 		Ti.UI.currentTab.open(win);
-		win.setTitleControl(titleIgreja);
 	}
 
 });
 
 //criando botoes
 var deletar = Titanium.UI.createButton({
-	title : 'Editar',
+	title : 'Excluir',
 
 });
 deletar.addEventListener('click', function(e) {
-	if (e.source.title == "Editar") {
+	if (e.source.title == "Excluir") {
 		tableview.editable = false;
 		//deactivate swipe-Delete button
 		tableview.editing = true;
@@ -209,12 +172,12 @@ deletar.addEventListener('click', function(e) {
 		//Edit:off
 		tableview.editing = true;
 		//Edit:on again!
-		e.source.title = "Done";
+		e.source.title = "OK";
 	} else {
 		tableview.editable = true;
 		//reactivate swipe-Delete button!
 		tableview.editing = false;
-		e.source.title = "Editar";
+		e.source.title = "Excluir";
 	}
 
 });
@@ -228,35 +191,18 @@ flexSpace = Titanium.UI.createButton({
 	systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
 });
 var novo = Titanium.UI.createButton({
-	title : 'Nova Igreja'
+	systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD
 
-});
-var titleIgreja = Titanium.UI.createLabel({
-	color : '#245553',
-	height : 18,
-	width : 210,
-	top : 10,
-	text : 'Adicionar Igreja',
-	textAlign : 'center',
-	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
-	}
 });
 
 novo.addEventListener('click', function(e) {
-
 	var addIgreja = Titanium.UI.createWindow({
-
 		url : 'form_igreja.js'
-
 	});
 	addIgreja.idDist = idDist;
 	Ti.UI.currentTab.open(addIgreja, {
 		animated : true
 	});
-	addIgreja.setTitleControl(titleIgreja);
-
 });
 //criando toolbar
 var toolbar = Titanium.UI.iOS.createToolbar({

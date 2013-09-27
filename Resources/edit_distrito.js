@@ -7,17 +7,16 @@ var idDist = Ti.UI.currentWindow.idDist;
 //função que atualizar os dados
 function insertRows(dbData) {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var theData = db.execute('update distrito set nome="' + nome.value + '", pastor="' + pastor.value + '", fone ="' + fone.value + '"WHERE id ="' + idDist + '"'); theData;
+	var theData = db.execute('update distrito set nome="' + nome.value + '", pastor="' + pastor.value + '", fone ="' + fone.value + '"WHERE id ="' + idDist + '"');
+	theData;
 	alert("Distrito Gravado com Sucesso!");
-
 };
 
 //adicionando texte field
 var nome = Ti.UI.createTextField({
 	color : '#245553',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
+		fontSize : 16
 	},
 	top : 20,
 	left : 10,
@@ -31,8 +30,7 @@ currentWin.add(nome);
 var pastor = Ti.UI.createTextField({
 	color : '#245553',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
+		fontSize : 16
 	},
 	top : 80,
 	left : 10,
@@ -46,8 +44,7 @@ currentWin.add(pastor);
 var fone = Ti.UI.createTextField({
 	color : '#245553',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
+		fontSize : 16
 	},
 	top : 140,
 	left : 10,
@@ -73,7 +70,7 @@ db1.close();
 
 // criando botões
 var gravar = Titanium.UI.createButton({
-	title : 'Gravar'
+	title : 'Salvar'
 });
 gravar.addEventListener('click', function(e) {
 

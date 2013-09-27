@@ -6,16 +6,16 @@ var idDist = Ti.UI.currentWindow.idDist;
 function insertRows(dbData) {
 
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var theData = db.execute('INSERT INTO igreja (nome, distrito, endereco, contato, fone) VALUES("' + nome.value + '","' + idDist + '","' + endereco.value + '","' + contato.value + '","' + fone.value + '")'); theData;
-	alert("Registro inserido");
+	var theData = db.execute('INSERT INTO igreja (nome, distrito, endereco, contato, fone) VALUES("' + nome.value + '","' + idDist + '","' + endereco.value + '","' + contato.value + '","' + fone.value + '")');
+	theData;
+	alert("Registro inserido com sucesso!");
 
 };
 
 var nome = Ti.UI.createTextField({
 	color : '#336699',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt',
+		fontSize : 16
 	},
 	top : 10,
 	left : 10,
@@ -30,8 +30,7 @@ currentWin.add(nome);
 var endereco = Ti.UI.createTextField({
 	color : '#336699',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt',
+		fontSize : 16
 	},
 	top : 60,
 	left : 10,
@@ -46,8 +45,7 @@ currentWin.add(endereco);
 var contato = Ti.UI.createTextField({
 	color : '#336699',
 	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt',
+		fontSize : 16
 	},
 	top : 110,
 	left : 10,
@@ -61,9 +59,8 @@ currentWin.add(contato);
 
 var fone = Ti.UI.createTextField({
 	color : '#336699',
-		font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt',
+	font : {
+		fontSize : 16
 	},
 	top : 160,
 	left : 10,
@@ -79,8 +76,8 @@ fone.addEventListener("change", function() {
 currentWin.add(fone);
 
 var gravar = Titanium.UI.createButton({
-	title : 'Gravar'
-	
+	title : 'Salvar'
+
 });
 
 gravar.addEventListener('click', function(e) {

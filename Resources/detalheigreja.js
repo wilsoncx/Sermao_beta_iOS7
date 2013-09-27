@@ -2,9 +2,6 @@ Ti.include("mask.js");
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
 var idIgreja = Ti.UI.currentWindow.idIgreja;
-
-//buscaet the data from the database to the array
-
 function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM igreja WHERE  id ="' + idIgreja + '"ORDER by nome asc');
@@ -31,8 +28,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			}
 
 		}));
@@ -43,8 +39,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			},
 
 		}));
@@ -55,8 +50,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			}
 
 		}));
@@ -67,8 +61,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			}
 
 		}));
@@ -113,25 +106,12 @@ var table = Ti.UI.createTableView({
 var btnEditarIgreja = Titanium.UI.createButton({
 	title : 'Editar'
 });
-var titleEditIgreja = Titanium.UI.createLabel({
-	color : '#245553',
-	height : 18,
-	width : 210,
-	top : 10,
-	text : 'Editar Igreja',
-	textAlign : 'center',
-	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
-	}
-});
+
 btnEditarIgreja.addEventListener('click', function(e) {
 
 	var editIgreja = Titanium.UI.createWindow({
-		//title : 'Editar Igreja',
 		url : 'edit_igreja.js'
 	});
-	editIgreja.setTitleControl(titleEditIgreja);
 	editIgreja.idIgreja = idIgreja;
 	Ti.UI.currentTab.open(editIgreja, {
 		animated : true
@@ -139,9 +119,7 @@ btnEditarIgreja.addEventListener('click', function(e) {
 
 });
 
-//currentWin.rightNavButton = send;
 setData();
 currentWin.add(table);
 currentWin.rightNavButton = btnEditarIgreja;
-//currentWin.add(table);
 

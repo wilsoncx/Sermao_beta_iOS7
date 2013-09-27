@@ -1,14 +1,6 @@
-// this sets the background color of the master UIView (when there are no windows/tab groups on it)
 Titanium.UI.setBackgroundColor('#FFEFBF');
-// create tab group
 var tabGroup = Titanium.UI.createTabGroup();
-
-
-//
-// create base UI tab and root window
-//
 var tela_principal = Titanium.UI.createWindow({  
-   // title:'Agenda',
     url: 'tela_principal.js'
 });
 var titleLabel = Titanium.UI.createLabel({
@@ -82,5 +74,4 @@ tblDistrito.setTitleControl(titdistrito);
 tabGroup.addTab(tab1);
 tabGroup.addTab(tab2);  
 tabGroup.addTab(tab3);  
-// open tab group
 tabGroup.open();

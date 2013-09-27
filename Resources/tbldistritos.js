@@ -7,33 +7,28 @@ var search = Titanium.UI.createSearchBar({
 	showCancel : true,
 	height : 43,
 	top : 0
-	//backgroundColor : '#FFEFBF'
 });
 var busca = search.value;
 
 //criando o botão de de novo distrito e seus eventos
-var send = Titanium.UI.createButton({
-	title : 'Novo Distrito'
+var novoDistrito = Titanium.UI.createButton({
+	systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
 });
 
 //Abrindo formulario para cadastrar novo distrito
-send.addEventListener('click', function(e) {
+novoDistrito.addEventListener('click', function(e) {
 	var gravarDistrito = Titanium.UI.createWindow({
-		title : 'Cadastrar Distritos',
 		url : 'form_distrito.js'
 	});
 	Ti.UI.currentTab.open(gravarDistrito, {
 		animated : true
 		
 	});
-	gravarDistrito.setTitleControl(titleDetDestrito);
-
 });
 
 //criando botão deletar distrito
 var deletar = Titanium.UI.createButton({
-	title : 'Editar',
-	//style : Titanium.UI.iPhone.SystemButtonStyle.DONE,
+	title : 'Excluir',
 });
 
 //modificando evento de click do botão deletar.
@@ -47,7 +42,7 @@ deletar.addEventListener('click', function(e) {
 		//Edit:off
 		tableview.editing = true;
 		//Edit:on again!
-		e.source.title = "Done";
+		e.source.title = "OK";
 	} else {
 		tableview.editable = true;
 		//reactivate swipe-Delete button!
@@ -58,8 +53,8 @@ deletar.addEventListener('click', function(e) {
 });
 
 //adicionando botões na barra de navegação
-currentWin.rightNavButton = deletar;
-currentWin.leftNavButton = send;
+currentWin.rightNavButton = novoDistrito;
+currentWin.leftNavButton = deletar;
 
 //criando função para criar array para ler o banco e lista os distritos
 function setData() {
@@ -78,7 +73,6 @@ function setData() {
 			color : '#245553',
 			font : {
 				fontSize : 16,
-				fontFamily: 'Marker felt'
 			}
 		});
 		rows.next();
@@ -95,26 +89,14 @@ var tableview = Ti.UI.createTableView({
 	backgroundColor : '#FFEFBF'
 
 });
-var titleDetDestrito = Titanium.UI.createLabel({
-    color:'#245553',
-    height:18,
-    width:210,
-    top:10,
-    text:'Distrito',
-    textAlign:'center',
-    font : {fontSize : 16,fontFamily: 'Marker felt'}
-});
 
 //evento para abrir o formulario de detalhes quando se clica em distrito
 tableview.addEventListener('click', function(e) {
 	if (e.rowData.path) {
 		var win = Ti.UI.createWindow({
 			url : e.rowData.path,
-			//title : e.rowData.title,
 			id : e.rowData.id
-		});
-		win.setTitleControl(titleDetDestrito);
-		
+		});		
 		var idDist = e.rowData.id;
 		win.idDist = idDist;
 		Ti.UI.currentTab.open(win);

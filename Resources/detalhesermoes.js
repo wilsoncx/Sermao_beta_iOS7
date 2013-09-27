@@ -35,8 +35,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			}
 
 		}));
@@ -47,8 +46,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			}
 
 		}));
@@ -62,8 +60,7 @@ function setData() {
 			left : 10,
 			textAlign : 'left',
 			font : {
-				fontSize : 16,
-				fontFamily : 'Marker felt'
+				fontSize : 16
 			}
 		}));
 
@@ -90,25 +87,12 @@ var editSermao = Titanium.UI.createButton({
 	title : 'Editar'
 
 });
-var titleEditSermao = Titanium.UI.createLabel({
-	color : '#245553',
-	height : 18,
-	width : 210,
-	top : 10,
-	text : 'Editar Sermão',
-	textAlign : 'center',
-	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
-	}
-});
+
 editSermao.addEventListener('click', function(e) {
 
 	var editSermoes = Titanium.UI.createWindow({
-		//title : 'Cadastrar Sermões',
 		url : 'edit_sermao.js'
 	});
-	editSermoes.setTitleControl(titleEditSermao);
 	editSermoes.idSermao = idSermao;
 	Ti.UI.currentTab.open(editSermoes, {
 		animated : true
@@ -120,8 +104,6 @@ editSermao.addEventListener('click', function(e) {
 
 currentWin.addEventListener('focus', function() {
 	setData();
-	//setData1();
-
 });
 
 //criando botoes de adicionar e ver igrejas
@@ -131,16 +113,13 @@ flexSpace = Titanium.UI.createButton({
 });
 
 var add_igreja = Titanium.UI.createButton({
-	title : 'adicionar Igreja'
-
+	title : 'Adicionar Igreja'
 });
 
 add_igreja.addEventListener('click', function(e) {
 
 	var addIgreja = Titanium.UI.createWindow({
-		title : 'Adicionar Igrejas',
-		url : 'add_igreja_agenda.js',
-		//win.idSermao = idSermao;
+		url : 'add_igreja_agenda.js'
 	});
 
 	addIgreja.idSermao = idSermao;
@@ -155,29 +134,13 @@ var ver_igreja = Titanium.UI.createButton({
 
 });
 
-var titleIgreja = Titanium.UI.createLabel({
-	color : '#245553',
-	height : 18,
-	width : 210,
-	top : 10,
-	text : 'Listar Igrejas',
-	textAlign : 'center',
-	font : {
-		fontSize : 16,
-		fontFamily : 'Marker felt'
-	}
-});
-
 ver_igreja.addEventListener('click', function(e) {
 
 	var verIgreja = Titanium.UI.createWindow({
-		//title : 'Listar Igrejas',
-		url : 'tbligrejas_pregacoes.js',
-		//win.idSermao = idSermao;
+		url : 'tbligrejas_pregacoes.js'
 	});
 
 	verIgreja.idSermao = idSermao;
-	verIgreja.setTitleControl(titleIgreja);
 	Ti.UI.currentTab.open(verIgreja, {
 		animated : true
 	});
@@ -191,7 +154,6 @@ var toolbar = Titanium.UI.iOS.createToolbar({
 	borderBottom : false
 });
 currentWin.add(toolbar);
-
 currentWin.rightNavButton = editSermao;
 setData();
 currentWin.add(table);

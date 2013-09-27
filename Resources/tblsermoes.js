@@ -11,17 +11,8 @@ var search = Titanium.UI.createSearchBar({
 var busca = search.value;
 
 //criando o botão de de novo distrito e seus eventos
-var titleSermao = Titanium.UI.createLabel({
-    color:'#245553',
-    height:18,
-    width:210,
-    top:10,
-    text:'Novo Sermão',
-    textAlign:'center',
-    font : {fontSize : 16,fontFamily: 'Marker felt'}
-});
 var novo = Titanium.UI.createButton({
-	title : 'Novo Sermão'
+	systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD
 });
 
 //Abrindo formulario para cadastrar novo distrito
@@ -32,18 +23,17 @@ novo.addEventListener('click', function(e) {
 	Ti.UI.currentTab.open(addSermao, {
 		animated : true
 	});
-	addSermao.setTitleControl(titleSermao);
 
 });
 
 //criando botão deletar distrito
 var deletar = Titanium.UI.createButton({
-	title : 'Editar'
+	title : 'Excluir'
 });
 
 //modificando evento de click do botão deletar.
 deletar.addEventListener('click', function(e) {
-	if (e.source.title == "Editar") {
+	if (e.source.title == "Excluir") {
 		tableview.editable = false;
 		//deactivate swipe-Delete button
 		tableview.editing = true;
@@ -57,25 +47,16 @@ deletar.addEventListener('click', function(e) {
 		tableview.editable = true;
 		//reactivate swipe-Delete button!
 		tableview.editing = false;
-		e.source.title = "Editar";
+		e.source.title = "Excluir";
 	}
 
 });
 
 //adicionando botões na barra de navegação
-currentWin.rightNavButton = deletar;
-currentWin.leftNavButton = novo;
+currentWin.rightNavButton = novo;
+currentWin.leftNavButton = deletar;
 
 //criando função para criar array para ler o banco e lista os distritos
-var titleSermoes = Titanium.UI.createLabel({
-    color:'#245553',
-    height:18,
-    width:210,
-    top:10,
-    text:'Sermão',
-    textAlign:'center',
-    font : {fontSize : 16,fontFamily: 'Marker felt'}
-});
 function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM sermao  order by titulo ');
@@ -92,7 +73,6 @@ function setData() {
 			color : '#245553',
 			font : {
 				fontSize : 16,
-				fontFamily: 'Marker felt'
 			}
 		});
 		rows.next();
@@ -114,10 +94,8 @@ tableview.addEventListener('click', function(e) {
 	if (e.rowData.path) {
 		var win = Ti.UI.createWindow({
 			url : e.rowData.path,
-			//title : e.rowData.title,
 			id : e.rowData.id
 		});
-		win.setTitleControl(titleSermoes);
 		var idSermao = e.rowData.id;
 		win.idSermao = idSermao;
 		Ti.UI.currentTab.open(win);

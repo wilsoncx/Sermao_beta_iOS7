@@ -14,7 +14,7 @@ function insertRows(dbData) {
 //adicionando os text field
 var titulo = Ti.UI.createTextField({
 	color : '#336699',
-	font : {fontSize : 16,fontFamily: 'Marker felt'},
+	font : {fontSize : 16},
 	top : 20,
 	left : 10,
 	width : 300,
@@ -26,7 +26,7 @@ var titulo = Ti.UI.createTextField({
 currentWin.add(titulo);
 var tema = Ti.UI.createTextField({
 	color : '#336699',
-	font : {fontSize : 16,fontFamily: 'Marker felt'},
+	font : {fontSize : 16},
 	top : 80,
 	left : 10,
 	width : 300,
@@ -38,7 +38,7 @@ var tema = Ti.UI.createTextField({
 currentWin.add(tema);
 var detalhes = Ti.UI.createTextArea({
 	color : '#336699',
-	font : {fontSize : 16,fontFamily: 'Marker felt'},
+	font : {fontSize : 16},
 	top : 140,
 	left : 10,
 	width : 300,
@@ -54,7 +54,7 @@ currentWin.add(detalhes);
 
 // criando os botões
 var gravar = Titanium.UI.createButton({
-	title : 'Gravar'
+	title : 'Salvar'
 });
 
 //evento para gravar os dados nas variaveis
