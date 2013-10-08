@@ -107,6 +107,34 @@ tableview.addEventListener('delete', function(e) {
 
 });
 
+tableview.addEventListener('longclick', function(e) {
+
+	if (os == 'android') {
+		Ti.API.info(e.rowData.id);
+		var delid = e.rowData.id;
+		var dialog = Ti.UI.createOptionDialog({
+			cancel : 2,
+			options : ['Excluir', 'Cancelar'],
+			title : 'Excluir registros?'
+		});
+		dialog.show();
+
+		dialog.addEventListener('click', function(e) {
+			if (e.index == 0) {
+				var db = Ti.Database.open('bd_sgs', 'bd_sgs');
+				var rows = db.execute('DELETE FROM igreja WHERE id= "' + delid + '"');
+				setData();
+
+			} else {
+
+			};
+
+		});
+	} else {
+
+	};
+
+});
 // add the tableView to the current window
 currentWin.add(tableview);
 // call the setData function to attach the database results to the array

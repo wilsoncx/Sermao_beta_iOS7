@@ -1,9 +1,9 @@
-#appname: Sermao
-#appid: com.idescomplicado.sermao
-#type: mobile
-#guid: fd23e238-99cc-4c8a-af7b-ecc5a3b84003
-#version: 1.0
-#publisher: not specified
-#url: not specified
-#image: appicon.png
-#desc: not specified
+#appname:Sermao
+#appid:com.idescomplicado.sermao
+#type:mobile
+#guid:fd23e238-99cc-4c8a-af7b-ecc5a3b84003
+#version:1.0
+#publisher:wilsonalves
+#url:http://idescomplicado.com
+#image:appicon.png
+#desc:Sistema para controle de sermões para pastores.

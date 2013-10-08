@@ -6,6 +6,8 @@
 
 var currentWin = Ti.UI.currentWindow;
 var st = 'a';
+var os = Titanium.Platform.osname;
+Ti.API.info(os);
 function setData() {
 
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
@@ -94,22 +96,99 @@ function setData() {
 				table.editing = true;
 				//Edit:on again!
 				currentWin.rightNavButton = btnDone;
-			} 
-			
+			}
+
+		});
+		row.addEventListener('longclick', function(e) {
+
+			if (os == 'android') {
+				Ti.API.info(e.rowData.id);
+				var delid = e.rowData.id;
+				var dialog = Ti.UI.createOptionDialog({
+					cancel : 2,
+					options : ['Excluir', 'Cancelar'],
+					title : 'Excluir registros?'
+				});
+				dialog.show();
+
+				dialog.addEventListener('click', function(e) {
+					if (e.index == 0) {
+						var db = Ti.Database.open('bd_sgs', 'bd_sgs');
+						var rows = db.execute('DELETE FROM agendasermao WHERE id= "' + delid + '"');
+						setData();
+
+					} else {
+
+					};
+
+				});
+			} else {
+
+			};
 
 		});
 
 		dataArray.push(row);
 		rows.next();
 		table.setData(dataArray);
-
 	};
 
 };
 
-var table = Titanium.UI.createTableView({
-	backgroundColor : '#FFEFBF'
-});
+//Create a Button.
+
+if (os == 'iphone') {
+
+	var table = Titanium.UI.createTableView({
+		backgroundColor : '#FFEFBF'
+	});
+
+	var btnNovo = Titanium.UI.createButton({
+		systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
+		font : {
+			fontSize : 40
+		}
+
+	});
+
+	var btnconcluido = Titanium.UI.createButton({
+		title : 'Concluidos',
+
+	});
+	currentWin.leftNavButton = btnconcluido;
+	currentWin.rightNavButton = btnNovo;
+} else {
+
+	var table = Titanium.UI.createTableView({
+		backgroundColor : '#FFEFBF',
+		bottom : 55
+	});
+
+	var btnNovo = Titanium.UI.createButton({
+		//systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
+		title : 'Novo',
+		font : {
+			fontSize : 16
+		},
+		bottom : 0,
+		right : 0,
+		height : 40,
+		width : 80
+
+	});
+
+	var btnconcluido = Titanium.UI.createButton({
+		title : 'Concluidos',
+		bottom : 0,
+		left : 0,
+		height : 40,
+		width : 100
+
+	});
+
+	currentWin.add(btnNovo);
+	currentWin.add(btnconcluido);
+};
 
 table.addEventListener('dblclick', function(e) {
 	var rowid = e.row.id;
@@ -121,42 +200,43 @@ table.addEventListener('dblclick', function(e) {
 });
 
 currentWin.addEventListener('focus', function() {
-
 	setData();
-
-});
-
-// Create a Button.
-var btnNovo = Titanium.UI.createButton({
-	systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
-	font : {
-		fontSize : 40
-	}
-
 });
 
 // Listen for click events.
 btnNovo.addEventListener('click', function() { fontFamily:'Marker felt';
-	var addIgreja = Titanium.UI.createWindow({
-		url : 'add_igreja_agenda.js'
-	});
-	addIgreja.idSermao = false;
-	addIgreja.ig = false;
-	addIgreja.se = false;
-	Ti.UI.currentTab.open(addIgreja, {
-		animated : true
-	});
+	if (os == 'iphone') {
+		var addIgreja = Titanium.UI.createWindow({
+			url : 'add_igreja_agenda.js'
+		});
+		addIgreja.idSermao = false;
+		addIgreja.ig = false;
+		addIgreja.se = false;
+		Ti.UI.currentTab.open(addIgreja, {
+			animated : true
+		});
+
+	} else {
+		var addIgreja = Titanium.UI.createWindow({
+			url : 'add_igreja_agenda.js',
+			backgroundColor : '#FFEFBF',
+			modal : true,
+			bottom : 55
+
+		});
+		addIgreja.idSermao = false;
+		addIgreja.ig = false;
+		addIgreja.se = false;
+		addIgreja.open();
+	};
 
 });
 
 // Create a Button.
-var btnconcluido = Titanium.UI.createButton({
-	title : 'Concluidos',
-
-});
 
 // Listen for click events.
 btnconcluido.addEventListener('click', function(e) {
+	//db.close();
 	var listConc = Titanium.UI.createWindow({
 		url : 'agenda_lista_concluido.js'
 
@@ -187,8 +267,6 @@ table.addEventListener('delete', function(e) {
 	var rows = db.execute('DELETE FROM agendasermao WHERE id= "' + e.row.id + '"');
 });
 
-currentWin.leftNavButton = btnconcluido;
-currentWin.rightNavButton = btnNovo;
 currentWin.add(table);
 setData();
 

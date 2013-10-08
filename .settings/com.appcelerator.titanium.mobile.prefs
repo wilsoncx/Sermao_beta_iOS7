@@ -1,0 +1,10 @@
+android/ATTR_MINIFY=true
+android/ATTR_PROJECT_NAME=Sermao
+android/abi=armeabi
+android/distribute_path=/Users/wilsonalves/Google Drive/dev_sistemas/isermao
+android/keystore_alias=Isermao
+android/keystore_password=P@ssw0rd
+android/keystore_path=/Users/wilsonalves/Google Drive/dev_sistemas/isermao/key/Isermao_key1
+android/recent_output=/Users/wilsonalves/Google Drive/dev_sistemas/isermao
+android/sdk_version=Google APIs (Android 2.3.3)
+eclipse.preferences.version=1

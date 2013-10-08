@@ -1,5 +1,6 @@
 //criando a tela
 var currentWin = Ti.UI.currentWindow;
+var os = Ti.Platform.osname;
 
 //criando a barra da busca
 var search = Titanium.UI.createSearchBar({
@@ -10,26 +11,77 @@ var search = Titanium.UI.createSearchBar({
 });
 var busca = search.value;
 
+if (os == 'iphone') {
+	var tableview = Ti.UI.createTableView({
+		search : search,
+		filterAttribute : 'title',
+		borderRadius : 5,
+		backgroundColor : '#FFEFBF'
+
+	});
+	var novoDistrito = Titanium.UI.createButton({
+		systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
+	});
+	var deletar = Titanium.UI.createButton({
+		title : 'Excluir',
+	});
+	novoDistrito.addEventListener('click', function(e) {
+		var gravarDistrito = Titanium.UI.createWindow({
+			url : 'form_distrito.js',
+		});
+		Ti.UI.currentTab.open(gravarDistrito, {
+			animated : true
+
+		});
+	});
+
+	currentWin.rightNavButton = novoDistrito;
+	currentWin.leftNavButton = deletar;
+
+} else {
+
+	var tableview = Ti.UI.createTableView({
+		search : search,
+		filterAttribute : 'title',
+		//borderRadius : 5,
+		backgroundColor : '#FFEFBF',
+		bottom : 50
+
+	});
+	var novoDistrito = Titanium.UI.createButton({
+		title : 'Novo Distrito',
+		bottom : 0,
+		right : 0,
+		height : 40,
+		width : '100%'
+	});
+
+	novoDistrito.addEventListener('click', function(e) {
+		var gravarDistrito = Titanium.UI.createWindow({
+			url : 'form_distrito.js',
+			backgroundColor : '#FFEFBF',
+			modal : true
+		});
+		gravarDistrito.open();
+	});
+
+	var deletar = Titanium.UI.createButton({
+		title : 'Excluir',
+		bottom : 0,
+		left : 0,
+		height : 40,
+		width : 80
+	});
+	currentWin.add(novoDistrito);
+	//currentWin.add(deletar);
+
+};
+
 //criando o botão de de novo distrito e seus eventos
-var novoDistrito = Titanium.UI.createButton({
-	systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
-});
 
 //Abrindo formulario para cadastrar novo distrito
-novoDistrito.addEventListener('click', function(e) {
-	var gravarDistrito = Titanium.UI.createWindow({
-		url : 'form_distrito.js'
-	});
-	Ti.UI.currentTab.open(gravarDistrito, {
-		animated : true
-		
-	});
-});
 
 //criando botão deletar distrito
-var deletar = Titanium.UI.createButton({
-	title : 'Excluir',
-});
 
 //modificando evento de click do botão deletar.
 deletar.addEventListener('click', function(e) {
@@ -53,8 +105,6 @@ deletar.addEventListener('click', function(e) {
 });
 
 //adicionando botões na barra de navegação
-currentWin.rightNavButton = novoDistrito;
-currentWin.leftNavButton = deletar;
 
 //criando função para criar array para ler o banco e lista os distritos
 function setData() {
@@ -74,6 +124,7 @@ function setData() {
 			font : {
 				fontSize : 16,
 			}
+
 		});
 		rows.next();
 		tableview.setData(dataArray);
@@ -82,25 +133,61 @@ function setData() {
 };
 
 // criando table view e seus eventos
-var tableview = Ti.UI.createTableView({
-	search : search,
-	filterAttribute : 'title',
-	borderRadius : 5,
-	backgroundColor : '#FFEFBF'
-
-});
 
 //evento para abrir o formulario de detalhes quando se clica em distrito
 tableview.addEventListener('click', function(e) {
 	if (e.rowData.path) {
-		var win = Ti.UI.createWindow({
-			url : e.rowData.path,
-			id : e.rowData.id
-		});		
-		var idDist = e.rowData.id;
-		win.idDist = idDist;
-		Ti.UI.currentTab.open(win);
+
+		if (os == 'iphone') {
+			var win = Ti.UI.createWindow({
+				url : e.rowData.path,
+				id : e.rowData.id
+			});
+			var idDist = e.rowData.id;
+			win.idDist = idDist;
+
+			Ti.UI.currentTab.open(win);
+
+		} else {
+			var win = Ti.UI.createWindow({
+				url : e.rowData.path,
+				id : e.rowData.id,
+				modal : true,
+
+			});
+			var idDist = e.rowData.id;
+			win.idDist = idDist;
+			win.open();
+		};
 	}
+
+});
+tableview.addEventListener('longclick', function(e) {
+
+	if (os == 'android') {
+		Ti.API.info(e.rowData.id);
+		var delid = e.rowData.id;
+		var dialog = Ti.UI.createOptionDialog({
+			cancel : 2,
+			options : ['Excluir', 'Cancelar'],
+			title : 'Excluir registros?'
+		});
+		dialog.show();
+
+		dialog.addEventListener('click', function(e) {
+			if (e.index == 0) {
+				var db = Ti.Database.open('bd_sgs', 'bd_sgs');
+				var rows = db.execute('DELETE FROM distrito WHERE id= "' + delid + '"');
+				setData();
+
+			} else {
+
+			};
+
+		});
+	} else {
+
+	};
 
 });
 

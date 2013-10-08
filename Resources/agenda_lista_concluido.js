@@ -6,6 +6,7 @@
 
 // Create an array of explicitly defined custom TableViewRows
 var currentWin = Ti.UI.currentWindow;
+var os = Titanium.Platform.osname;
 var st = 'i';
 Ti.API.info(st);
 function setData() {
@@ -13,7 +14,6 @@ function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT agendasermao.id, agendasermao.igreja, agendasermao.sermao, agendasermao.data, igreja.nome, sermao.titulo FROM  agendasermao INNER JOIN igreja ON agendasermao.igreja = igreja.id INNER JOIN sermao ON agendasermao.sermao = sermao.id WHERE status = "' + st + '"  ORDER BY agendasermao.data DESC');
 	var dataArray = [];
-
 	while (rows.isValidRow()) {
 		var vsermao = rows.fieldByName('titulo');
 		var vid = rows.fieldByName('id');
@@ -139,16 +139,66 @@ function setData() {
 		dataArray.push(row);
 		rows.next();
 		table.setData(dataArray);
-		db.close();
 	};
 
 };
 
-// now assign that array to the table's data property to add those objects as rows
+
+if (os == 'iphone') {
+	
 var table = Titanium.UI.createTableView({
 	backgroundColor : '#FFEFBF'
-
 });
+
+	var btnNovo = Titanium.UI.createButton({
+		systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
+		font : {
+			fontSize : 40
+		}
+
+	});
+
+	var btnNconcluido = Titanium.UI.createButton({
+		title : 'Não Concluidos',
+
+	});
+	currentWin.leftNavButton = btnNconcluido;
+	currentWin.rightNavButton = btnNovo;
+} else {
+	
+var table = Titanium.UI.createTableView({
+	backgroundColor : '#FFEFBF',
+	bottom : 55
+});
+
+
+	
+	var btnNovo = Titanium.UI.createButton({
+		//systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
+		title : 'Novo',
+		font : {
+			fontSize : 16
+		},
+		bottom : 0,
+		right : 0,
+		height : 50,
+		width : 80
+
+	});
+
+	var btnNconcluido = Titanium.UI.createButton({
+		title : 'Não Concluidos',
+		bottom: 0,
+		left : 0,
+		height : 50,
+		width : 160
+
+	});
+
+	currentWin.add(btnNovo);
+	currentWin.add(btnNconcluido);
+};
+
 
 table.addEventListener('dblclick', function(e) {
 	var rowid = e.row.id;
@@ -164,39 +214,40 @@ currentWin.addEventListener('focus', function() {
 
 });
 
-// Create a Button.
-var btnNovo = Titanium.UI.createButton({
-	systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
-	font : {
-		fontSize : 40
-	}
-
-});
 
 // Listen for click events.
 btnNovo.addEventListener('click', function() { fontFamily:'Marker felt';
+	if (os=='iphone') {
 	var addIgreja = Titanium.UI.createWindow({
-		//title : 'Add Igrejas',
-		url : 'add_igreja_agenda.js',
-
+		url : 'add_igreja_agenda.js'		
 	});
-	//addIgreja.setTitleControl(titleaddIgreja);
-	//gravarDistrito.idDist = idDist;
-	//var idSermao = 0;
 	addIgreja.idSermao = false;
+	addIgreja.ig = false;
+	addIgreja.se = false;
 	Ti.UI.currentTab.open(addIgreja, {
 		animated : true
 	});
 
+} else{
+	var addIgreja = Titanium.UI.createWindow({
+		url : 'add_igreja_agenda.js',
+		backgroundColor:'#FFEFBF',
+		modal:true,
+		bottom: 55
+		
+	});
+	addIgreja.idSermao = false;
+	addIgreja.ig = false;
+	addIgreja.se = false;
+	addIgreja.open();
+};
+
 });
 
-// Create a Button.
-var btnNconcluido = Titanium.UI.createButton({
-	title : 'Não Concluidos',
-
-});
 // Listen for click events.
 btnNconcluido.addEventListener('click', function(e) {
+	if (os=='iphone') {
+	
 	var listConc = Titanium.UI.createWindow({
 		url: 'tela_principal.js'
 		
@@ -204,6 +255,11 @@ btnNconcluido.addEventListener('click', function(e) {
 	Ti.UI.currentTab.open(listConc, {
 		animated:true
 	});
+	} else{
+		currentWin.close();
+		
+	};
+	
 });
 
 
@@ -232,8 +288,6 @@ table.addEventListener('delete', function(e) {
 
 });
 
-currentWin.leftNavButton = btnNconcluido;
-currentWin.rightNavButton = btnNovo;
 currentWin.add(table);
 setData();
 

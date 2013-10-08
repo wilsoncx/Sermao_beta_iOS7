@@ -5,7 +5,7 @@
     <version>1.0</version>
     <publisher>wilsonalves</publisher>
     <url>http://idescomplicado.com</url>
-    <description>not specified</description>
+    <description>Sistema para controle de sermões para pastores.</description>
     <copyright>2013 by wilsonalves</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>

@@ -2,6 +2,8 @@
 Ti.include("mask.js");
 // Criando a tela inicial
 var currentWin = Ti.UI.currentWindow;
+var os = Ti.Platform.osname;
+
 //Função para inserir os dados no banco
 function insertRows(dbData) {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
@@ -52,11 +54,47 @@ var detalhes = Ti.UI.createTextArea({
 
 currentWin.add(detalhes);
 
-// criando os botões
-var gravar = Titanium.UI.createButton({
-	title : 'Salvar'
-});
+if (os == 'iphone') {
+	var gravar = Titanium.UI.createButton({
+		title : 'Salvar'
 
+	});
+	var limpar = Titanium.UI.createButton({
+		title : 'Limpar'
+	});
+	flexSpace = Titanium.UI.createButton({
+		systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
+	});
+
+	var toolbar = Titanium.UI.iOS.createToolbar({
+		items : [gravar, flexSpace, flexSpace, flexSpace, limpar],
+		bottom : 0,
+		borderTop : true,
+		borderBottom : false
+	});
+	currentWin.add(toolbar);
+
+} else {
+	var gravar = Titanium.UI.createButton({
+		title : 'Salvar',
+		bottom : 0,
+		left : 10,
+		height : 40,
+		width : 80
+	});
+	var limpar = Titanium.UI.createButton({
+		title : 'Limpar',
+		bottom : 0,
+		right : 10,
+		height : 40,
+		width : 80
+	});
+	currentWin.add(gravar);
+	currentWin.add(limpar);
+
+
+};
+// criando os botões
 //evento para gravar os dados nas variaveis
 gravar.addEventListener('click', function(e) {
 
@@ -75,9 +113,7 @@ gravar.addEventListener('click', function(e) {
 	};
 });
 
-var limpar = Titanium.UI.createButton({
-	title : 'Limpar'
-});
+
 limpar.addEventListener('click', function(e) {
 	titulo.value = '';
 	tema.value = '';
@@ -88,11 +124,4 @@ flexSpace = Titanium.UI.createButton({
 	systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
 });
 
-//criando a toolbar
-var toolbar = Titanium.UI.iOS.createToolbar({
-	items : [gravar, flexSpace, flexSpace, flexSpace, limpar],
-	bottom : 0,
-	borderTop : true,
-	borderBottom : false
-});
-currentWin.add(toolbar);
+

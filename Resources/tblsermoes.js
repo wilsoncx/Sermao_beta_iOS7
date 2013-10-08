@@ -1,5 +1,6 @@
 //criando a tela
 var currentWin = Ti.UI.currentWindow;
+var os = Ti.Platform.osname;
 
 //criando a barra da busca
 var search = Titanium.UI.createSearchBar({
@@ -10,26 +11,109 @@ var search = Titanium.UI.createSearchBar({
 });
 var busca = search.value;
 
-//criando o botão de de novo distrito e seus eventos
-var novo = Titanium.UI.createButton({
-	systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD
-});
+if (os == 'iphone') {
+	// criando table view e seus eventos
+	var tableview = Ti.UI.createTableView({
+		search : search,
+		filterAttribute : 'title',
+		backgroundColor : '#FFEFBF'
 
-//Abrindo formulario para cadastrar novo distrito
-novo.addEventListener('click', function(e) {
-	var addSermao = Titanium.UI.createWindow({
-		url : 'form_sermao.js'
 	});
-	Ti.UI.currentTab.open(addSermao, {
-		animated : true
+	
+	tableview.addEventListener('click', function(e) {
+	if (e.rowData.path) {
+		var win = Ti.UI.createWindow({
+			url : e.rowData.path,
+			id : e.rowData.id
+		});
+		var idSermao = e.rowData.id;
+		win.idSermao = idSermao;
+		Ti.UI.currentTab.open(win);
+
+	}
+
+});
+	//criando o botão de de novo distrito e seus eventos
+	var novo = Titanium.UI.createButton({
+		systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD
 	});
 
-});
+	//Abrindo formulario para cadastrar novo distrito
+	novo.addEventListener('click', function(e) {
+		var addSermao = Titanium.UI.createWindow({
+			url : 'form_sermao.js'
+		});
+		Ti.UI.currentTab.open(addSermao, {
+			animated : true
+		});
 
-//criando botão deletar distrito
-var deletar = Titanium.UI.createButton({
-	title : 'Excluir'
+	});
+
+	//criando botão deletar distrito
+	var deletar = Titanium.UI.createButton({
+		title : 'Excluir'
+	});
+	//adicionando botões na barra de navegação
+	currentWin.rightNavButton = novo;
+	currentWin.leftNavButton = deletar;
+
+} else {
+	// criando table view e seus eventos
+	var tableview = Ti.UI.createTableView({
+		search : search,
+		filterAttribute : 'title',
+		backgroundColor : '#FFEFBF',
+		bottom : 50
+
+	});
+	
+	tableview.addEventListener('click', function(e) {
+	if (e.rowData.path) {
+		var win = Ti.UI.createWindow({
+			url : e.rowData.path,
+			id : e.rowData.id,
+			backgroundColor : '#FFEFBF',
+			modal : true
+		
+		});
+		var idSermao = e.rowData.id;
+		win.idSermao = idSermao;
+		win.open();
+	}
+
 });
+	//criando o botão de de novo distrito e seus eventos
+	var novo = Titanium.UI.createButton({
+		title : 'Novo Sermão',
+		bottom : 0,
+		right : 0,
+		height : 40,
+		width : '100%'
+	});
+
+	//Abrindo formulario para cadastrar novo distrito
+	novo.addEventListener('click', function(e) {
+		var addSermao = Titanium.UI.createWindow({
+			url : 'form_sermao.js',
+			backgroundColor : '#FFEFBF',
+			modal : true
+		});
+		addSermao.open();
+
+	});
+
+	//criando botão deletar distrito
+	var deletar = Titanium.UI.createButton({
+		title : 'Excluir',
+		bottom : 0,
+		left : 0,
+		height : 40,
+		width : 80
+	});
+	currentWin.add(novo);
+	//currentWin.add(deletar);
+
+};
 
 //modificando evento de click do botão deletar.
 deletar.addEventListener('click', function(e) {
@@ -52,10 +136,6 @@ deletar.addEventListener('click', function(e) {
 
 });
 
-//adicionando botões na barra de navegação
-currentWin.rightNavButton = novo;
-currentWin.leftNavButton = deletar;
-
 //criando função para criar array para ler o banco e lista os distritos
 function setData() {
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
@@ -67,7 +147,7 @@ function setData() {
 		var vid = rows.fieldByName('id');
 		dataArray.push({
 			hasChild : true,
-			title: vtitulo,
+			title : vtitulo,
 			id : vid,
 			path : 'detalhesermoes.js',
 			color : '#245553',
@@ -81,35 +161,42 @@ function setData() {
 
 };
 
-// criando table view e seus eventos
-var tableview = Ti.UI.createTableView({
-	search : search,
-	filterAttribute : 'title',
-	borderRadius : 5,
-	backgroundColor : '#FFEFBF'
-
-});
 //evento para abrir o formulario de detalhes quando se clica em distrito
-tableview.addEventListener('click', function(e) {
-	if (e.rowData.path) {
-		var win = Ti.UI.createWindow({
-			url : e.rowData.path,
-			id : e.rowData.id
-		});
-		var idSermao = e.rowData.id;
-		win.idSermao = idSermao;
-		Ti.UI.currentTab.open(win);
-		
-	}
 
-});
 
 //evento para deletar do banco o distrito
 tableview.addEventListener('delete', function(e) {
 	var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 	var rows = db.execute('DELETE FROM sermao WHERE id= "' + e.row.id + '"');
 });
+tableview.addEventListener('longclick', function(e) {
 
+	if (os == 'android') {
+		Ti.API.info(e.rowData.id);
+		var delid = e.rowData.id;
+		var dialog = Ti.UI.createOptionDialog({
+			cancel : 2,
+			options : ['Excluir', 'Cancelar'],
+			title : 'Excluir registros?'
+		});
+		dialog.show();
+
+		dialog.addEventListener('click', function(e) {
+			if (e.index == 0) {
+				var db = Ti.Database.open('bd_sgs', 'bd_sgs');
+				var rows = db.execute('DELETE FROM sermao  WHERE id= "' + delid + '"');
+				setData();
+
+			} else {
+
+			};
+
+		});
+	} else {
+
+	};
+
+});
 //relendo o banco quando é feito alguma modificação no formulario
 currentWin.addEventListener('focus', function() {
 	setData();

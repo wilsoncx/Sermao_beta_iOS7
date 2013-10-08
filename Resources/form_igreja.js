@@ -3,11 +3,12 @@ Ti.include("mask.js");
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
 var idDist = Ti.UI.currentWindow.idDist;
+var os = Titanium.Platform.osname;
+
 function insertRows(dbData) {
 
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var theData = db.execute('INSERT INTO igreja (nome, distrito, endereco, contato, fone) VALUES("' + nome.value + '","' + idDist + '","' + endereco.value + '","' + contato.value + '","' + fone.value + '")');
-	theData;
+	var theData = db.execute('INSERT INTO igreja (nome, distrito, endereco, contato, fone) VALUES("' + nome.value + '","' + idDist + '","' + endereco.value + '","' + contato.value + '","' + fone.value + '")'); theData;
 	alert("Registro inserido com sucesso!");
 
 };
@@ -70,15 +71,51 @@ var fone = Ti.UI.createTextField({
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 });
-fone.addEventListener("change", function() {
+fone.addEventListener("blur", function() {
 	Mask.mask(fone, Mask.phone);
 });
 currentWin.add(fone);
 
-var gravar = Titanium.UI.createButton({
-	title : 'Salvar'
+if (os == 'iphone') {
+	var gravar = Titanium.UI.createButton({
+		title : 'Salvar'
 
-});
+	});
+	var limpar = Titanium.UI.createButton({
+		title : 'Limpar'
+	});
+	flexSpace = Titanium.UI.createButton({
+		systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
+	});
+
+	var toolbar = Titanium.UI.iOS.createToolbar({
+		items : [gravar, flexSpace, flexSpace, flexSpace, limpar],
+		bottom : 0,
+		borderTop : true,
+		borderBottom : false
+	});
+	currentWin.add(toolbar);
+
+} else {
+	var gravar = Titanium.UI.createButton({
+		title : 'Salvar',
+		bottom : 0,
+		left : 10,
+		height : 40,
+		width : 80
+	});
+	var limpar = Titanium.UI.createButton({
+		title : 'Limpar',
+		bottom : 0,
+		right : 10,
+		height : 40,
+		width : 80
+	});
+	currentWin.add(gravar);
+	currentWin.add(limpar);
+
+
+};
 
 gravar.addEventListener('click', function(e) {
 
@@ -96,20 +133,6 @@ gravar.addEventListener('click', function(e) {
 	};
 });
 
-var limpar = Titanium.UI.createButton({
-	title : 'Limpar'
-});
 limpar.addEventListener('click', function(e) { nome:''; enderco:''; contato:''; fone:'';
 });
 
-flexSpace = Titanium.UI.createButton({
-	systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
-});
-
-var toolbar = Titanium.UI.iOS.createToolbar({
-	items : [gravar, flexSpace, flexSpace, flexSpace, limpar],
-	bottom : 0,
-	borderTop : true,
-	borderBottom : false
-});
-currentWin.add(toolbar);

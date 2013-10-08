@@ -1,4 +1,5 @@
 Ti.include("mask.js");
+var os = Ti.Platform.osname;
 
 //criando a tela
 var currentWin = Ti.UI.currentWindow;
@@ -60,6 +61,50 @@ fone.addEventListener("change", function() {
 	Mask.mask(fone, Mask.phone);
 });
 
+if (os == 'iphone') {
+
+	flexSpace = Titanium.UI.createButton({
+		systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
+
+	});
+	// criando botões
+	var gravar = Titanium.UI.createButton({
+		title : 'Gravar',
+	});
+	var limpar = Titanium.UI.createButton({
+		title : 'Limpar',
+	});
+	//criando a toolbar
+	var toolbar = Titanium.UI.iOS.createToolbar({
+		items : [gravar, flexSpace, flexSpace, flexSpace, limpar],
+		bottom : 0,
+		borderTop : true,
+		borderBottom : false
+	});
+	currentWin.add(toolbar);
+
+} else {
+	// criando botões
+	var gravar = Titanium.UI.createButton({
+		title : 'Gravar',
+		bottom : 0,
+		left : 10,
+		height : 40,
+		width : 80
+	});
+	var limpar = Titanium.UI.createButton({
+		title : 'Limpar',
+		bottom : 0,
+		right : 10,
+		height : 40,
+		width : 80
+	});
+
+	currentWin.add(gravar);
+	currentWin.add(limpar);
+
+};
+
 //variavel para lista os ditritos e pegar o id
 var db1 = Ti.Database.install('bd_sgs', 'bd_sgs');
 var rs = db1.execute('SELECT * FROM distrito WHERE id ="' + idDist + '"');
@@ -68,10 +113,6 @@ pastor.value = rs.fieldByName('pastor');
 fone.value = rs.fieldByName('fone');
 db1.close();
 
-// criando botões
-var gravar = Titanium.UI.createButton({
-	title : 'Salvar'
-});
 gravar.addEventListener('click', function(e) {
 
 	if (nome.value != '' && pastor.value != '' && fone.value != '') {
@@ -81,32 +122,15 @@ gravar.addEventListener('click', function(e) {
 			fone : fone.value
 		};
 		insertRows(dbData);
-		nome.value = '';
-		pastor.value = '';
-		fone.value = '';
 	} else {
 		alert("Preencha todos os campos");
 	};
 });
 
-var limpar = Titanium.UI.createButton({
-	title : 'Limpar'
-});
+
 limpar.addEventListener('click', function(e) {
 	nome.value = '';
 	pastor.value = '';
 	fone.value = '';
 });
 
-flexSpace = Titanium.UI.createButton({
-	systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
-});
-
-//criando a toolbar
-var toolbar = Titanium.UI.iOS.createToolbar({
-	items : [gravar, flexSpace, flexSpace, flexSpace, limpar],
-	bottom : 0,
-	borderTop : true,
-	borderBottom : false
-});
-currentWin.add(toolbar);

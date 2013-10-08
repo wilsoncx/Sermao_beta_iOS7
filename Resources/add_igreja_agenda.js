@@ -13,6 +13,8 @@ var ig = Ti.UI.currentWindow.ig;
 var se = Ti.UI.currentWindow.se;
 var vidigre;
 var vidser;
+var os = Titanium.Platform.osname;
+
 function insertRows(dbData) {
 
 	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
@@ -28,15 +30,7 @@ var btnAddIgre = Ti.UI.createButton({
 	top : 10,
 	right : 10
 });
-btnAddIgre.addEventListener('click', function() {
-	var addIgreja = Titanium.UI.createWindow({
-		url : 'tbligrejas_add_agenda.js',
-	});
-	ig = true;
-	Ti.UI.currentTab.open(addIgreja, {
-		animated : true
-	});
-});
+
 var btnAddSerm = Ti.UI.createButton({
 	style : Titanium.UI.iPhone.SystemButtonStyle.BORDERED,
 	title : '+',
@@ -44,49 +38,6 @@ var btnAddSerm = Ti.UI.createButton({
 	width : 40,
 	top : 60,
 	right : 10
-});
-
-btnAddSerm.addEventListener('click', function() {
-	var addSermoes = Titanium.UI.createWindow({
-		url : 'tblsermao_add_agenda.js',
-	});
-
-	se = true;
-	Ti.UI.currentTab.open(addSermoes, {
-		animated : true
-	});
-});
-
-var igreja = Ti.UI.createTextField({
-	rightButton : btnAddIgre,
-	color : '#245553',
-	top : 10,
-	left : 10,
-	width : 300,
-	height : 40,
-	font : {
-		fontSize : 16
-	},
-	hintText : 'Igreja',
-	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
-	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
-
-});
-currentWin.add(igreja);
-
-var txtsermao = Ti.UI.createTextField({
-	rightButton : btnAddSerm,
-	color : '#245553',
-	font : {
-		fontSize : 16
-	},
-	top : 60,
-	left : 10,
-	width : 300,
-	height : 40,
-	hintText : 'Sermão',
-	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
-	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 });
 
 var dateValue = new Date();
@@ -102,21 +53,6 @@ var data = Ti.UI.createPicker({
 data.setLocale(Titanium.Platform.locale);
 data.selectionIndicator = true;
 currentWin.add(data);
-
-var switchLabel = Ti.UI.createLabel({
-	text : 'Não Concluido',
-	color : '#245553',
-	font : {
-		fontSize : 16
-	},
-	height : 18,
-	width : 210,
-	bottom : 60,
-	right : 20,
-	textAlign : 'center'
-});
-
-currentWin.add(switchLabel);
 
 var basicSwitch = Ti.UI.createSwitch({
 	value : false,
@@ -141,10 +77,173 @@ basicSwitch.addEventListener('change', function(e) {
 		switchLabel.text = 'Não Concluido';
 	}
 });
+if (os == 'iphone') {
+	var switchLabel = Ti.UI.createLabel({
+		text : 'Não Concluido',
+		color : '#245553',
+		font : {
+			fontSize : 16
+		},
+		height : 18,
+		width : 210,
+		bottom : 60,
+		right : 20,
+		textAlign : 'center'
+	});
 
-var gravar = Titanium.UI.createButton({
-	title : 'Gravar'
-});
+	currentWin.add(switchLabel);
+
+	var txtsermao = Ti.UI.createTextField({
+		rightButton : btnAddSerm,
+		color : '#245553',
+		font : {
+			fontSize : 16
+		},
+		top : 60,
+		left : 10,
+		width : 300,
+		height : 40,
+		hintText : 'Sermão',
+		keyboardType : Ti.UI.KEYBOARD_DEFAULT,
+		borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+	});
+	var igreja = Ti.UI.createTextField({
+		rightButton : btnAddIgre,
+		color : '#245553',
+		top : 10,
+		left : 10,
+		width : 300,
+		height : 40,
+		font : {
+			fontSize : 16
+		},
+		hintText : 'Igreja',
+		keyboardType : Ti.UI.KEYBOARD_DEFAULT,
+		borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+
+	});
+	btnAddSerm.addEventListener('click', function() {
+		var addSermoes = Titanium.UI.createWindow({
+			url : 'tblsermao_add_agenda.js',
+		});
+
+		se = true;
+		Ti.UI.currentTab.open(addSermoes, {
+			animated : true
+		});
+	});
+
+	btnAddIgre.addEventListener('click', function() {
+		var addIgreja = Titanium.UI.createWindow({
+			url : 'tbligrejas_add_agenda.js',
+		});
+		ig = true;
+		Ti.UI.currentTab.open(addIgreja, {
+			animated : true
+		});
+	});
+	var limpar = Titanium.UI.createButton({
+		title : 'Limpar'
+	});
+	var gravar = Titanium.UI.createButton({
+		title : 'Gravar'
+	});
+
+	flexSpace = Titanium.UI.createButton({
+		systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
+	});
+	var toolbar = Titanium.UI.iOS.createToolbar({
+		items : [gravar, flexSpace, flexSpace, flexSpace, limpar],
+		bottom : 0,
+		borderTop : true,
+		borderBottom : false
+	});
+	currentWin.add(toolbar);
+
+} else {
+	var switchLabel = Ti.UI.createLabel({
+		text : 'Não Concluido',
+		color : '#245553',
+		font : {
+			fontSize : 16
+		},
+		height : 18,
+		width : 210,
+		bottom : 80,
+		right : 60,
+		textAlign : 'center'
+	});
+
+	currentWin.add(switchLabel);
+
+	var txtsermao = Ti.UI.createTextField({
+		color : '#245553',
+		font : {
+			fontSize : 16
+		},
+		top : 60,
+		left : 10,
+		width : 255,
+		height : 40,
+		hintText : 'Sermão',
+		keyboardType : Ti.UI.KEYBOARD_DEFAULT,
+		borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+	});
+
+	var igreja = Ti.UI.createTextField({
+		color : '#245553',
+		top : 10,
+		left : 10,
+		width : 255,
+		height : 40,
+		font : {
+			fontSize : 16
+		},
+		hintText : 'Igreja',
+		keyboardType : Ti.UI.KEYBOARD_DEFAULT,
+		borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+
+	});
+	btnAddSerm.addEventListener('click', function() {
+		var addSermoes = Titanium.UI.createWindow({
+			url : 'tblsermao_add_agenda.js',
+			backgroundColor : '#FFEFBF',
+			modal : true
+		});
+
+		se = true;
+		addSermoes.open();
+	});
+	btnAddIgre.addEventListener('click', function() {
+		var addIgreja = Titanium.UI.createWindow({
+			url : 'tbligrejas_add_agenda.js',
+			backgroundColor : '#FFEFBF',
+			modal : true
+		});
+		ig = true;
+		addIgreja.open();
+	});
+
+	currentWin.add(btnAddIgre);
+	var limpar = Titanium.UI.createButton({
+		title : 'Limpar',
+		bottom : 0,
+		left : 10,
+		height : 40,
+		width : 80
+	});
+	var gravar = Titanium.UI.createButton({
+		title : 'Gravar',
+		bottom : 0,
+		right : 0,
+		height : 40,
+		width : 80
+	});
+
+	currentWin.add(limpar);
+	currentWin.add(gravar);
+
+};
 
 gravar.addEventListener('click', function(e) {
 	var db2 = Ti.Database.install('bd_sgs', 'bd_sgs');
@@ -167,25 +266,15 @@ gravar.addEventListener('click', function(e) {
 	}
 });
 
-var limpar = Titanium.UI.createButton({
-	title : 'Limpar'
-});
 limpar.addEventListener('click', function(e) { igreja:''; sermao:'';
 });
 
-flexSpace = Titanium.UI.createButton({
-	systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
-});
-
-var toolbar = Titanium.UI.iOS.createToolbar({
-	items : [gravar, flexSpace, flexSpace, flexSpace, limpar],
-	bottom : 0,
-	borderTop : true,
-	borderBottom : false
-});
 currentWin.addEventListener('focus', function(e) {
 	if (iSermao == false) {
 		currentWin.add(txtsermao);
+		if (os == 'android') {
+			currentWin.add(btnAddSerm);
+		};
 	} else {
 
 	};
@@ -205,4 +294,5 @@ currentWin.addEventListener('focus', function(e) {
 
 });
 
-currentWin.add(toolbar);
+currentWin.add(igreja);
+
