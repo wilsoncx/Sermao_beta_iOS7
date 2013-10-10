@@ -3,14 +3,14 @@
 //*aparece a lista de pregações   *
 //*agendadas com horario e igreja *
 //*********************************
+Ti.include("bd.js");
 
 var currentWin = Ti.UI.currentWindow;
 var st = 'a';
 var os = Titanium.Platform.osname;
 Ti.API.info(os);
 function setData() {
-
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
+	var db = Ti.Database.open('bd_sgs.db');
 	var rows = db.execute('SELECT agendasermao.id, agendasermao.igreja, agendasermao.sermao, agendasermao.data, igreja.nome, sermao.titulo FROM  agendasermao INNER JOIN igreja ON agendasermao.igreja = igreja.id INNER JOIN sermao ON agendasermao.sermao = sermao.id WHERE status = "' + st + '"  ORDER BY agendasermao.data DESC');
 	var dataArray = [];
 
@@ -106,20 +106,23 @@ function setData() {
 				var delid = e.rowData.id;
 				var dialog = Ti.UI.createOptionDialog({
 					cancel : 2,
-					options : ['Excluir', 'Cancelar'],
-					title : 'Excluir registros?'
+					options : ['Conclui', 'Excluir', 'Cancelar'],
+					title : 'Editar registros?'
 				});
 				dialog.show();
 
 				dialog.addEventListener('click', function(e) {
-					if (e.index == 0) {
-						var db = Ti.Database.open('bd_sgs', 'bd_sgs');
+					if (e.index == 1) {
 						var rows = db.execute('DELETE FROM agendasermao WHERE id= "' + delid + '"');
+						setData();
+					} else if (e.index == 0) {
+						db.execute('UPDATE agendasermao SET status = "i" WHERE id = "' + delid + '"');
 						setData();
 
 					} else {
 
-					};
+					}
+					;
 
 				});
 			} else {
@@ -190,12 +193,13 @@ if (os == 'iphone') {
 	currentWin.add(btnconcluido);
 };
 
-table.addEventListener('dblclick', function(e) {
+table.addEventListener('click', function(e) {
 	var rowid = e.row.id;
-	var db1 = Ti.Database.install('bd_sgs', 'bd_sgs');
+	var db1 = Ti.Database.open('bd_sgs.db');
+	//e.row.row = e.row.id;
 	db1.execute('UPDATE agendasermao SET status = "i" WHERE id = "' + rowid + '"');
 	table.deleteRow(e.row.row);
-	db1.close();
+	Ti.API.info(e.row.row);
 
 });
 
@@ -263,7 +267,6 @@ btnDone.addEventListener('click', function(e) {
 });
 
 table.addEventListener('delete', function(e) {
-	var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 	var rows = db.execute('DELETE FROM agendasermao WHERE id= "' + e.row.id + '"');
 });
 

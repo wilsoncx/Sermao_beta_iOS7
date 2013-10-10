@@ -1,12 +1,13 @@
 //include para modificação de mascaras
 Ti.include("mask.js");
+Ti.include("bd.js");
+
 // Criando a tela inicial
 var currentWin = Ti.UI.currentWindow;
 var os = Ti.Platform.osname;
 
 //Função para inserir os dados no banco
 function insertRows(dbData) {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var theData = db.execute('INSERT INTO sermao (titulo, tema, detalhes) VALUES("' + titulo.value + '","' + tema.value + '","' + detalhes.value + '")');
 	theData;
 	alert("Sermão Gravado com Sucesso!");
@@ -17,9 +18,9 @@ function insertRows(dbData) {
 var titulo = Ti.UI.createTextField({
 	color : '#336699',
 	font : {fontSize : 16},
-	top : 20,
-	left : 10,
-	width : 300,
+	top : '5%',
+	left : '5%',
+	width : '90%',
 	height : 40,
 	hintText : 'Titulo',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
@@ -29,9 +30,9 @@ currentWin.add(titulo);
 var tema = Ti.UI.createTextField({
 	color : '#336699',
 	font : {fontSize : 16},
-	top : 80,
-	left : 10,
-	width : 300,
+	top : '18%',
+	left : '5%',
+	width : '90%',
 	height : 40,
 	hintText : 'Tema',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
@@ -41,10 +42,10 @@ currentWin.add(tema);
 var detalhes = Ti.UI.createTextArea({
 	color : '#336699',
 	font : {fontSize : 16},
-	top : 140,
-	left : 10,
-	width : 300,
-	height : 100,
+	top : '33%',
+	left : '5%',
+	width : '90%',
+	height : '40%',
 	hintText : 'Detalhes',
 	editable: true,
 	borderRadius:5,
@@ -77,17 +78,17 @@ if (os == 'iphone') {
 } else {
 	var gravar = Titanium.UI.createButton({
 		title : 'Salvar',
-		bottom : 0,
-		left : 10,
+		bottom : '15%',
+		left : '5%',
 		height : 40,
-		width : 80
+		width : '40%'
 	});
 	var limpar = Titanium.UI.createButton({
 		title : 'Limpar',
-		bottom : 0,
-		right : 10,
+		bottom : '15%',
+		right : '5%',
 		height : 40,
-		width : 80
+		width : '40%'
 	});
 	currentWin.add(gravar);
 	currentWin.add(limpar);
@@ -118,10 +119,6 @@ limpar.addEventListener('click', function(e) {
 	titulo.value = '';
 	tema.value = '';
 	detalhes.value = '';
-});
-
-flexSpace = Titanium.UI.createButton({
-	systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
 });
 
 

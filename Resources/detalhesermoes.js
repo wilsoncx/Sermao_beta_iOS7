@@ -1,6 +1,8 @@
 //criando a tela
 var currentWin = Ti.UI.currentWindow;
 var os = Ti.Platform.osname;
+Ti.include("bd.js");
+
 //recebendo variavel do outro formulario
 var idSermao = Ti.UI.currentWindow.idSermao;
 //criando a barra da busca
@@ -13,7 +15,6 @@ var search = Titanium.UI.createSearchBar({
 
 //criando a função para ler os dados na tabela distrito
 function setData() {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM sermao WHERE id ="' + idSermao + '"');
 	var dataArray = [];
 	while (rows.isValidRow()) {
@@ -151,18 +152,18 @@ if (os == 'iphone') {
 
 } else {
 	var table = Ti.UI.createTableView({
-		bottom : '12%',
+		bottom : '20%',
 		top : 40,
 		scrollable : 'false',
 		backgroundColor : '#FFEFBF'
 	});
 
 	var editSermao = Titanium.UI.createButton({
-		title : 'Editar',
+		title : 'Editar Sermão',
 		top : 2,
 		left : 0,
 		height : 40,
-		width : 80
+		width : '100%'
 
 	});
 	editSermao.addEventListener('click', function(e) {
@@ -179,14 +180,14 @@ if (os == 'iphone') {
 	//criando botoes de adicionar e ver igrejas
 	var add_igreja = Titanium.UI.createButton({
 		title : 'Adicionar Igreja',
-		bottom : 0,
+		bottom : '10%',
 		right : 0,
 		height : 40,
 		width : '50%'
 	});
 	var ver_igreja = Titanium.UI.createButton({
 		title : 'Listar Igreja',
-		bottom : 0,
+		bottom : '10%',
 		left : 0,
 		height : 40,
 		width : '50%'

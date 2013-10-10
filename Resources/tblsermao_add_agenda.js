@@ -1,5 +1,6 @@
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
+Ti.include("bd.js");
 
 //Ti.App.Properties.setString('vigreja', 'igreja');
 //busca
@@ -14,7 +15,6 @@ var search = Titanium.UI.createSearchBar({
 //currentWin.leftNavButton = send;
 // set the data from the database to the array
 function setData() {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM sermao  GROUP BY titulo ');
 	var dataArray = [];
 

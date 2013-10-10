@@ -1,4 +1,5 @@
 Ti.include("mask.js");
+Ti.include("bd.js");
 
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
@@ -6,9 +7,8 @@ var idDist = Ti.UI.currentWindow.idDist;
 var os = Titanium.Platform.osname;
 
 function insertRows(dbData) {
-
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
-	var theData = db.execute('INSERT INTO igreja (nome, distrito, endereco, contato, fone) VALUES("' + nome.value + '","' + idDist + '","' + endereco.value + '","' + contato.value + '","' + fone.value + '")'); theData;
+	var theData = db.execute('INSERT INTO igreja (nome, distrito, endereco, contato, fone) VALUES("' + nome.value + '","' + idDist + '","' + endereco.value + '","' + contato.value + '","' + fone.value + '")');
+	theData;
 	alert("Registro inserido com sucesso!");
 
 };
@@ -18,9 +18,9 @@ var nome = Ti.UI.createTextField({
 	font : {
 		fontSize : 16
 	},
-	top : 10,
-	left : 10,
-	width : 300,
+	top : '5%',
+	left : '5%',
+	width : '90%',
 	height : 40,
 	hintText : 'Nome',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
@@ -33,9 +33,9 @@ var endereco = Ti.UI.createTextField({
 	font : {
 		fontSize : 16
 	},
-	top : 60,
-	left : 10,
-	width : 300,
+	top : '18%',
+	left : '5%',
+	width : '90%',
 	height : 40,
 	hintText : 'Endereço',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
@@ -48,9 +48,9 @@ var contato = Ti.UI.createTextField({
 	font : {
 		fontSize : 16
 	},
-	top : 110,
-	left : 10,
-	width : 300,
+	top : '30%',
+	left : '5%',
+	width : '90%',
 	height : 40,
 	hintText : 'Contato',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
@@ -63,15 +63,15 @@ var fone = Ti.UI.createTextField({
 	font : {
 		fontSize : 16
 	},
-	top : 160,
-	left : 10,
-	width : 300,
+	top : '43%',
+	left : '5%',
+	width : '90%',
 	height : 40,
-	hintText : 'fone',
+	hintText : 'Fone',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 });
-fone.addEventListener("blur", function() {
+fone.addEventListener('blur', function() {
 	Mask.mask(fone, Mask.phone);
 });
 currentWin.add(fone);
@@ -99,26 +99,23 @@ if (os == 'iphone') {
 } else {
 	var gravar = Titanium.UI.createButton({
 		title : 'Salvar',
-		bottom : 0,
-		left : 10,
+		bottom : '35%',
+		left : '5%',
 		height : 40,
-		width : 80
+		width : '40%'
 	});
 	var limpar = Titanium.UI.createButton({
 		title : 'Limpar',
-		bottom : 0,
-		right : 10,
+		bottom : '35%',
+		right : '5%',
 		height : 40,
-		width : 80
+		width : '40%'
 	});
 	currentWin.add(gravar);
 	currentWin.add(limpar);
-
-
 };
 
 gravar.addEventListener('click', function(e) {
-
 	if (nome.value != '') {
 		var dbData = {
 			nome : nome.value,

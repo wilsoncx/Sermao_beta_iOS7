@@ -1,4 +1,5 @@
 Ti.include("mask.js");
+Ti.include("bd.js");
 var os = Ti.Platform.osname;
 
 //criando a tela
@@ -7,35 +8,33 @@ var currentWin = Ti.UI.currentWindow;
 var idDist = Ti.UI.currentWindow.idDist;
 //função que atualizar os dados
 function insertRows(dbData) {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var theData = db.execute('update distrito set nome="' + nome.value + '", pastor="' + pastor.value + '", fone ="' + fone.value + '"WHERE id ="' + idDist + '"');
 	theData;
 	alert("Distrito Gravado com Sucesso!");
 };
-
-//adicionando texte field
+//adicionando os text field
 var nome = Ti.UI.createTextField({
-	color : '#245553',
-	font : {
-		fontSize : 16
-	},
-	top : 20,
-	left : 10,
-	width : 300,
+	color : '#336699',
+	top : '5%',
+	left : '5%',
+	width : '90%',
 	height : 40,
+	font : {
+		fontSize : 16,
+	},
 	hintText : 'Nome',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 });
 currentWin.add(nome);
 var pastor = Ti.UI.createTextField({
-	color : '#245553',
+	color : '#336699',
 	font : {
-		fontSize : 16
+		fontSize : 16,
 	},
-	top : 80,
-	left : 10,
-	width : 300,
+	top : '20%',
+	left : '5%',
+	width : '90%',
 	height : 40,
 	hintText : 'Pastor',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
@@ -43,13 +42,13 @@ var pastor = Ti.UI.createTextField({
 });
 currentWin.add(pastor);
 var fone = Ti.UI.createTextField({
-	color : '#245553',
+	color : '#336699',
 	font : {
-		fontSize : 16
+		fontSize : 16,
 	},
-	top : 140,
-	left : 10,
-	width : 300,
+	top : '35%',
+	left : '5%',
+	width : '90%',
 	height : 40,
 	hintText : 'Fone',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
@@ -86,18 +85,18 @@ if (os == 'iphone') {
 } else {
 	// criando botões
 	var gravar = Titanium.UI.createButton({
-		title : 'Gravar',
-		bottom : 0,
-		left : 10,
+		title : 'Salvar',
+		bottom : '40%',
+		left : '5%',
 		height : 40,
-		width : 80
+		width : '30%'
 	});
 	var limpar = Titanium.UI.createButton({
 		title : 'Limpar',
-		bottom : 0,
-		right : 10,
+		bottom : '40%',
+		right : '5%',
 		height : 40,
-		width : 80
+		width : '30%'
 	});
 
 	currentWin.add(gravar);
@@ -106,7 +105,6 @@ if (os == 'iphone') {
 };
 
 //variavel para lista os ditritos e pegar o id
-var db1 = Ti.Database.install('bd_sgs', 'bd_sgs');
 var rs = db1.execute('SELECT * FROM distrito WHERE id ="' + idDist + '"');
 nome.value = rs.fieldByName('nome');
 pastor.value = rs.fieldByName('pastor');

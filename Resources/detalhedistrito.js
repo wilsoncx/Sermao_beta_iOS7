@@ -1,13 +1,14 @@
 //criando a tela
+Ti.include("bd.js");
 var currentWin = Ti.UI.currentWindow;
 var os = Ti.Platform.osname;
+
 //recebendo variavel do outro formulario
 var idDist = Ti.UI.currentWindow.idDist;
 Ti.include("mask.js");
 
 //criando a função para ler os dados na tabela distrito
 function setData() {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM distrito WHERE id ="' + idDist + '"');
 	var dataArray = [];
 	while (rows.isValidRow()) {
@@ -63,7 +64,6 @@ function setData() {
 
 //criando a função para ler os dados na tabela de igreja
 function setData1() {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rs = db.execute('SELECT * FROM igreja WHERE distrito ="' + idDist + '"ORDER by nome asc');
 	var dataArray1 = [];
 
@@ -287,7 +287,6 @@ deletar.addEventListener('click', function(e) {
 
 });
 tableview.addEventListener('delete', function(e) {
-	var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 	var rows = db.execute('DELETE FROM igreja WHERE id= "' + e.row.id + '"');
 
 });
@@ -306,7 +305,6 @@ tableview.addEventListener('longclick', function(e) {
 
 		dialog.addEventListener('click', function(e) {
 			if (e.index == 0) {
-				var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 				var rows = db.execute('DELETE FROM igreja  WHERE id= "' + delid + '"');
 				setData();
 

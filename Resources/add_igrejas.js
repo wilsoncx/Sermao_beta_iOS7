@@ -1,6 +1,8 @@
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
 var idSermao = Ti.UI.currentWindow.idSermao;
+Ti.include("bd.js");
+
 //busca
 var search = Titanium.UI.createSearchBar({
 	barColor : '#000',
@@ -14,7 +16,6 @@ var search = Titanium.UI.createSearchBar({
 
 // set the data from the database to the array
 function setData() {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM igreja where  igreja.id  NOT IN (SELECT pregacao.igreja FROM igreja INNER JOIN pregacao ON igreja.id = pregacao.igreja WHERE pregacao.sermao ="' + idSermao + '") ');
 	var dataArray = [];
 	while (rows.isValidRow()) {
@@ -46,7 +47,6 @@ currentWin.addEventListener('focus', function() {
 
 tableview.addEventListener('click', function(e) {
 	var igreja = e.row.id;
-	var db1 = Ti.Database.install('bd_sgs', 'bd_sgs');
 	db1.execute('INSERT INTO pregacao (igreja, sermao) VALUES("' + igreja + '","' + idSermao + '")');
 	tableview.deleteRow(e.row.row);
 

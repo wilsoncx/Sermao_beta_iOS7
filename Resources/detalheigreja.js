@@ -1,9 +1,12 @@
 Ti.include("mask.js");
+var os = Ti.Platform.osname;
+Ti.include("bd.js");
+
+
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
 var idIgreja = Ti.UI.currentWindow.idIgreja;
 function setData() {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM igreja WHERE  id ="' + idIgreja + '"ORDER by nome asc');
 	var dataArray = [];
 
@@ -94,32 +97,64 @@ var createCustomView = function(title) {
 	view.add(text);
 	return view;
 };
-var table = Ti.UI.createTableView({
-	style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
-	bottom : '1%',
-	top : '1%',
-	borderRadius : 5,
-	scrollable : 'false',
-	backgroundColor : '#FFEFBF'
-});
 
-var btnEditarIgreja = Titanium.UI.createButton({
-	title : 'Editar'
-});
-
-btnEditarIgreja.addEventListener('click', function(e) {
-
-	var editIgreja = Titanium.UI.createWindow({
-		url : 'edit_igreja.js'
+if (os == 'iphone') {
+	var table = Ti.UI.createTableView({
+		style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
+		bottom : '1%',
+		top : '1%',
+		borderRadius : 5,
+		scrollable : 'false',
+		backgroundColor : '#FFEFBF'
 	});
-	editIgreja.idIgreja = idIgreja;
-	Ti.UI.currentTab.open(editIgreja, {
-		animated : true
+	var btnEditarIgreja = Titanium.UI.createButton({
+		title : 'Editar'
+
+	});
+	btnEditarIgreja.addEventListener('click', function(e) {
+
+		var editIgreja = Titanium.UI.createWindow({
+			url : 'edit_igreja.js'
+		});
+		editIgreja.idIgreja = idIgreja;
+		Ti.UI.currentTab.open(editIgreja, {
+			animated : true
+		});
+
 	});
 
-});
+	currentWin.rightNavButton = btnEditarIgreja;
+
+} else {
+
+	var table = Ti.UI.createTableView({
+		bottom : '40%',
+		top : '1%',
+		borderRadius : 5,
+		scrollable : 'false',
+		backgroundColor : '#FFEFBF'
+	});
+	var btnEditarIgreja = Titanium.UI.createButton({
+		title : 'Editar',
+		bottom : '30%',
+		left : '5%',
+		height : 40,
+		width : '90%'
+	});
+	btnEditarIgreja.addEventListener('click', function(e) {
+
+		var editIgreja = Titanium.UI.createWindow({
+			url : 'edit_igreja.js',
+			backgroundColor : '#FFEFBF',
+			modal : true
+		});
+		editIgreja.idIgreja = idIgreja;
+		editIgreja.open();
+
+	});
+	currentWin.add(btnEditarIgreja);
+
+};
 
 setData();
 currentWin.add(table);
-currentWin.rightNavButton = btnEditarIgreja;
-

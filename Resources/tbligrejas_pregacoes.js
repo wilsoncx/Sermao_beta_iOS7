@@ -1,6 +1,9 @@
 // create var for the currentWindow
+Ti.include("bd.js");
+
 var currentWin = Ti.UI.currentWindow;
 var idSermao = Ti.UI.currentWindow.idSermao;
+
 //busca
 var search = Titanium.UI.createSearchBar({
 	backgroundColor : '#FFEFBF',
@@ -37,7 +40,6 @@ currentWin.rightNavButton = deletar;
 //currentWin.leftNavButton = send;
 // set the data from the database to the array
 function setData() {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT agendasermao.id, agendasermao.igreja, igreja.nome FROM  agendasermao INNER JOIN igreja ON agendasermao.igreja = igreja.id WHERE agendasermao.sermao ="' + idSermao + '" and status = "i"  ORDER BY igreja.nome');
 	var dataArray = [];
 
@@ -73,7 +75,6 @@ currentWin.addEventListener('focus', function() {
 
 //deletar
 tableview.addEventListener('delete', function(e) {
-	var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 	var rows = db.execute('DELETE FROM agendasermao WHERE id= "' + e.row.id + '"');
 });
 

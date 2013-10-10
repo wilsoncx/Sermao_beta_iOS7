@@ -5,13 +5,13 @@
 //*********************************
 
 // Create an array of explicitly defined custom TableViewRows
+Ti.include("bd.js");
 var currentWin = Ti.UI.currentWindow;
 var os = Titanium.Platform.osname;
 var st = 'i';
 Ti.API.info(st);
 function setData() {
 
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT agendasermao.id, agendasermao.igreja, agendasermao.sermao, agendasermao.data, igreja.nome, sermao.titulo FROM  agendasermao INNER JOIN igreja ON agendasermao.igreja = igreja.id INNER JOIN sermao ON agendasermao.sermao = sermao.id WHERE status = "' + st + '"  ORDER BY agendasermao.data DESC');
 	var dataArray = [];
 	while (rows.isValidRow()) {
@@ -118,21 +118,39 @@ function setData() {
 				table.editing = true;
 				//Edit:on again!
 				currentWin.rightNavButton = btnDone;
-			} else if (e.direction == 'left') {
-				//table.editing = true;
-				var addIgreja = Titanium.UI.createWindow({
-					//title : 'Add Igrejas',
-					url : 'add_igreja_agenda.js',
 
-				});
-				//addIgreja.setTitleControl(titleaddIgreja);
-				//gravarDistrito.idDist = idDist;
-				//var idSermao = 0;
-				addIgreja.idSermao = false;
-				Ti.UI.currentTab.open(addIgreja, {
-					animated : true
-				});
-			}
+			};
+			row.addEventListener('longclick', function(e) {
+
+				if (os == 'android') {
+					Ti.API.info(e.rowData.id);
+					var delid = e.rowData.id;
+					var dialog = Ti.UI.createOptionDialog({
+						cancel : 2,
+						options : ['Conclui', 'Excluir', 'Cancelar'],
+						title : 'Editar registros?'
+					});
+					dialog.show();
+
+					dialog.addEventListener('click', function(e) {
+						if (e.index == 1) {
+							var rows = db.execute('DELETE FROM agendasermao WHERE id= "' + delid + '"');
+							setData();
+						} else if (e.index == 0) {
+							db.execute('UPDATE agendasermao SET status = "a" WHERE id = "' + delid + '"');
+							setData();
+
+						} else {
+
+						}
+						;
+
+					});
+				} else {
+
+				};
+
+			});
 
 		});
 
@@ -143,12 +161,11 @@ function setData() {
 
 };
 
-
 if (os == 'iphone') {
-	
-var table = Titanium.UI.createTableView({
-	backgroundColor : '#FFEFBF'
-});
+
+	var table = Titanium.UI.createTableView({
+		backgroundColor : '#FFEFBF'
+	});
 
 	var btnNovo = Titanium.UI.createButton({
 		systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
@@ -165,14 +182,12 @@ var table = Titanium.UI.createTableView({
 	currentWin.leftNavButton = btnNconcluido;
 	currentWin.rightNavButton = btnNovo;
 } else {
-	
-var table = Titanium.UI.createTableView({
-	backgroundColor : '#FFEFBF',
-	bottom : 55
-});
 
+	var table = Titanium.UI.createTableView({
+		backgroundColor : '#FFEFBF',
+		bottom : 55
+	});
 
-	
 	var btnNovo = Titanium.UI.createButton({
 		//systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
 		title : 'Novo',
@@ -188,7 +203,7 @@ var table = Titanium.UI.createTableView({
 
 	var btnNconcluido = Titanium.UI.createButton({
 		title : 'Não Concluidos',
-		bottom: 0,
+		bottom : 0,
 		left : 0,
 		height : 50,
 		width : 160
@@ -199,14 +214,12 @@ var table = Titanium.UI.createTableView({
 	currentWin.add(btnNconcluido);
 };
 
-
-table.addEventListener('dblclick', function(e) {
+table.addEventListener('click', function(e) {
 	var rowid = e.row.id;
-	var db1 = Ti.Database.install('bd_sgs', 'bd_sgs');
-	db1.execute('UPDATE agendasermao SET status = "i" WHERE id = "' + rowid + '"');
-	table.deleteRow(e.row.row);
-	db1.close();
-
+	var db1 = Ti.Database.open('bd_sgs.db');
+	db1.execute('UPDATE agendasermao SET status = "a" WHERE id = "' + rowid + '"');
+	table.deleteRow(e.rowData.row);
+	Ti.API.info(e.row.id);
 });
 
 currentWin.addEventListener('focus', function() {
@@ -214,54 +227,52 @@ currentWin.addEventListener('focus', function() {
 
 });
 
-
 // Listen for click events.
-btnNovo.addEventListener('click', function() { fontFamily:'Marker felt';
-	if (os=='iphone') {
-	var addIgreja = Titanium.UI.createWindow({
-		url : 'add_igreja_agenda.js'		
-	});
-	addIgreja.idSermao = false;
-	addIgreja.ig = false;
-	addIgreja.se = false;
-	Ti.UI.currentTab.open(addIgreja, {
-		animated : true
-	});
+btnNovo.addEventListener('click', function() {
+	if (os == 'iphone') {
+		var addIgreja = Titanium.UI.createWindow({
+			url : 'add_igreja_agenda.js'
+		});
+		addIgreja.idSermao = false;
+		addIgreja.ig = false;
+		addIgreja.se = false;
+		Ti.UI.currentTab.open(addIgreja, {
+			animated : true
+		});
 
-} else{
-	var addIgreja = Titanium.UI.createWindow({
-		url : 'add_igreja_agenda.js',
-		backgroundColor:'#FFEFBF',
-		modal:true,
-		bottom: 55
-		
-	});
-	addIgreja.idSermao = false;
-	addIgreja.ig = false;
-	addIgreja.se = false;
-	addIgreja.open();
-};
+	} else {
+		var addIgreja = Titanium.UI.createWindow({
+			url : 'add_igreja_agenda.js',
+			backgroundColor : '#FFEFBF',
+			modal : true,
+			bottom : 55
+
+		});
+		addIgreja.idSermao = false;
+		addIgreja.ig = false;
+		addIgreja.se = false;
+		addIgreja.open();
+	};
 
 });
 
 // Listen for click events.
 btnNconcluido.addEventListener('click', function(e) {
-	if (os=='iphone') {
-	
-	var listConc = Titanium.UI.createWindow({
-		url: 'tela_principal.js'
-		
-	});
-	Ti.UI.currentTab.open(listConc, {
-		animated:true
-	});
-	} else{
-		currentWin.close();
-		
-	};
-	
-});
+	if (os == 'iphone') {
 
+		var listConc = Titanium.UI.createWindow({
+			url : 'tela_principal.js'
+
+		});
+		Ti.UI.currentTab.open(listConc, {
+			animated : true
+		});
+	} else {
+		currentWin.close();
+
+	};
+
+});
 
 //deletar{}
 
@@ -281,7 +292,6 @@ btnDone.addEventListener('click', function(e) {
 });
 
 table.addEventListener('delete', function(e) {
-	var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 	var rows = db.execute('DELETE FROM agendasermao WHERE id= "' + e.row.id + '"');
 
 	//var rows = db.execute('DELETE FROM distrito WHERE nome="' + nomeDist +'"');

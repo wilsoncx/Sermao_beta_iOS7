@@ -1,4 +1,5 @@
 //criando a tela
+Ti.include("bd.js");
 var currentWin = Ti.UI.currentWindow;
 var os = Ti.Platform.osname;
 
@@ -108,7 +109,6 @@ deletar.addEventListener('click', function(e) {
 
 //criando função para criar array para ler o banco e lista os distritos
 function setData() {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM distrito  GROUP BY nome ');
 	var dataArray = [];
 
@@ -176,9 +176,7 @@ tableview.addEventListener('longclick', function(e) {
 
 		dialog.addEventListener('click', function(e) {
 			if (e.index == 0) {
-				var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 				var rows = db.execute('DELETE FROM distrito WHERE id= "' + delid + '"');
-				setData();
 
 			} else {
 
@@ -193,7 +191,6 @@ tableview.addEventListener('longclick', function(e) {
 
 //evento para deletar do banco o distrito
 tableview.addEventListener('delete', function(e) {
-	var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 	var rows = db.execute('DELETE FROM distrito WHERE id= "' + e.row.id + '"');
 });
 

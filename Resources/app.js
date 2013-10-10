@@ -1,4 +1,10 @@
 Titanium.UI.setBackgroundColor('#FFEFBF');
+Ti.include("bd.js");
+
+db.execute(tbDistrito);
+db.execute(tbIgreja);
+db.execute(tbSermao);
+db.execute(tbAgenda);
 
 var os = Titanium.Platform.osname;
 var tabGroup = Titanium.UI.createTabGroup();
@@ -83,10 +89,37 @@ var tab3 = Titanium.UI.createTab({
 	window : sermoes
 });
 
+var config = Titanium.UI.createWindow({
+	title : 'Configuração',
+	url : 'config.js'
+});
+var titleconfig = Titanium.UI.createLabel({
+	color : '#245553',
+	height : 18,
+	width : 210,
+	top : 10,
+	text : 'Config',
+	textAlign : 'center',
+	font : {
+		fontSize : 16
+	},
+	shadowColor : '#eee',
+	shadowOffset : {
+		x : 0,
+		y : 1
+	}
+});
+var tab4 = Titanium.UI.createTab({
+	icon : 'KS_nav_ui.png',
+	title : 'Configuração',
+	window : config
+});
+
 if (os == 'iphone') {
 	tela_principal.setTitleControl(titleLabel);
 	sermoes.setTitleControl(titlesermoes);
 	tblDistrito.setTitleControl(titdistrito);
+	config.setTitleControl(titleconfig);
 
 } else {
 
@@ -95,4 +128,5 @@ if (os == 'iphone') {
 tabGroup.addTab(tab1);
 tabGroup.addTab(tab2);
 tabGroup.addTab(tab3);
+//tabGroup.addTab(tab4);
 tabGroup.open();

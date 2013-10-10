@@ -1,4 +1,5 @@
 //criando a tela
+Ti.include("bd.js");
 var currentWin = Ti.UI.currentWindow;
 var os = Ti.Platform.osname;
 
@@ -138,7 +139,6 @@ deletar.addEventListener('click', function(e) {
 
 //criando função para criar array para ler o banco e lista os distritos
 function setData() {
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rows = db.execute('SELECT * FROM sermao  order by titulo ');
 	var dataArray = [];
 
@@ -166,13 +166,11 @@ function setData() {
 
 //evento para deletar do banco o distrito
 tableview.addEventListener('delete', function(e) {
-	var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 	var rows = db.execute('DELETE FROM sermao WHERE id= "' + e.row.id + '"');
 });
 tableview.addEventListener('longclick', function(e) {
 
 	if (os == 'android') {
-		Ti.API.info(e.rowData.id);
 		var delid = e.rowData.id;
 		var dialog = Ti.UI.createOptionDialog({
 			cancel : 2,
@@ -183,7 +181,6 @@ tableview.addEventListener('longclick', function(e) {
 
 		dialog.addEventListener('click', function(e) {
 			if (e.index == 0) {
-				var db = Ti.Database.open('bd_sgs', 'bd_sgs');
 				var rows = db.execute('DELETE FROM sermao  WHERE id= "' + delid + '"');
 				setData();
 

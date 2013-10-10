@@ -7,6 +7,8 @@
 //////////////////////////////////
 
 Ti.include("mask.js");
+Ti.include("bd.js");
+
 var currentWin = Ti.UI.currentWindow;
 var iSermao = Ti.UI.currentWindow.idSermao;
 var ig = Ti.UI.currentWindow.ig;
@@ -16,8 +18,7 @@ var vidser;
 var os = Titanium.Platform.osname;
 
 function insertRows(dbData) {
-
-	var db = Ti.Database.install('bd_sgs', 'bd_sgs');
+	var db = Ti.Database.open('bd_sgs.db');
 	var theData = db.execute('INSERT INTO agendasermao (igreja, sermao, data, status) VALUES("' + vidigre + '","' + iSermao + '","' + data.value.toLocaleDateString() + '","' + status + '")');
 	theData;
 	alert("Registro inserido ");
@@ -246,7 +247,6 @@ if (os == 'iphone') {
 };
 
 gravar.addEventListener('click', function(e) {
-	var db2 = Ti.Database.install('bd_sgs', 'bd_sgs');
 	var rs = db2.execute('SELECT COUNT(igreja) as quantidade FROM agendasermao WHERE igreja= "' + vidigre + '" and sermao = "' + iSermao + '"');
 	if (rs.fieldByName('quantidade') == 0) {
 		if (igreja.value != '') {
