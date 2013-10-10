@@ -28,7 +28,7 @@ var btnAddIgre = Ti.UI.createButton({
 	title : '+',
 	height : 40,
 	width : 40,
-	top : 10,
+	top : '5%',
 	right : 10
 });
 
@@ -37,7 +37,7 @@ var btnAddSerm = Ti.UI.createButton({
 	title : '+',
 	height : 40,
 	width : 40,
-	top : 60,
+	top : '15%',
 	right : 10
 });
 
@@ -57,8 +57,8 @@ currentWin.add(data);
 
 var basicSwitch = Ti.UI.createSwitch({
 	value : false,
-	bottom : 60,
-	right : 10,
+	bottom : '15%',
+	right : '5%',
 	color : '#245553',
 	borderColor : '#245553',
 	borderRadius : 15
@@ -87,8 +87,8 @@ if (os == 'iphone') {
 		},
 		height : 18,
 		width : 210,
-		bottom : 60,
-		right : 20,
+		bottom : '17%',
+		right : '10%',
 		textAlign : 'center'
 	});
 
@@ -100,9 +100,9 @@ if (os == 'iphone') {
 		font : {
 			fontSize : 16
 		},
-		top : 60,
-		left : 10,
-		width : 300,
+		top : '15%',
+		left : '5%',
+		width : '90%',
 		height : 40,
 		hintText : 'Sermão',
 		keyboardType : Ti.UI.KEYBOARD_DEFAULT,
@@ -111,9 +111,9 @@ if (os == 'iphone') {
 	var igreja = Ti.UI.createTextField({
 		rightButton : btnAddIgre,
 		color : '#245553',
-		top : 10,
-		left : 10,
-		width : 300,
+		top : '5%',
+		left : '5%',
+		width : '90%',
 		height : 40,
 		font : {
 			fontSize : 16
@@ -170,7 +170,7 @@ if (os == 'iphone') {
 		},
 		height : 18,
 		width : 210,
-		bottom : 80,
+		bottom : '20%',
 		right : 60,
 		textAlign : 'center'
 	});
@@ -182,9 +182,9 @@ if (os == 'iphone') {
 		font : {
 			fontSize : 16
 		},
-		top : 60,
-		left : 10,
-		width : 255,
+		top : '15%',
+		left : '5%',
+		width : '80%',
 		height : 40,
 		hintText : 'Sermão',
 		keyboardType : Ti.UI.KEYBOARD_DEFAULT,
@@ -193,9 +193,9 @@ if (os == 'iphone') {
 
 	var igreja = Ti.UI.createTextField({
 		color : '#245553',
-		top : 10,
-		left : 10,
-		width : 255,
+		top : '5%',
+		left : '5%',
+		width : '80%',
 		height : 40,
 		font : {
 			fontSize : 16
@@ -231,14 +231,14 @@ if (os == 'iphone') {
 		bottom : 0,
 		left : 10,
 		height : 40,
-		width : 80
+		width : '45%'
 	});
 	var gravar = Titanium.UI.createButton({
 		title : 'Gravar',
 		bottom : 0,
 		right : 0,
 		height : 40,
-		width : 80
+		width : '45%'
 	});
 
 	currentWin.add(limpar);

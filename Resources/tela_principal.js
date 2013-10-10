@@ -176,7 +176,7 @@ if (os == 'iphone') {
 		bottom : 0,
 		right : 0,
 		height : 40,
-		width : 80
+		width : '50%'
 
 	});
 
@@ -185,7 +185,7 @@ if (os == 'iphone') {
 		bottom : 0,
 		left : 0,
 		height : 40,
-		width : 100
+		width : '50%'
 
 	});
 
