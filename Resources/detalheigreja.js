@@ -136,10 +136,10 @@ if (os == 'iphone') {
 	});
 	var btnEditarIgreja = Titanium.UI.createButton({
 		title : 'Editar',
-		bottom : '30%',
-		left : '5%',
-		height : 40,
-		width : '90%'
+		bottom : '120dp',
+		left : '10dp',
+		height : '40dp',
+		width : '300dp'
 	});
 	btnEditarIgreja.addEventListener('click', function(e) {
 

@@ -160,10 +160,10 @@ if (os == 'iphone') {
 
 	var editSermao = Titanium.UI.createButton({
 		title : 'Editar Sermão',
-		top : 2,
+		top : '2dp',
 		left : 0,
-		height : 40,
-		width : '100%'
+		height : '40dp',
+		width : '320dp'
 
 	});
 	editSermao.addEventListener('click', function(e) {
@@ -180,17 +180,17 @@ if (os == 'iphone') {
 	//criando botoes de adicionar e ver igrejas
 	var add_igreja = Titanium.UI.createButton({
 		title : 'Adicionar Igreja',
-		bottom : '10%',
-		right : 0,
-		height : 40,
-		width : '50%'
+		bottom : '40dp',
+		right : '3dp',
+		height : '40dp',
+		width : '150dp'
 	});
 	var ver_igreja = Titanium.UI.createButton({
 		title : 'Listar Igreja',
-		bottom : '10%',
-		left : 0,
-		height : 40,
-		width : '50%'
+		bottom : '40dp',
+		left : '3dp',
+		height : '40dp',
+		width : '150dp'
 
 	});
 

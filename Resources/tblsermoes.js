@@ -86,10 +86,11 @@ if (os == 'iphone') {
 	//criando o botão de de novo distrito e seus eventos
 	var novo = Titanium.UI.createButton({
 		title : 'Novo Sermão',
-		bottom : 0,
-		right : 0,
-		height : 40,
-		width : '100%'
+		bottom : '3dp',
+		right : '3dp',
+		left: '3dp',
+		height : '40dp',
+		width : '315dp'
 	});
 
 	//Abrindo formulario para cadastrar novo distrito

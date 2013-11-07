@@ -105,17 +105,17 @@ if (os == 'iphone') {
 } else {
 	var gravar = Titanium.UI.createButton({
 		title : 'Salvar',
-		bottom : '35%',
-		left : '5%',
-		height : 40,
-		width : '40%'
+		bottom : '120dp',
+		left : '17dp',
+		height : '40dp',
+		width : '100dp'
 	});
 	var limpar = Titanium.UI.createButton({
 		title : 'Limpar',
-		bottom : '35%',
-		right : '5%',
-		height : 40,
-		width : '40%'
+		bottom : '120dp',
+		right : '17dp',
+		height : '40dp',
+		width : '100dp'
 	});
 	currentWin.add(gravar);
 	currentWin.add(limpar);

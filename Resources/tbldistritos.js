@@ -46,15 +46,16 @@ if (os == 'iphone') {
 		filterAttribute : 'title',
 		//borderRadius : 5,
 		backgroundColor : '#FFEFBF',
-		bottom : 50
+		bottom : '50dp' 
 
 	});
 	var novoDistrito = Titanium.UI.createButton({
 		title : 'Novo Distrito',
-		bottom : 0,
-		right : 0,
-		height : 40,
-		width : '100%'
+		bottom : '3dp',
+		right : '3dp',
+		left: '3dp',
+		height : '40dp',
+		width : '315dp'
 	});
 
 	novoDistrito.addEventListener('click', function(e) {

@@ -26,19 +26,19 @@ function insertRows(dbData) {
 };
 var btnAddIgre = Ti.UI.createButton({
 	title : '+',
-	height : 40,
-	width : 40,
-	top : '5%',
-	right : 10
+	height : '40dp',
+	width : '40dp',
+	top : '20dp',
+	right : '10dp'
 });
 
 var btnAddSerm = Ti.UI.createButton({
 	style : Titanium.UI.iPhone.SystemButtonStyle.BORDERED,
 	title : '+',
-	height : 40,
-	width : 40,
-	top : '15%',
-	right : 10
+	height : '40dp',
+	width : '40dp',
+	top : '65dp',
+	right : '10dp'  
 });
 
 var dateValue = new Date();
@@ -49,7 +49,7 @@ dateValue.setDate(24);
 var data = Ti.UI.createPicker({
 	type : Titanium.UI.PICKER_TYPE_DATE,
 	value : dateValue,
-	top : 120
+	top : '120dp'  
 });
 data.setLocale(Titanium.Platform.locale);
 data.selectionIndicator = true;
@@ -57,8 +57,8 @@ currentWin.add(data);
 
 var basicSwitch = Ti.UI.createSwitch({
 	value : false,
-	bottom : '15%',
-	right : '5%',
+	bottom : '70dp',
+	right : '15dp',
 	color : '#245553',
 	borderColor : '#245553',
 	borderRadius : 15
@@ -168,10 +168,10 @@ if (os == 'iphone') {
 		font : {
 			fontSize : 16
 		},
-		height : 18,
-		width : 210,
-		bottom : '20%',
-		right : 60,
+		height : '18dp',
+		width : '210dp',
+		bottom : '87dp',
+		right : '60dp',
 		textAlign : 'center'
 	});
 
@@ -182,10 +182,10 @@ if (os == 'iphone') {
 		font : {
 			fontSize : 16
 		},
-		top : '15%',
-		left : '5%',
-		width : '80%',
-		height : 40,
+		top : '65dp',
+		left : '15dp',
+		width : '255dp',
+		height : '40dp',
 		hintText : 'Sermão',
 		keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 		borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -193,10 +193,10 @@ if (os == 'iphone') {
 
 	var igreja = Ti.UI.createTextField({
 		color : '#245553',
-		top : '5%',
-		left : '5%',
-		width : '80%',
-		height : 40,
+		top : '20dp',
+		left : '15dp',
+		width : '255',
+		height : '40dp',
 		font : {
 			fontSize : 16
 		},
@@ -229,16 +229,16 @@ if (os == 'iphone') {
 	var limpar = Titanium.UI.createButton({
 		title : 'Limpar',
 		bottom : 0,
-		left : 10,
-		height : 40,
-		width : '45%'
+		left : '10dp',
+		height : '40dp',
+		width : '150dp'
 	});
 	var gravar = Titanium.UI.createButton({
 		title : 'Gravar',
 		bottom : 0,
-		right : 0,
-		height : 40,
-		width : '45%'
+		right : '10dp',
+		height : '40dp',
+		width : '150dp'
 	});
 
 	currentWin.add(limpar);

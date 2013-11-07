@@ -4,7 +4,6 @@
 //*agendadas com horario e igreja *
 //*********************************
 Ti.include("bd.js");
-
 var currentWin = Ti.UI.currentWindow;
 var st = 'a';
 var os = Titanium.Platform.osname;
@@ -168,24 +167,22 @@ if (os == 'iphone') {
 	});
 
 	var btnNovo = Titanium.UI.createButton({
-		//systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
 		title : 'Novo',
 		font : {
 			fontSize : 16
 		},
 		bottom : 0,
 		right : 0,
-		height : 40,
-		width : '50%'
-
+		height : '40dp',
+		width : '150dp'
 	});
 
 	var btnconcluido = Titanium.UI.createButton({
 		title : 'Concluidos',
 		bottom : 0,
 		left : 0,
-		height : 40,
-		width : '50%'
+		height : '40dp',
+		width : '150dp'
 
 	});
 

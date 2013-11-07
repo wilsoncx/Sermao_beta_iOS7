@@ -186,7 +186,7 @@ if (os == 'iphone') {
 } else {
 	var table = Ti.UI.createTableView({
 		bottom : '60%',
-		top : 40,
+		top : '40dp',
 		scrollable : 'false',
 		backgroundColor : '#FFEFBF'
 	});
@@ -206,26 +206,26 @@ if (os == 'iphone') {
 	});
 	var deletar = Titanium.UI.createButton({
 		title : 'Excluir',
-		bottom : 0,
-		left : 10,
-		height : 40,
-		width : 80
+		bottom : '3dp',
+		left : '10dp',
+		height : '40dp',
+		width : '80dp'  
 
 	});
 	var btnEditDist = Titanium.UI.createButton({
 		title : 'Editar Distrito',
-		top : 2,
+		top : '3dp',
 		left : 0,
-		height : 40,
-		width : '100%'
+		height : '40dp',
+		width : '320dp'
 	});
 
 	var novo = Titanium.UI.createButton({
 		title : 'Nova Igreja',
-		bottom : 0,
+		bottom : '1dp',
 		right : 0,
-		height : 40,
-		width : '100%'   
+		height : '40dp',
+		width : '320dp'   
 	});
 
 	novo.addEventListener('click', function(e) {

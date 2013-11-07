@@ -78,17 +78,17 @@ if (os == 'iphone') {
 	// criando botões
 	var gravar = Titanium.UI.createButton({
 		title : 'Salvar',
-		bottom : '15%',
-		left : '5%',
-		height : 40,
-		width : '40%'
+		bottom : '60dp',
+		left : '17dp',
+		height : '40dp',
+		width : '100dp'
 	});
 	var limpar = Titanium.UI.createButton({
 		title : 'Limpar',
-		bottom : '15%',
-		right : '5%',
-		height : 40,
-		width : '40%'
+		bottom : '60dp',
+		right : '17dp',
+		height : '40dp',
+		width : '100dp'
 	});
 
 	currentWin.add(gravar);

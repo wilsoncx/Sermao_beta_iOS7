@@ -196,8 +196,8 @@ if (os == 'iphone') {
 		},
 		bottom : 0,
 		right : 0,
-		height : 40,
-		width : '50%'
+		height : '40dp',
+		width : '150dp'
 
 	});
 
@@ -205,8 +205,8 @@ if (os == 'iphone') {
 		title : 'Não Concluidos',
 		bottom : 0,
 		left : 0,
-		height : 40,
-		width : '50%'
+		height : '40dp',
+		width : '150dp'
 
 	});
 
