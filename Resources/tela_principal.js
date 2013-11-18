@@ -35,7 +35,7 @@ function setData() {
 		});
 		var label = Ti.UI.createLabel({
 			top : '5dp',
-			left : '63dp',
+			left : '75dp',
 			font : {
 				fontSize : 30,
 			},
@@ -58,7 +58,7 @@ function setData() {
 			font : {
 				fontSize : 30,
 			},
-			left : '63dp',
+			left : '75dp',
 			color : '#245553',
 			text : '| ' + vigreja,
 		});
@@ -66,7 +66,7 @@ function setData() {
 			top : '45dp',
 			left : '10dp',
 			font : {
-				fontSize : 30,
+				fontSize : 20,
 			},
 			color : '#1A87FB',
 			text : 'Data ',
@@ -75,10 +75,10 @@ function setData() {
 		var label2 = Ti.UI.createLabel({
 			color : '#245553',
 			font : {
-				fontSize : 30,
+				fontSize : 20,
 			},
 			top : '45dp',
-			left : '63dp',
+			left : '70dp',
 			text : '| ' + vdata,
 			id : vid,
 		});
