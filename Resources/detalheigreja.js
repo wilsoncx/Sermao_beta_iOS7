@@ -2,7 +2,12 @@ Ti.include("mask.js");
 var os = Ti.Platform.osname;
 Ti.include("bd.js");
 
-
+if (os == 'android') {
+	var tam=30;
+}
+else{
+	var tam=16;
+};
 // create var for the currentWindow
 var currentWin = Ti.UI.currentWindow;
 var idIgreja = Ti.UI.currentWindow.idIgreja;
@@ -31,7 +36,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16
+				fontSize : tam
 			}
 
 		}));
@@ -42,7 +47,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16
+				fontSize : tam
 			},
 
 		}));
@@ -53,7 +58,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16
+				fontSize : tam
 			}
 
 		}));
@@ -64,7 +69,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16
+				fontSize : tam
 			}
 
 		}));
@@ -139,7 +144,7 @@ if (os == 'iphone') {
 		bottom : '120dp',
 		left : '10dp',
 		height : '40dp',
-		width : '300dp'
+		width : '347dp'
 	});
 	btnEditarIgreja.addEventListener('click', function(e) {
 

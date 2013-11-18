@@ -2,13 +2,19 @@
 Ti.include("bd.js");
 var currentWin = Ti.UI.currentWindow;
 var os = Ti.Platform.osname;
-
+	if (os == 'android') {
+			var tam=30;
+		}
+		else
+		{
+			var tam = 16;
+		};
 //criando a barra da busca
 var search = Titanium.UI.createSearchBar({
 	barColor : '#245553',
 	showCancel : true,
-	height : 43,
-	top : 0
+	height : '43dp',
+	top : '25dp'
 });
 var busca = search.value;
 
@@ -64,7 +70,7 @@ if (os == 'iphone') {
 		search : search,
 		filterAttribute : 'title',
 		backgroundColor : '#FFEFBF',
-		bottom : 50
+		bottom : '50dp' 
 
 	});
 	
@@ -90,7 +96,7 @@ if (os == 'iphone') {
 		right : '3dp',
 		left: '3dp',
 		height : '40dp',
-		width : '315dp'
+		width : '355dp'
 	});
 
 	//Abrindo formulario para cadastrar novo distrito
@@ -153,7 +159,7 @@ function setData() {
 			path : 'detalhesermoes.js',
 			color : '#245553',
 			font : {
-				fontSize : 16,
+				fontSize : tam
 			}
 		});
 		rows.next();

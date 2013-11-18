@@ -164,10 +164,10 @@ if (os == 'iphone') {
 } else {
 	var switchLabel = Ti.UI.createLabel({
 		text : 'Não Concluido',
-		color : '#245553',
 		font : {
-			fontSize : 16
+			fontSize : 30
 		},
+		color : '#245553',
 		height : '18dp',
 		width : '210dp',
 		bottom : '87dp',
@@ -179,12 +179,9 @@ if (os == 'iphone') {
 
 	var txtsermao = Ti.UI.createTextField({
 		color : '#245553',
-		font : {
-			fontSize : 16
-		},
 		top : '65dp',
 		left : '15dp',
-		width : '255dp',
+		width : '285dp',
 		height : '40dp',
 		hintText : 'Sermão',
 		keyboardType : Ti.UI.KEYBOARD_DEFAULT,
@@ -195,11 +192,8 @@ if (os == 'iphone') {
 		color : '#245553',
 		top : '20dp',
 		left : '15dp',
-		width : '255',
+		width : '285dp',
 		height : '40dp',
-		font : {
-			fontSize : 16
-		},
 		hintText : 'Igreja',
 		keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 		borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED

@@ -27,66 +27,127 @@ function setData() {
 			bottom : 10,
 			id : vid
 		});
+		if (os == 'android') {
 		var labelTitleSermao = Ti.UI.createLabel({
-			//backgroundLeftCap :'1px',
-			top : 5,
-			left : 10,
-			color : '#1A87FB',
+			top : '5dp',
+			left : '10dp',
 			font : {
-				fontSize : 12
+				fontSize : 30,
 			},
+			color : '#1A87FB',
 			text : 'Sermão ',
 		});
 		var label = Ti.UI.createLabel({
-			top : 5,
-			left : 60,
-			color : '#245553',
+			top : '5dp',
+			left : '63dp',
 			font : {
-				fontSize : 16
+				fontSize : 30,
 			},
+			color : '#245553',
 			text : '| ' + vsermao,
 		});
 
 		var labelTitleIgreja = Ti.UI.createLabel({
-			//backgroundLeftCap :'1px',
-			top : 25,
-			left : 10,
-			color : '#1A87FB',
+			top : '25dp',
+			left : '10dp',
+
 			font : {
-				fontSize : 12
+				fontSize : 30,
 			},
+			color : '#1A87FB',
 			text : 'Igreja ',
 		});
 		var label1 = Ti.UI.createLabel({
-			top : 25,
-			left : 60,
-			color : '#245553',
+			top : '25dp',
 			font : {
-				fontSize : 12
+				fontSize : 30,
 			},
+			left : '63dp',
+			color : '#245553',
 			text : '| ' + vigreja,
 		});
 		var labelTitleData = Ti.UI.createLabel({
-			top : 45,
-			left : 10,
-			color : '#1A87FB',
+			top : '45dp',
+			left : '10dp',
 			font : {
-				fontSize : 12
+				fontSize : 30,
 			},
+			color : '#1A87FB',
 			text : 'Data ',
 		});
 
 		var label2 = Ti.UI.createLabel({
 			color : '#245553',
 			font : {
-				fontSize : 12,
-				//fontFamily : 'Marker felt',
+				fontSize : 30,
 			},
-			top : 45,
-			left : 60,
+			top : '45dp',
+			left : '63dp',
 			text : '| ' + vdata,
 			id : vid,
 		});
+		}
+		else
+		{
+			var labelTitleSermao = Ti.UI.createLabel({
+			top : 5,
+			left : 10,
+			color : '#1A87FB',
+			text : 'Sermão ',
+				font : {
+				fontSize : 16,
+			}
+
+		});
+		var label = Ti.UI.createLabel({
+			top : 5,
+			left : 70,
+			color : '#245553',
+			text : '| ' + vsermao,
+			font : {
+				fontSize : 16,
+			}
+		});
+
+		var labelTitleIgreja = Ti.UI.createLabel({
+			top : 25,
+			left : 10,
+			color : '#1A87FB',
+			text : 'Igreja ',
+			font : {
+				fontSize : 16,
+			}
+		});
+		var label1 = Ti.UI.createLabel({
+			top : 25,
+			left : 70,
+			color : '#245553',
+			text : '| ' + vigreja,
+			font : {
+				fontSize : 16,
+			}
+		});
+		var labelTitleData = Ti.UI.createLabel({
+			top : 45,
+			left : 10,
+			color : '#1A87FB',
+			text : 'Data ',
+			font : {
+				fontSize : 16,
+			}
+		});
+
+		var label2 = Ti.UI.createLabel({
+			color : '#245553',
+			top : 45,
+			left : 70,
+			text : '| ' + vdata,
+			id : vid,
+			font : {
+				fontSize : 16
+			}
+		});
+		};
 
 		var button = Ti.UI.createButton({
 			right : 10,
@@ -185,15 +246,12 @@ if (os == 'iphone') {
 
 	var table = Titanium.UI.createTableView({
 		backgroundColor : '#FFEFBF',
-		bottom : 55
+		bottom : '50dp' 
 	});
 
 	var btnNovo = Titanium.UI.createButton({
 		//systemButton : Ti.UI.iPhone.SystemButton.CONTACT_ADD,
 		title : 'Novo',
-		font : {
-			fontSize : 16
-		},
 		bottom : 0,
 		right : 0,
 		height : '40dp',

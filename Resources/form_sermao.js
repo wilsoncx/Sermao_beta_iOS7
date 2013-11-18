@@ -17,11 +17,9 @@ function insertRows(dbData) {
 //adicionando os text field
 var titulo = Ti.UI.createTextField({
 	color : '#336699',
-	font : {fontSize : 16},
 	top : '5%',
 	left : '5%',
 	width : '90%',
-	height : 40,
 	hintText : 'Titulo',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -29,11 +27,9 @@ var titulo = Ti.UI.createTextField({
 currentWin.add(titulo);
 var tema = Ti.UI.createTextField({
 	color : '#336699',
-	font : {fontSize : 16},
 	top : '18%',
 	left : '5%',
 	width : '90%',
-	height : 40,
 	hintText : 'Tema',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -41,7 +37,6 @@ var tema = Ti.UI.createTextField({
 currentWin.add(tema);
 var detalhes = Ti.UI.createTextArea({
 	color : '#336699',
-	font : {fontSize : 16},
 	top : '33%',
 	left : '5%',
 	width : '90%',

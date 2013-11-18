@@ -17,10 +17,8 @@ var nome = Ti.UI.createTextField({
 	top : '5%',
 	left : '5%',
 	width : '90%',
-	height : 40,
-	font : {
-		fontSize : 16,
-	},
+	//height : '5%',
+	
 	hintText : 'Nome',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -28,13 +26,10 @@ var nome = Ti.UI.createTextField({
 currentWin.add(nome);
 var pastor = Ti.UI.createTextField({
 	color : '#336699',
-	font : {
-		fontSize : 16,
-	},
 	top : '20%',
 	left : '5%',
 	width : '90%',
-	height : 40,
+	//height : 40,
 	hintText : 'Pastor',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -42,13 +37,10 @@ var pastor = Ti.UI.createTextField({
 currentWin.add(pastor);
 var fone = Ti.UI.createTextField({
 	color : '#336699',
-	font : {
-		fontSize : 16,
-	},
 	top : '35%',
 	left : '5%',
 	width : '90%',
-	height : 40,
+	//height : 40,
 	hintText : 'Fone',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED

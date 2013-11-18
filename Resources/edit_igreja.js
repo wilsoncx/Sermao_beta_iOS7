@@ -15,13 +15,9 @@ function insertRows(dbData) {
 
 var nome = Ti.UI.createTextField({
 	color : '#336699',
-	font : {
-		fontSize : 16
-	},
 	top : '5%',
 	left : '5%',
 	width : '90%',
-	height : 40,
 	hintText : 'Nome',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -30,13 +26,9 @@ currentWin.add(nome);
 
 var endereco = Ti.UI.createTextField({
 	color : '#336699',
-	font : {
-		fontSize : 16
-	},
 	top : '18%',
 	left : '5%',
 	width : '90%',
-	height : 40,
 	hintText : 'Endereço',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -45,13 +37,9 @@ currentWin.add(endereco);
 
 var contato = Ti.UI.createTextField({
 	color : '#336699',
-	font : {
-		fontSize : 16
-	},
 	top : '30%',
 	left : '5%',
 	width : '90%',
-	height : 40,
 	hintText : 'Contato',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED
@@ -60,13 +48,9 @@ currentWin.add(contato);
 
 var fone = Ti.UI.createTextField({
 	color : '#336699',
-	font : {
-		fontSize : 16
-	},
 	top : '43%',
 	left : '5%',
 	width : '90%',
-	height : 40,
 	hintText : 'Fone',
 	keyboardType : Ti.UI.KEYBOARD_DEFAULT,
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED

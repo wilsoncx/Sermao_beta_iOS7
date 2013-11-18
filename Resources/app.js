@@ -89,16 +89,16 @@ var tab3 = Titanium.UI.createTab({
 	window : sermoes
 });
 
-var config = Titanium.UI.createWindow({
-	title : 'Configuração',
-	url : 'config.js'
+var sobre = Titanium.UI.createWindow({
+	title : 'Sobre',
+	url : 'sobre.js'
 });
-var titleconfig = Titanium.UI.createLabel({
+var titlesobre = Titanium.UI.createLabel({
 	color : '#245553',
 	height : 18,
 	width : 210,
 	top : 10,
-	text : 'Config',
+	text : 'Sobre',
 	textAlign : 'center',
 	font : {
 		fontSize : 16
@@ -111,15 +111,15 @@ var titleconfig = Titanium.UI.createLabel({
 });
 var tab4 = Titanium.UI.createTab({
 	icon : 'KS_nav_ui.png',
-	title : 'Configuração',
-	window : config
+	title : 'sobre',
+	window : sobre
 });
 
 if (os == 'iphone') {
 	tela_principal.setTitleControl(titleLabel);
 	sermoes.setTitleControl(titlesermoes);
 	tblDistrito.setTitleControl(titdistrito);
-	config.setTitleControl(titleconfig);
+	sobre.setTitleControl(titlesobre);
 
 } else {
 
@@ -128,5 +128,5 @@ if (os == 'iphone') {
 tabGroup.addTab(tab1);
 tabGroup.addTab(tab2);
 tabGroup.addTab(tab3);
-//tabGroup.addTab(tab4);
+tabGroup.addTab(tab4);
 tabGroup.open();

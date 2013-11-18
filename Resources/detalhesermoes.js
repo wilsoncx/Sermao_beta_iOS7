@@ -2,7 +2,12 @@
 var currentWin = Ti.UI.currentWindow;
 var os = Ti.Platform.osname;
 Ti.include("bd.js");
-
+if (os == 'android') {
+	var tam=30;
+}
+else{
+	var tam=16;
+};
 //recebendo variavel do outro formulario
 var idSermao = Ti.UI.currentWindow.idSermao;
 //criando a barra da busca
@@ -36,7 +41,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16
+				fontSize : tam
 			}
 
 		}));
@@ -47,7 +52,7 @@ function setData() {
 			height : 40,
 			color : '#245553',
 			font : {
-				fontSize : 16
+				fontSize : tam
 			}
 
 		}));
@@ -56,12 +61,12 @@ function setData() {
 			text : rows.fieldByName('detalhes'),
 			height : 50,
 			//width:250,
-			bottom : 150,
+			bottom : 250,
 			color : '#245553',
 			left : 10,
 			textAlign : 'left',
 			font : {
-				fontSize : 16
+				fontSize : tam
 			}
 		}));
 
@@ -153,7 +158,7 @@ if (os == 'iphone') {
 } else {
 	var table = Ti.UI.createTableView({
 		bottom : '20%',
-		top : 40,
+		top : '40dp',
 		scrollable : 'false',
 		backgroundColor : '#FFEFBF'
 	});
@@ -163,7 +168,7 @@ if (os == 'iphone') {
 		top : '2dp',
 		left : 0,
 		height : '40dp',
-		width : '320dp'
+		width : '360dp'
 
 	});
 	editSermao.addEventListener('click', function(e) {

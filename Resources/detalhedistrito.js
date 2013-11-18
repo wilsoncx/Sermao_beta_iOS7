@@ -6,7 +6,12 @@ var os = Ti.Platform.osname;
 //recebendo variavel do outro formulario
 var idDist = Ti.UI.currentWindow.idDist;
 Ti.include("mask.js");
-
+if (os == 'android') {
+	var tam=30;
+}
+else{
+	var tam=16;
+};
 //criando a função para ler os dados na tabela distrito
 function setData() {
 	var rows = db.execute('SELECT * FROM distrito WHERE id ="' + idDist + '"');
@@ -21,37 +26,63 @@ function setData() {
 		var tbRow2 = Ti.UI.createTableViewRow({
 			backgroundColor : '#FFE0B0'
 		});
+		if (os == 'android') {
+			tbRow.add(Ti.UI.createLabel({
+				text : rows.fieldByName('nome'),
+				left : '10dp',
+				height : '40dp',
+				color : '#245553',
+				font : {
+					fontSize : 30,
+				}
 
-		tbRow.add(Ti.UI.createLabel({
-			text : rows.fieldByName('nome'),
-			left : 10,
-			height : 40,
-			color : '#245553',
-			font : {
-				fontSize : 16
-			}
-		}));
+			}));
 
-		tbRow1.add(Ti.UI.createLabel({
-			text : rows.fieldByName('pastor'),
-			left : 10,
-			height : 40,
-			color : '#245553',
-			font : {
-				fontSize : 16
-			}
-		}));
+			tbRow1.add(Ti.UI.createLabel({
+				text : rows.fieldByName('pastor'),
+				left : '10dp',
+				height : '40dp',
+				color : '#245553',
+				font : {
+					fontSize : 30,
+				}
 
-		tbRow2.add(Ti.UI.createLabel({
-			text : rows.fieldByName('fone'),
-			left : 10,
-			height : 40,
-			color : '#245553',
-			font : {
-				fontSize : 16
-			}
-		}));
+			}));
 
+			tbRow2.add(Ti.UI.createLabel({
+				text : rows.fieldByName('fone'),
+				left : '10dp',
+				height : '40dp',
+				color : '#245553',
+				font : {
+					fontSize : 30,
+				}
+			}));
+		} else {
+			tbRow.add(Ti.UI.createLabel({
+				text : rows.fieldByName('nome'),
+				left : 10,
+				height : 40,
+				color : '#245553'
+
+			}));
+
+			tbRow1.add(Ti.UI.createLabel({
+				text : rows.fieldByName('pastor'),
+				left : 10,
+				height : 40,
+				color : '#245553'
+
+			}));
+
+			tbRow2.add(Ti.UI.createLabel({
+				text : rows.fieldByName('fone'),
+				left : 10,
+				height : 40,
+				color : '#245553'
+
+			}));
+		}
 		dataArray.push(tbRow, tbRow1, tbRow2);
 		rows.next();
 		table.setData(dataArray);
@@ -77,8 +108,9 @@ function setData1() {
 			path : 'detalheigreja.js',
 			color : '#245553',
 			font : {
-				fontSize : 16
+				fontSize : tam
 			}
+
 		});
 		rs.next();
 		tableview.setData(dataArray1);
@@ -86,32 +118,51 @@ function setData1() {
 
 };
 //criando um custom view para o titulo da tableview igrejas
+if (os == 'iphone') {
 var createCustomView = function(title) {
 	var view = Ti.UI.createView({
 		backgroundColor : '#808080',
 		height : 30,
-		width : 400
+		width : '100%' 
 
 	});
 	var text = Ti.UI.createLabel({
 		text : title,
 		left : 20,
 		color : '#fff',
-		font : {
-			fontSize : 16
-		}
+
 	});
 	view.add(text);
 	return view;
 };
+}
+else{
+	var createCustomView = function(title) {
+	var view = Ti.UI.createView({
+		backgroundColor : '#808080',
+		width : '400dp',
+		
+	});
+	var text = Ti.UI.createLabel({
+		text : title,
+			font : {
+				fontSize : 40,
+			},
 
+		left : 20,
+		color : '#fff',
 
+	});
+	view.add(text);
+	return view;
+};
+}
 //criando a table view igrejas
 var tableview = Ti.UI.createTableView({
 	filterAttribute : 'title',
 	headerView : createCustomView('Lista de Igrejas'),
 	top : '41%',
-	bottom : '10%',
+	bottom : '10%',		
 	backgroundColor : '#FFEFBF'
 });
 
@@ -189,6 +240,7 @@ if (os == 'iphone') {
 		top : '40dp',
 		scrollable : 'false',
 		backgroundColor : '#FFEFBF'
+
 	});
 
 	tableview.addEventListener('click', function(e) {
@@ -209,7 +261,7 @@ if (os == 'iphone') {
 		bottom : '3dp',
 		left : '10dp',
 		height : '40dp',
-		width : '80dp'  
+		width : '80dp'
 
 	});
 	var btnEditDist = Titanium.UI.createButton({
@@ -217,7 +269,7 @@ if (os == 'iphone') {
 		top : '3dp',
 		left : 0,
 		height : '40dp',
-		width : '320dp'
+		width : '360dp'
 	});
 
 	var novo = Titanium.UI.createButton({
@@ -225,7 +277,7 @@ if (os == 'iphone') {
 		bottom : '1dp',
 		right : 0,
 		height : '40dp',
-		width : '320dp'   
+		width : '360dp'
 	});
 
 	novo.addEventListener('click', function(e) {
@@ -262,8 +314,6 @@ currentWin.addEventListener('focus', function() {
 	setData1();
 
 });
-
-
 
 //criando botoes
 
